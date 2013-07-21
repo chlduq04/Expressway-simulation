@@ -30,8 +30,10 @@ Car.prototype = {
 			this.speedy = 0;
 		},
 		follow : function(){
-			this.speedx = this.front.speedx;
-			this.speedy = this.front.speedy;
+			this.x = this.front.x;
+			this.realx = this.front.realy;
+			this.y = this.front.y;
+			this.realy = this.front.realy;
 		},
 		finish : function(){
 			if( Math.abs(this.x - this.goalx) < 2 ){

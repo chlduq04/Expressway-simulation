@@ -28,8 +28,9 @@ CarLink.prototype = {
 			}
 		},
 		addMember : function(member){
-			if( this.numMember() == 0 ){
+			if( this.numMember() < 1 ){
 				member.front = this.leader;
+				this.leader.back = member;
 			}else{
 				this.end.back = member;
 				member.front = this.end;
@@ -75,7 +76,6 @@ CarLink.prototype = {
 			var length = this.member.length;
 			for( var i = 0 ; i < length ; i++ ){
 				this.member[i].follow();
-				this.member[i].move();
 			}
 		},
 		finish : function(){

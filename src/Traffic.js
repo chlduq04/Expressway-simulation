@@ -85,6 +85,7 @@ Traffic.prototype = {
 //			this.newCars(50,result*10,200,500,result*10,1,0,10);
 
 			this.newLinks(0, result*10, 200, 500, result*10, 2, 0, 10, null, null);
+			this.links[0].addMember(new Car( this.id++,0,0,0,500,result*10,2,0,10,null,null,null ));
 			
 //			var result = Math.floor(Math.random() * 9) + 16;
 //			this.newCars(0,result*10,200,500,result*10,2,0,10);
@@ -125,6 +126,16 @@ Traffic.prototype = {
 			}else{
 				link = $("<div id='link"+object.id+"'></div>")
 				link.css({ "position":"absolute", "z-index":"1000", "background":"brown", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
+				this.road.append(link);
+			}
+		},
+		drawMembers : function( object ){
+			var member = $("#member"+object.id)
+			if(link.length>0){
+				link.css({ "position":"absolute", "z-index":"1000", "background":"green", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
+			}else{
+				link = $("<div id='member"+object.id+"'></div>")
+				link.css({ "position":"absolute", "z-index":"1000", "background":"green", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
 				this.road.append(link);
 			}
 		},

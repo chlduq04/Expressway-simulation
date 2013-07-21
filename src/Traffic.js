@@ -85,86 +85,90 @@ Traffic.prototype = {
 			this.newCars(0,result*10,200,500,result*10,2,0,10);
 			this.newCars(50,result*10,200,500,result*10,1,0,10);
 
-//			this.newLinks(50, result*10, 200, 500, result*10, 2, 0, 10, null, null);
-//			this.links[0].addMember(new Car( this.id++,0,result*10,200,500,result*10,2,0,10,null,null,null ));
-			
-//			var result = Math.floor(Math.random() * 9) + 16;
-//			this.newCars(0,result*10,200,500,result*10,2,0,10);
-//			this.newCars(50,result*10,200,500,result*10,1,0,10);
-//
-//			this.newCars(0,result*10,200,500,result*10,2,0,10);
-//			this.newCars(50,result*10,200,500,result*10,1,0,10);
-//
-//			var result = Math.floor(Math.random() * 9) + 6;
-//			this.newCars(450,result*10,200,0,result*10,-1,0,10);
-//			this.newCars(500,result*10,200,0,result*10,-2,0,10);
-//
-//			this.newCars(450,result*10,200,0,result*10,-1,0,10);
-//			this.newCars(500,result*10,200,0,result*10,-2,0,10);
-//
-//			var result = Math.floor(Math.random() * 9) + 6;
-//			this.newCars(450,result*10,200,0,result*10,-1,0,10);
-//			this.newCars(500,result*10,200,0,result*10,-2,0,10);
-//
-//			this.newCars(450,result*10,200,0,result*10,-1,0,10);
-//			this.newCars(500,result*10,200,0,result*10,-2,0,10);
+//			this.addLinkById(1,0)
+
+			var result = Math.floor(Math.random() * 9) + 16;
+			this.newCars(0,result*10,200,500,result*10,2,0,10);
+			this.newCars(50,result*10,200,500,result*10,1,0,10);
+			var result = Math.floor(Math.random() * 9) + 16;
+			this.newCars(0,result*10,200,500,result*10,2,0,10);
+			this.newCars(50,result*10,200,500,result*10,1,0,10);
+
+			var result = Math.floor(Math.random() * 9) + 6;
+			this.newCars(450,result*10,200,0,result*10,-1,0,10);
+			this.newCars(500,result*10,200,0,result*10,-2,0,10);
+			var result = Math.floor(Math.random() * 9) + 6;
+			this.newCars(450,result*10,200,0,result*10,-1,0,10);
+			this.newCars(500,result*10,200,0,result*10,-2,0,10);
+			var result = Math.floor(Math.random() * 9) + 6;
+			this.newCars(450,result*10,200,0,result*10,-1,0,10);
+			this.newCars(500,result*10,200,0,result*10,-2,0,10);
+			var result = Math.floor(Math.random() * 9) + 6;
+			this.newCars(450,result*10,200,0,result*10,-1,0,10);
+			this.newCars(500,result*10,200,0,result*10,-2,0,10);
 		},
 		drawCars : function( object ){
 			var car = $("#car"+object.id)
 			if(car.length>0){
-				car.css({ "position":"absolute", "z-index":"1000", "background":"black", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
+				if(object.leader){
+					car.css({ "position":"absolute", "z-index":"1000", "background":"red", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
+				}else if(object.member){
+					car.css({ "position":"absolute", "z-index":"1000", "background":"black", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
+				}else{
+					car.css({ "position":"absolute", "z-index":"1000", "background":"blue", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
+				}
 			}else{
 				car = $("<div id='car"+object.id+"'></div>")
-				car.css({ "position":"absolute", "z-index":"1000", "background":"black", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
+				if(object.leader){
+					car.css({ "position":"absolute", "z-index":"1000", "background":"red", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
+				}else if(object.member){
+					car.css({ "position":"absolute", "z-index":"1000", "background":"black", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
+				}else{
+					car.css({ "position":"absolute", "z-index":"1000", "background":"blue", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
+				}
 				this.road.append(car);
 			}
 		},
-		drawLinks : function( object ){
-			var link = $("#link"+object.id)
-			var members = object.member;
-			var member = members.length;
-			if(link.length>0){
-				link.css({ "position":"absolute", "z-index":"1000", "background":"brown", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
 
-			}else{
-				link = $("<div id='link"+object.id+"'></div>")
-				link.css({ "position":"absolute", "z-index":"1000", "background":"brown", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
-				this.road.append(link);
-			}
-//			if(member > 0){
-//				for( var i=0 ; i < member ; i++ ){
-//					this.drawMembers(members[i]);
-//				}
-//			}
-		},
-//		drawMembers : function( object ){
-//			var member = $("#member"+object.id)
-//			if(member.length>0){
-//				member.css({ "position":"absolute", "z-index":"1000", "background":"green", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
-//			}else{
-//				member = $("<div id='member"+object.id+"'></div>")
-//				member.css({ "position":"absolute", "z-index":"1000", "background":"green", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
-//				this.road.append(member);
-//			}
-//		},
 		resetCars : function(){
 			this.road.children().remove();
 		},
-		newLinks : function( x,y,limit_speed,goalx,goaly,speedx,speedy,radius,leader,member ){
-			this.links.push( new CarLink( this.link_id++,x,y,limit_speed,goalx,goaly,speedx,speedy,radius,new Car( this.id++,x,y,limit_speed,goalx,goaly,speedx,speedy,radius,null,null,null ),member ) );
-			return this.link_id-1;
+		newLinks : function( x,y,limit_speed,goalx,goaly,speedx,speedy,radius ){
+			this.cars.push( new Car( this.id++,x,y,limit_speed,goalx,goaly,speedx,speedy,radius,null,null ) );
 		},
 		newCars : function( x,y,limit_speed,goalx,goaly,speedx,speedy,radius ){
-			this.cars.push( new Car( this.id++,x,y,limit_speed,goalx,goaly,speedx,speedy,radius,null,null,null ) );
-			return this.id-1;
+			this.cars.push( new Car( this.id++,x,y,limit_speed,goalx,goaly,speedx,speedy,radius,null,null ) );
 		},
-		newLink : function( object ){
-			this.links.push(object);
-			return object;
+		addLink : function( id, object ){
+			var car = this.cars;
+			var length = car.length;
+			for(var i=0;i<length;i++){
+				if(car[i].id = id){
+					car[i].addMember(object,0);
+					break;
+				}
+			}
 		},
-		newCar : function( object ){
-			this.cars.push(object);
-			return object;
+		addLinkById : function( id, nextid ){
+			var car = this.cars;
+			var length = car.length;
+			var leader = null;
+			var follower = null;
+			for(var i=0;i<length;i++){
+				if(leader == null && car[i].id == id){
+					leader = car[i];
+				}
+				if(follower == null && car[i].id == nextid){
+					follower = car[i];
+				}
+				if( leader != null && follower != null){
+					break;
+				}
+			}
+			leader.addMember(follower);
+		},
+		newCar : function( id, object ){
+
 		},
 		deleteCars : function( id ){
 			$("#car"+this.cars[id].id).remove();
@@ -202,76 +206,94 @@ Traffic.prototype = {
 			var linkGoal = [];
 			var goalNum;
 			var	goalLinkNum;
-			
-			this.cars.sort(function(a,b){return a.x-b.x});
 
+			this.cars.sort(function(a,b){return a.x-b.x});
 			for( var i = 0 ; i < length ; i++ ){
 				var car = this.cars[i];
 				if(!car.finish()){
 					this.go = true;
 					var crash = false;
-					if(car.speedx >= 0){
-						var right = i + 10;
-						if(right >= length){
-							right = length;
-						}
-						for(var j = i+1 ; j < right ; j++ ){
-							var checkx = car.x + car.speedx;
-							var checky = car.y + car.speedy;
-							var checkr = car.radius;
-							if( Math.abs(checkx-this.cars[j].x)<checkr && Math.abs(checky-this.cars[j].y)<0.5 ){
-								crash = true;
-								var x = Math.floor(car.x/10);
-								var y = Math.floor(car.y/10);
-								if( Math.abs(car.y - this.cars[j].y - checkr/2) < checkr && this.testroad[y-1][x] == 1 ){
-									car.y -= car.radius;
-									break;
-								}else if( Math.abs(car.y - this.cars[j].y + checkr/2) < checkr && this.testroad[y+1][x] == 1 ){
-									car.y += car.radius;
-									break;
-								}else{
-									car.speedx = this.cars[j].speedx;
-									break;
+					if(car.front == null){
+						if(car.speedx >= 0){
+							var right = i + 10;
+							if(right >= length){
+								right = length;
+							}
+							for(var j = i+1 ; j < right ; j++ ){
+								var checkx = car.x + car.speedx;
+								var checky = car.y + car.speedy;
+								var checkr = car.radius;
+								if( Math.abs(checkx-this.cars[j].x)<checkr && Math.abs(checky-this.cars[j].y)<0.5 ){
+									crash = true;
+									var x = Math.floor(car.x/10);
+									var y = Math.floor(car.y/10);
+									var result = Math.floor(Math.random() * 2);
+									if(result > 1){
+										if( Math.abs(car.y - this.cars[j].y - checkr/2) < checkr && this.testroad[y-1][x] == 1 ){
+											car.y -= car.radius;
+											break;
+										}else{
+											car.speedx = this.cars[j].speedx;
+											break;
+										}
+									}else{
+										if( Math.abs(car.y - this.cars[j].y + checkr/2) < checkr && this.testroad[y+2][x] == 1 ){
+											car.y += car.radius;
+											break;
+										}else{
+											car.speedx = this.cars[j].speedx;
+											break;
+										}
+									}
 								}
 							}
-						}
-					}else{
-						var left = i - 10;
-						if(left < 0){
-							left = -1;
-						}
-						for(var j = i-1 ; j > left ; j-- ){
-							var checkx = car.x + car.speedx;
-							var checky = car.y + car.speedy;
-							var checkr = car.radius;
-							if( Math.abs(checkx-this.cars[j].x)<checkr && Math.abs(checky-this.cars[j].y)<0.5 ){
-								crash = true;
-								var x = Math.floor(car.x/10);
-								var y = Math.floor(car.y/10);
-								if( Math.abs(car.y - this.cars[j].y - checkr/2) < checkr && this.testroad[y-1][x] == 1 ){
-									car.y -= car.radius;
-									break;
-								}else if( Math.abs(car.y - this.cars[j].y + checkr/2) < checkr && this.testroad[y+1][x] == 1 ){
-									car.y += car.radius;
-									break;
-								}else{
-									car.speedx = this.cars[j].speedx;
-									break;
+						}else{
+							var left = i - 10;
+							if(left < 0){
+								left = -1;
+							}
+							for(var j = i-1 ; j > left ; j-- ){
+								var checkx = car.x + car.speedx;
+								var checky = car.y + car.speedy;
+								var checkr = car.radius;
+								if( Math.abs(checkx-this.cars[j].x)<checkr && Math.abs(checky-this.cars[j].y)<0.5 ){
+									crash = true;
+									var x = Math.floor(car.x/10);
+									var y = Math.floor(car.y/10);
+									var result = Math.floor(Math.random() * 2);
+									if(result > 1){
+										if( Math.abs(car.y - this.cars[j].y - checkr/2) < checkr && this.testroad[y-1][x] == 1 ){
+											car.y -= car.radius;
+											break;
+										}else{
+											car.speedx = this.cars[j].speedx;
+											break;
+										}
+									}else{
+										if( Math.abs(car.y - this.cars[j].y + checkr/2) < checkr && this.testroad[y+1][x] == 1 ){
+											car.y += car.radius;
+											break;
+										}else{
+											car.speedx = this.cars[j].speedx;
+											break;
+										}
+									}
 								}
 							}
 						}
 					}
 					if(!crash){
-						car.move(true,true)
+						car.move(0,0);
 					}
-					this.drawCars( car );
 				}else{
 					goal.push(i);
 				}
-				
+				this.drawCars( car );
 			}
 
-//			this.simulation();
+
+
+			this.simulation();
 
 			goalNum = goal.length;
 			if(goalNum > 0){
@@ -318,7 +340,7 @@ Traffic.prototype = {
 					this.newLinks(500, result*10, 200, 0, result*10,-1, 0, 10, null, null);
 				}
 			}
-			*/
+			 */
 		}
 }
 

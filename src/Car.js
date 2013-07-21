@@ -3,8 +3,8 @@ function Car(id,x,y,limit_speed,goalx,goaly,speedx,speedy,radius,front,back){
 	this.limit_speed = limit_speed;
 	this.x = x;
 	this.y = y;
-	this.realx;
-	this.realy;
+	this.realx = x;
+	this.realy = y;
 	this.goalx = goalx;
 	this.goaly = goaly;
 	this.front = front;
@@ -18,13 +18,50 @@ function Car(id,x,y,limit_speed,goalx,goaly,speedx,speedy,radius,front,back){
 
 Car.prototype = {
 		move : function(x,y){
-			if(x){
+			if( x == 0 ){
 				this.realx = this.x + this.speedx; 
-				this.x = Math.floor(this.realx*10000)*0.0001;
-			}
-			if(y){
 				this.realy = this.y + this.speedy; 
+				this.x = Math.floor(this.realx*10000)*0.0001;
 				this.y = Math.floor(this.realy*10000)*0.0001;
+			}else{
+				if(this.speedx >= 0){
+					var lengthx = (x - this.realx)/this.radius; 
+					var lengthy = (y - this.realy)/this.radius;
+					if( lengthx < 1 && lengthy < 1 ){
+						this.realx = x - this.radius; 
+						this.realy = y; 
+						this.x = Math.floor(this.realx*10000)*0.0001;
+						this.y = Math.floor(this.realy*10000)*0.0001;
+					}else if( lengthx < 1 && lengthy >= 1 ){
+						this.realy = this.realy + lengthy + this.speedy;
+						this.y = Math.floor(this.realy*10000)*0.0001;
+					}else if( lengthy < 1 && lengthx >= 1){
+						this.realx = this.realx + lengthx + this.speedx;
+						this.x = Math.floor(this.realx*10000)*0.0001;
+					}else{
+						this.realx = this.realx + lengthx + this.speedx;
+						this.realy = this.realy + lengthy + this.speedy;
+						this.x = Math.floor(this.realx*10000)*0.0001;
+						this.y = Math.floor(this.realy*10000)*0.0001;
+					}
+				}else{
+					var lengthx = (this.x - x)/this.radius; 
+					var lengthy = (this.y - y)/this.radius;
+					if( lengthx < 2 && lengthy < 2 ){
+						this.x = x;
+						this.y = y;
+					}else if( lengthx < 2 ){
+						this.y - lengthy;
+					}else if( lengthy < 2 ){
+						this.x - lengthx;
+					}else{
+						this.x - lengthx;
+						this.y - lengthy;
+					}
+				}
+			}
+			if(this.member){
+				this.back.move(this.realx,this.realy);
 			}
 		},
 		stop : function(){
@@ -48,45 +85,32 @@ Car.prototype = {
 			this.realx = realx;
 			this.realy = realy
 		},
-		addMember : function(member){
+		addMember : function(member,count){
+			var num = 0;
 			if(!this.member){
+				if(!(count > 0)){
+					this.leader = true;
+				}
 				this.back = member;
 				this.member = true;
+				member.front = this;
 			}else{
-				this.back.addMember(member);
+				this.back.addMember(member,++num);
 			}
 		},
-		deleteMember : function(id){
-		},
-		popMember : function(){
-			if( this.numMember( ) != 0 ){
-				var pops = this.member.pop();
-				this.end = pops.front();
-				delete pops.front;
+		unsignedMember : function(){
+			if(this.leader){
+				if(this.back.member){
+					this.back.leader = true;
+				}
+				this.back.front = null;
+			}else{
+				if(this.member){
+					this.front.back = this.back;
+					this.back.front = this.front;
+				}
 			}
-		},
-		numMember : function(){
-			return this.member.length;
-		},
-		moveMember : function(x,y){
-			if(x){
-				var vleader = this.leader;
-				vleader.realx = vleader.x + vleader.speedx;
-				vleader.x = Math.floor(vleader.realx*10000)*0.0001;
-				this.x = vleader.x;
-				this.realx = vleader.realx;
-			}
-			if(y){
-				var vleader = this.leader;
-				vleader.realy = vleader.y + vleader.speedy;
-				vleader.y = Math.floor(vleader.realy*10000)*0.0001;
-				this.y = vleader.y;
-				this.realy = vleader.realy;
-			}
-			var length = this.member.length;
-			for( var i = 0 ; i < length ; i++ ){
-				this.member[i].follow();
-				this.member[i].move(true,true);
-			}
+			this.member = false;
+			this.leader = false;
 		}
 }

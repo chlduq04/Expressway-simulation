@@ -29,7 +29,8 @@ CarLink.prototype = {
 			}
 		},
 		addMember : function(member){
-			if( this.numMember() < 1 ){
+			if( this.numMember() < 1 )
+			{
 				member.front = this.leader;
 				this.leader.back = member;
 				if(this.leader.x > 0){
@@ -38,7 +39,9 @@ CarLink.prototype = {
 					member.x = this.leader.x + this.leader.radius;
 				}
 				member.y = this.leader.y;
-			}else{
+			}
+			else
+			{
 				this.end.back = member;
 				member.front = this.end;
 				if(this.end.x > 0){

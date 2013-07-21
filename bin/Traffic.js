@@ -4,6 +4,7 @@ function Traffic(){
 	this.cars = [];
 	this.sortCars;
 	this.links = [];
+	this.member = [];
 	this.sortLinks;
 	this.road;
 	this.object_div; 
@@ -81,11 +82,11 @@ Traffic.prototype = {
 				}
 			}
 			var result = Math.floor(Math.random() * 9) + 16;
-//			this.newCars(0,result*10,200,500,result*10,2,0,10);
-//			this.newCars(50,result*10,200,500,result*10,1,0,10);
+			this.newCars(0,result*10,200,500,result*10,2,0,10);
+			this.newCars(50,result*10,200,500,result*10,1,0,10);
 
-			this.newLinks(0, result*10, 200, 500, result*10, 2, 0, 10, null, null);
-			this.links[0].addMember(new Car( this.id++,0,0,0,500,result*10,2,0,10,null,null,null ));
+//			this.newLinks(50, result*10, 200, 500, result*10, 2, 0, 10, null, null);
+//			this.links[0].addMember(new Car( this.id++,0,result*10,200,500,result*10,2,0,10,null,null,null ));
 			
 //			var result = Math.floor(Math.random() * 9) + 16;
 //			this.newCars(0,result*10,200,500,result*10,2,0,10);
@@ -120,6 +121,8 @@ Traffic.prototype = {
 		},
 		drawLinks : function( object ){
 			var link = $("#link"+object.id)
+			var members = object.member;
+			var member = members.length;
 			if(link.length>0){
 				link.css({ "position":"absolute", "z-index":"1000", "background":"brown", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
 
@@ -128,41 +131,22 @@ Traffic.prototype = {
 				link.css({ "position":"absolute", "z-index":"1000", "background":"brown", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
 				this.road.append(link);
 			}
+//			if(member > 0){
+//				for( var i=0 ; i < member ; i++ ){
+//					this.drawMembers(members[i]);
+//				}
+//			}
 		},
-		drawMembers : function( object ){
-			var member = $("#member"+object.id)
-			if(link.length>0){
-				link.css({ "position":"absolute", "z-index":"1000", "background":"green", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
-			}else{
-				link = $("<div id='member"+object.id+"'></div>")
-				link.css({ "position":"absolute", "z-index":"1000", "background":"green", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
-				this.road.append(link);
-			}
-		},
-		drawLink : function(){
-
-		},
-		newCars1 : function(){
-
-		},
-		newCars2 : function(){
-
-		},
-		newCars3 : function(){
-
-		},
-		newCars4 : function(){
-
-		},
-		newCars5 : function(){
-
-		},
-		newCars6 : function(){
-
-		},
-		newCars7 : function(){
-
-		},
+//		drawMembers : function( object ){
+//			var member = $("#member"+object.id)
+//			if(member.length>0){
+//				member.css({ "position":"absolute", "z-index":"1000", "background":"green", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
+//			}else{
+//				member = $("<div id='member"+object.id+"'></div>")
+//				member.css({ "position":"absolute", "z-index":"1000", "background":"green", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
+//				this.road.append(member);
+//			}
+//		},
 		resetCars : function(){
 			this.road.children().remove();
 		},
@@ -173,6 +157,14 @@ Traffic.prototype = {
 		newCars : function( x,y,limit_speed,goalx,goaly,speedx,speedy,radius ){
 			this.cars.push( new Car( this.id++,x,y,limit_speed,goalx,goaly,speedx,speedy,radius,null,null,null ) );
 			return this.id-1;
+		},
+		newLink : function( object ){
+			this.links.push(object);
+			return object;
+		},
+		newCar : function( object ){
+			this.cars.push(object);
+			return object;
 		},
 		deleteCars : function( id ){
 			$("#car"+this.cars[id].id).remove();
@@ -279,72 +271,6 @@ Traffic.prototype = {
 				
 			}
 
-			for( var i = 0 ; i < linkLength ; i++ ){
-				var link = this.links[i];
-				if(!link.finish()){
-					this.go = true;
-					var crash = false;
-					if(link.speedx >= 0){
-						var right = i + 10;
-						if(right >= linkLength){
-							right = linkLength;
-						}
-						for(var j = i+1 ; j < right ; j++ ){
-							var checkx = link.x + link.speedx;
-							var checky = link.y + link.speedy;
-							var checkr = link.radius;
-							if( Math.abs(checkx-this.links[j].x)<checkr && Math.abs(checky-this.links[j].y)<0.5 ){
-								crash = true;
-								var x = Math.floor(link.x/10);
-								var y = Math.floor(link.y/10);
-								if( Math.abs(link.y - this.links[j].y - checkr/2) < checkr && this.testroad[y-1][x] == 1 ){
-									link.y -= link.radius;
-									break;
-								}else if( Math.abs(link.y - this.links[j].y + checkr/2) < checkr && this.testroad[y+1][x] == 1 ){
-									link.y += link.radius;
-									break;
-								}else{
-									link.speedx = this.links[j].speedx;
-									break;
-								}
-							}
-						}
-					}else{
-						var left = i - 10;
-						if(left < 0){
-							left = -1;
-						}
-						for(var j = i-1 ; j > left ; j-- ){
-							var checkx = link.x + link.speedx;
-							var checky = link.y + link.speedy;
-							var checkr = link.radius;
-							if( Math.abs(checkx-this.links[j].x)<checkr && Math.abs(checky-this.links[j].y)<0.5 ){
-								crash = true;
-								var x = Math.floor(link.x/10);
-								var y = Math.floor(link.y/10);
-								if( Math.abs(link.y - this.links[j].y - checkr/2) < checkr && this.testroad[y-1][x] == 1 ){
-									link.y -= link.radius;
-									break;
-								}else if( Math.abs(link.y - this.links[j].y + checkr/2) < checkr && this.testroad[y+1][x] == 1 ){
-									link.y += link.radius;
-									break;
-								}else{
-									link.speedx = this.links[j].speedx;
-									break;
-								}
-							}
-						}
-					}
-					if(!crash){
-						link.moveMember(true,true)
-					}
-					this.drawLinks( link );
-				}else{
-					linkGoal.push(i);
-				}
-				
-			}
-			
 //			this.simulation();
 
 			goalNum = goal.length;
@@ -356,17 +282,7 @@ Traffic.prototype = {
 				this.initCars();
 				length = this.cars.length;
 			}
-			
-			goalLinkNum = linkGoal.length;
-			if(goalLinkNum > 0){
-				for( var i = 0 ; i < goalLinkNum ; i++ ){
-					this.deleteLinks(linkGoal[i])
-				}
-				linkGoal = [];
-				this.initLinks();
-				length = this.cars.length;
-			}
-			
+
 			return this.go;
 		},
 		test : function(){

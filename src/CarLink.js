@@ -11,6 +11,7 @@ function CarLink(id,x,y,limit_speed,goalx,goaly,speedx,speedy,radius,leader,memb
 	this.speedy = speedy;
 	this.radius = radius;
 	this.leader = leader;
+	this.end = leader;
 	if(member == null){
 		this.member = [];
 	}else{
@@ -31,9 +32,21 @@ CarLink.prototype = {
 			if( this.numMember() < 1 ){
 				member.front = this.leader;
 				this.leader.back = member;
+				if(this.leader.x > 0){
+					member.x = this.leader.x - this.leader.radius;
+				}else{
+					member.x = this.leader.x + this.leader.radius;
+				}
+				member.y = this.leader.y;
 			}else{
 				this.end.back = member;
 				member.front = this.end;
+				if(this.end.x > 0){
+					member.x = this.end.x - this.end.radius;
+				}else{
+					member.x = this.end.x + this.end.radius;
+				}
+				member.y = this.end.y;
 			}
 			this.member.push(member);
 			this.end = member;
@@ -76,6 +89,7 @@ CarLink.prototype = {
 			var length = this.member.length;
 			for( var i = 0 ; i < length ; i++ ){
 				this.member[i].follow();
+				this.member[i].move(true,true);
 			}
 		},
 		finish : function(){
@@ -85,5 +99,4 @@ CarLink.prototype = {
 				return false;
 			}
 		}
-		
 }

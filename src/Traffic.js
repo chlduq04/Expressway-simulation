@@ -1,3 +1,5 @@
+var maxspeed = 3;
+var maxcar = 200;
 function Traffic(){
 	this.id = 0;
 	this.link_id = 0;
@@ -85,34 +87,35 @@ Traffic.prototype = {
 			this.newCars(0,result*10,200,500,result*10,2,0,10);
 			this.newCars(50,result*10,200,500,result*10,1,0,10);
 
-//			this.addLinkById(1,0)
+			this.addLinkById(1,0)
 
-			var result = Math.floor(Math.random() * 9) + 16;
-			this.newCars(0,result*10,200,500,result*10,2,0,10);
-			this.newCars(50,result*10,200,500,result*10,1,0,10);
-			var result = Math.floor(Math.random() * 9) + 16;
-			this.newCars(0,result*10,200,500,result*10,2,0,10);
-			this.newCars(50,result*10,200,500,result*10,1,0,10);
 
-			var result = Math.floor(Math.random() * 9) + 6;
-			this.newCars(450,result*10,200,0,result*10,-1,0,10);
-			this.newCars(500,result*10,200,0,result*10,-2,0,10);
-			var result = Math.floor(Math.random() * 9) + 6;
-			this.newCars(450,result*10,200,0,result*10,-1,0,10);
-			this.newCars(500,result*10,200,0,result*10,-2,0,10);
-			var result = Math.floor(Math.random() * 9) + 6;
-			this.newCars(450,result*10,200,0,result*10,-1,0,10);
-			this.newCars(500,result*10,200,0,result*10,-2,0,10);
-			var result = Math.floor(Math.random() * 9) + 6;
-			this.newCars(450,result*10,200,0,result*10,-1,0,10);
-			this.newCars(500,result*10,200,0,result*10,-2,0,10);
+//			var result = Math.floor(Math.random() * 9) + 16;
+//			this.newCars(0,result*10,200,500,result*10,2,0,10);
+//			this.newCars(50,result*10,200,500,result*10,1,0,10);
+//			var result = Math.floor(Math.random() * 9) + 16;
+//			this.newCars(0,result*10,200,500,result*10,2,0,10);
+//			this.newCars(50,result*10,200,500,result*10,1,0,10);
+//
+//			var result = Math.floor(Math.random() * 9) + 6;
+//			this.newCars(450,result*10,200,0,result*10,-1,0,10);
+//			this.newCars(500,result*10,200,0,result*10,-2,0,10);
+//			var result = Math.floor(Math.random() * 9) + 6;
+//			this.newCars(450,result*10,200,0,result*10,-1,0,10);
+//			this.newCars(500,result*10,200,0,result*10,-2,0,10);
+//			var result = Math.floor(Math.random() * 9) + 6;
+//			this.newCars(450,result*10,200,0,result*10,-1,0,10);
+//			this.newCars(500,result*10,200,0,result*10,-2,0,10);
+//			var result = Math.floor(Math.random() * 9) + 6;
+//			this.newCars(450,result*10,200,0,result*10,-1,0,10);
+//			this.newCars(500,result*10,200,0,result*10,-2,0,10);
 		},
 		drawCars : function( object ){
 			var car = $("#car"+object.id)
 			if(car.length>0){
 				if(object.leader){
 					car.css({ "position":"absolute", "z-index":"1000", "background":"red", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
-				}else if(object.member){
+				}else if(object.front!=null){
 					car.css({ "position":"absolute", "z-index":"1000", "background":"black", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
 				}else{
 					car.css({ "position":"absolute", "z-index":"1000", "background":"blue", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
@@ -121,7 +124,7 @@ Traffic.prototype = {
 				car = $("<div id='car"+object.id+"'></div>")
 				if(object.leader){
 					car.css({ "position":"absolute", "z-index":"1000", "background":"red", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
-				}else if(object.member){
+				}else if(object.front!=null){
 					car.css({ "position":"absolute", "z-index":"1000", "background":"black", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
 				}else{
 					car.css({ "position":"absolute", "z-index":"1000", "background":"blue", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
@@ -223,13 +226,13 @@ Traffic.prototype = {
 								var checkx = car.x + car.speedx;
 								var checky = car.y + car.speedy;
 								var checkr = car.radius;
-								if( Math.abs(checkx-this.cars[j].x)<checkr && Math.abs(checky-this.cars[j].y)<0.5 ){
+								if( Math.abs(checkx-this.cars[j].x)<checkr*1.2 && Math.abs(checky-this.cars[j].y)<0.5 ){
 									crash = true;
 									var x = Math.floor(car.x/10);
 									var y = Math.floor(car.y/10);
-									var result = Math.floor(Math.random() * 2);
+									var result = Math.round(Math.random() * 2);
 									if(result > 1){
-										if( Math.abs(car.y - this.cars[j].y - checkr/2) < checkr && this.testroad[y-1][x] == 1 ){
+										if( Math.abs(car.y - this.cars[j].y - checkr/2) < checkr*1.2 && this.testroad[y-1][x] == 1 ){
 											car.y -= car.radius;
 											break;
 										}else{
@@ -237,7 +240,7 @@ Traffic.prototype = {
 											break;
 										}
 									}else{
-										if( Math.abs(car.y - this.cars[j].y + checkr/2) < checkr && this.testroad[y+2][x] == 1 ){
+										if( Math.abs(car.y - this.cars[j].y + checkr/2) < checkr*1.2 && this.testroad[y+2][x] == 1 && this.testroad[y+1][x] == 1 ){
 											car.y += car.radius;
 											break;
 										}else{
@@ -256,13 +259,13 @@ Traffic.prototype = {
 								var checkx = car.x + car.speedx;
 								var checky = car.y + car.speedy;
 								var checkr = car.radius;
-								if( Math.abs(checkx-this.cars[j].x)<checkr && Math.abs(checky-this.cars[j].y)<0.5 ){
+								if( Math.abs(checkx-this.cars[j].x)< checkr*1.2 && Math.abs(checky-this.cars[j].y)<0.5 ){
 									crash = true;
 									var x = Math.floor(car.x/10);
 									var y = Math.floor(car.y/10);
-									var result = Math.floor(Math.random() * 2);
+									var result = Math.round(Math.random() * 2);
 									if(result > 1){
-										if( Math.abs(car.y - this.cars[j].y - checkr/2) < checkr && this.testroad[y-1][x] == 1 ){
+										if( Math.abs(car.y - this.cars[j].y - checkr/2) < checkr*1.2 && this.testroad[y-1][x] == 1 ){
 											car.y -= car.radius;
 											break;
 										}else{
@@ -270,7 +273,7 @@ Traffic.prototype = {
 											break;
 										}
 									}else{
-										if( Math.abs(car.y - this.cars[j].y + checkr/2) < checkr && this.testroad[y+1][x] == 1 ){
+										if( Math.abs(car.y - this.cars[j].y + checkr/2) < checkr*1.2 && this.testroad[y+1][x] == 1 ){
 											car.y += car.radius;
 											break;
 										}else{
@@ -314,19 +317,19 @@ Traffic.prototype = {
 			return this.links.length;
 		},
 		simulation : function(){
-			if(this.cars.length < 200){
+			if(this.cars.length < maxcar){
 				var check = Math.floor(Math.random()*10);
 				if(check > 7){
-					var speed = Math.floor(Math.random() * 2)+1;
+					var speed = Math.floor(Math.random() * maxspeed)+1;
 					var result = Math.floor(Math.random() * 9) + 16;
 					this.newCars(0,result*10,200,500,result*10,speed,0,10);
-				}
-				else if(check < 2){
-					var speed = Math.floor(Math.random() * 2)+1;
+					if(check > 9){
+					}
+				}else if(check < 2){
+					var speed = Math.floor(Math.random() * maxspeed)+1;
 					var result = Math.floor(Math.random() * 9) + 6;
 					this.newCars(500,result*10,200,0,result*10,-speed,0,10);
 				}
-
 			}
 			/*
 			if(this.links.length < 100){

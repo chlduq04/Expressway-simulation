@@ -317,18 +317,31 @@ Traffic.prototype = {
 			return this.links.length;
 		},
 		simulation : function(){
-			if(this.cars.length < maxcar){
-				var check = Math.floor(Math.random()*10);
-				if(check > 7){
-					var speed = Math.floor(Math.random() * maxspeed)+1;
-					var result = Math.floor(Math.random() * 9) + 16;
-					this.newCars(0,result*10,200,500,result*10,speed,0,10);
-					if(check > 9){
+			if( this.id > 5000 ){
+				if(this.cars.length < 10){
+					for( var i=0 ; i < 9 ; i++ ){
+						this.deleteCars(i);
 					}
-				}else if(check < 2){
-					var speed = Math.floor(Math.random() * maxspeed)+1;
-					var result = Math.floor(Math.random() * 9) + 6;
-					this.newCars(500,result*10,200,0,result*10,-speed,0,10);
+					this.initCars();
+					this.id = 0;
+					var result = Math.floor(Math.random() * 9) + 16;
+					this.newCars(0,result*10,200,500,result*10,2,0,10);
+					this.newCars(50,result*10,200,500,result*10,1,0,10);
+				}
+			}else{
+				if(this.cars.length < maxcar){
+					var check = Math.floor(Math.random()*10);
+					if(check > 7){
+						var speed = Math.floor(Math.random() * maxspeed)+1;
+						var result = Math.floor(Math.random() * 9) + 16;
+						this.newCars(0,result*10,200,500,result*10,speed,0,10);
+						if(check > 9){
+						}
+					}else if(check < 2){
+						var speed = Math.floor(Math.random() * maxspeed)+1;
+						var result = Math.floor(Math.random() * 9) + 6;
+						this.newCars(500,result*10,200,0,result*10,-speed,0,10);
+					}
 				}
 			}
 			/*

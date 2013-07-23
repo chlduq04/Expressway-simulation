@@ -1,5 +1,5 @@
-var maxspeed = 3;
-var maxcar = 200;
+var maxspeed = 2;
+var maxcar = 500;
 function Traffic(){
 	this.id = 0;
 	this.link_id = 0;
@@ -84,12 +84,26 @@ Traffic.prototype = {
 				}
 			}
 			var result = Math.floor(Math.random() * 9) + 16;
-			this.newCars(0,result*10,200,500,result*10,2,0,10);
-			this.newCars(50,result*10,200,500,result*10,1,0,10);
+			this.newCars(0,230,3,500,230,2,0,10);
+//			this.newCars(100,200,3,500,200,1,0,10);
+			this.newCars(100,170,3,500,170,1,0,10);
+//			this.newCars(0,result*10,3,500,result*10,1,0,10);
 
-			this.addLinkById(1,0)
+			this.addLinkById(1,0);
+//			this.addLinkById(2,1);
+//			var result = Math.floor(Math.random() * 9) + 16;
+//			this.newCars(0,result*10,3,500,result*10,1,0,10);
 
-
+			/*
+			var result = Math.floor(Math.random() * 9) + 6;
+			this.newCars(400,result*10,200,0,result*10,-1,0,10,true);
+			this.newCars(450,result*10,200,0,result*10,-2,0,10);
+			this.newCars(500,result*10,200,0,result*10,-2,0,10);
+*/
+			
+//			this.addLinkById(0,1);
+//			this.addLinkById(0,2);
+			
 //			var result = Math.floor(Math.random() * 9) + 16;
 //			this.newCars(0,result*10,200,500,result*10,2,0,10);
 //			this.newCars(50,result*10,200,500,result*10,1,0,10);
@@ -136,11 +150,8 @@ Traffic.prototype = {
 		resetCars : function(){
 			this.road.children().remove();
 		},
-		newLinks : function( x,y,limit_speed,goalx,goaly,speedx,speedy,radius ){
-			this.cars.push( new Car( this.id++,x,y,limit_speed,goalx,goaly,speedx,speedy,radius,null,null ) );
-		},
-		newCars : function( x,y,limit_speed,goalx,goaly,speedx,speedy,radius ){
-			this.cars.push( new Car( this.id++,x,y,limit_speed,goalx,goaly,speedx,speedy,radius,null,null ) );
+		newCars : function( x,y,limit_speed,goalx,goaly,speedx,speedy,radius,leader ){
+			this.cars.push( new Car( this.id++,x,y,limit_speed,goalx,goaly,speedx,speedy,radius,null,null,leader ) );
 		},
 		addLink : function( id, object ){
 			var car = this.cars;
@@ -170,29 +181,36 @@ Traffic.prototype = {
 			}
 			leader.addMember(follower);
 		},
-		newCar : function( id, object ){
 
+		searchLink : function( num ){
+			var car = this.cars[num];
+			if( car.speedx > 0 ){
+				var limit = num + maxcar/5;
+				if(limit >= this.cars.length){
+					limit = this.cars.length;
+				}
+				for(var i = num ; i < limit ; i++ ){
+					if( this.cars[i].leader ){
+						this.cars[i].addMember(car);
+						break;
+					}
+				}
+			}else{
+				var limit = num - 10;
+				if(limit < 0){
+					limit = 0;
+				}
+			}
 		},
 		deleteCars : function( id ){
 			$("#car"+this.cars[id].id).remove();
+			this.cars[id].unsignedMember();
 			delete this.cars[id];
-		},
-		deleteLinks : function( id ){
-			$("#link"+this.links[id].id).remove();
-			delete this.links[id];
 		},
 		initCars : function(){
 			for( var i=0 ; i < this.cars.length ; i++ ){
 				if(this.cars[i] == undefined){
 					this.cars.splice( i, 1 );
-					i--;
-				}
-			}
-		},
-		initLinks : function(){
-			for( var i=0 ; i < this.links.length ; i++ ){
-				if(this.links[i] == undefined){
-					this.links.splice( i, 1 );
 					i--;
 				}
 			}
@@ -284,9 +302,9 @@ Traffic.prototype = {
 								}
 							}
 						}
-					}
-					if(!crash){
-						car.move(0,0);
+						if(!crash){
+							car.move(0,0);
+						}
 					}
 				}else{
 					goal.push(i);
@@ -294,10 +312,7 @@ Traffic.prototype = {
 				this.drawCars( car );
 			}
 
-
-
 			this.simulation();
-
 			goalNum = goal.length;
 			if(goalNum > 0){
 				for( var i = 0 ; i < goalNum ; i++ ){
@@ -330,48 +345,46 @@ Traffic.prototype = {
 				}
 			}else{
 				if(this.cars.length < maxcar){
-					var check = Math.floor(Math.random()*10);
-					if(check > 7){
-						var speed = Math.floor(Math.random() * maxspeed)+1;
-						var result = Math.floor(Math.random() * 9) + 16;
-						this.newCars(0,result*10,200,500,result*10,speed,0,10);
-						if(check > 9){
+					var check = Math.floor(Math.random()*100);
+					if(check > 80){
+						if(check > 97){
+							var speed = Math.floor(Math.random() * maxspeed)+1;
+							var result = Math.floor(Math.random() * 9) + 16;
+							this.newCars(0,result*10,200,500,result*10,speed,0,10,true);
+						}else{
+							var speed = Math.floor(Math.random() * maxspeed)+1;
+							var result = Math.floor(Math.random() * 9) + 16;
+							this.newCars(0,result*10,200,500,result*10,speed,0,10,false);
 						}
-					}else if(check < 2){
-						var speed = Math.floor(Math.random() * maxspeed)+1;
-						var result = Math.floor(Math.random() * 9) + 6;
-						this.newCars(500,result*10,200,0,result*10,-speed,0,10);
+					}else if(check < 20){
+						if(check < 2){
+							var speed = Math.floor(Math.random() * maxspeed)+1;
+							var result = Math.floor(Math.random() * 9) + 6;
+							this.newCars(500,result*10,200,0,result*10,-speed,0,10,true);
+						}else{
+							var speed = Math.floor(Math.random() * maxspeed)+1;
+							var result = Math.floor(Math.random() * 9) + 6;
+							this.newCars(500,result*10,200,0,result*10,-speed,0,10,false);
+						}
 					}
 				}
 			}
-			/*
-			if(this.links.length < 100){
-				var check = Math.floor(Math.random()*10);
-				if(check > 8){
-					var result = Math.floor(Math.random() * 9) + 16;
-					this.newLinks(0, result*10, 200, 500, result*10, 1, 0, 10, null, null);
-				}
-				else if(check < 1){
-					var result = Math.floor(Math.random() * 9) + 6;
-					this.newLinks(500, result*10, 200, 0, result*10,-1, 0, 10, null, null);
-				}
-			}
-			 */
 		}
 }
 
 var a = new Traffic();
 function test1(){
-
 	a.init();
 	var i = 1;          
 	function myLoop () {           
 		setTimeout(function () {    
 			i++;                     
-			if (a.moveCars()) {          
-				myLoop();            
+			if (a.moveCars()) { 
+				if(a.cars.length != 0){
+					myLoop();            
+				}
 			}                      
-		}, 10)
+		}, 20)
 	}
 	myLoop();                     
 }

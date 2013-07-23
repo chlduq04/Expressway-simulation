@@ -1,10 +1,11 @@
-function Car(id,x,y,limit_speed,goalx,goaly,speedx,speedy,radius,front,back){
+function Car(id,x,y,limit_speed,goalx,goaly,speedx,speedy,radius,front,back,leader){
 	this.id = id;
 	this.limit_speed = limit_speed;
 	this.x = x;
 	this.y = y;
 	this.realx = x;
 	this.realy = y;
+	this.goal = 1;
 	this.goalx = goalx;
 	this.goaly = goaly;
 	this.front = front;
@@ -12,30 +13,39 @@ function Car(id,x,y,limit_speed,goalx,goaly,speedx,speedy,radius,front,back){
 	this.speedx = speedx;
 	this.speedy = speedy;
 	this.radius = radius;
-	this.leader = false;
+	this.leader = leader;
+	this.linking = false;
 	this.member = false;
+	this.num_member = 0;
 }
 
 Car.prototype = {
 		move : function(x,y){
-			if( x == 0 ){
+			if( x == 0 || this.linking ){
 				this.realx = this.x + this.speedx; 
 				this.realy = this.y + this.speedy; 
 				this.x = Math.floor(this.realx*10000)*0.0001;
 				this.y = Math.floor(this.realy*10000)*0.0001;
 			}else{
-				if(this.speedx >= 0){
-					var lengthx = (x - this.realx)/this.radius; 
-					var lengthy = (y - this.realy)/this.radius;
-					if( lengthx < 1 && lengthy < 1 ){
+				if( this.speedx >= 0 ){
+					var lengthx = ( (x - this.realx) / this.radius ) / 10; 
+					var lengthy = ( (y - this.realy) / this.radius ) / 10;
+					if( lengthx > this.limit_speed ){ lengthx = this.limit_speed; }
+					if( lengthy > this.limit_speed ){ lengthy = this.limit_speed; }
+					var checkx = Math.abs(lengthx);
+					var checky = Math.abs(lengthy);
+					if( checkx < 0.1 && checky < 0.1 ){
+						this.linking = true;
+						this.speedx = this.front.speedx;
+						this.speedy = this.front.speedy;
 						this.realx = x - this.radius; 
 						this.realy = y; 
 						this.x = Math.floor(this.realx*10000)*0.0001;
 						this.y = Math.floor(this.realy*10000)*0.0001;
-					}else if( lengthx < 1 && lengthy >= 1 ){
+					}else if( checkx < 0.1 && checky >= 0.1 ){
 						this.realy = this.realy + lengthy + this.speedy;
 						this.y = Math.floor(this.realy*10000)*0.0001;
-					}else if( lengthy < 1 && lengthx >= 1){
+					}else if( checky < 0.1 && checkx >= 0.1){
 						this.realx = this.realx + lengthx + this.speedx;
 						this.x = Math.floor(this.realx*10000)*0.0001;
 					}else{
@@ -45,22 +55,33 @@ Car.prototype = {
 						this.y = Math.floor(this.realy*10000)*0.0001;
 					}
 				}else{
-					var lengthx = (this.x - x)/this.radius; 
-					var lengthy = (this.y - y)/this.radius;
-					if( lengthx < 2 && lengthy < 2 ){
-						this.x = x;
-						this.y = y;
-					}else if( lengthx < 2 ){
-						this.y - lengthy;
-					}else if( lengthy < 2 ){
-						this.x - lengthx;
+					var lengthx = ( (this.realx - x) / this.radius ) / 10; 
+					var lengthy = ( (this.realy - y) / this.radius ) / 10;
+					if(lengthx < -this.limit_speed){ lengthx = -this.limit_speed; }
+					if(lengthy < -this.limit_speed){ lengthy = -this.limit_speed; }
+					var checkx = Math.abs(lengthx);
+					var checky = Math.abs(lengthy);
+
+					if( checkx < 0.1 && checky < 0.1 ){
+						this.realx = x + this.radius; 
+						this.realy = y; 
+						this.x = Math.floor(this.realx*10000)*0.0001;
+						this.y = Math.floor(this.realy*10000)*0.0001;
+					}else if( checkx < 0.1 && checky >= 0.1 ){
+						this.realy = this.realy - lengthy ;
+						this.y = Math.floor(this.realy*10000)*0.0001;
+					}else if( checky < 0.1 && checkx >= 0.1){
+						this.realx = this.realx - lengthx ;
+						this.x = Math.floor(this.realx*10000)*0.0001;
 					}else{
-						this.x - lengthx;
-						this.y - lengthy;
+						this.realx = this.realx - lengthx;
+						this.realy = this.realy - lengthy;
+						this.x = Math.floor(this.realx*10000)*0.0001;
+						this.y = Math.floor(this.realy*10000)*0.0001;
 					}
 				}
 			}
-			if(this.member){
+			if( this.member ){
 				this.back.move(this.realx,this.realy);
 			}
 		},
@@ -97,20 +118,30 @@ Car.prototype = {
 			}else{
 				this.back.addMember(member,++num);
 			}
+			this.num_member++;
 		},
 		unsignedMember : function(){
 			if(this.leader){
-				if(this.back.member){
-					this.back.leader = true;
+				if(this.back != null){
+					if(this.back.member){
+						this.back.leader = true;
+					}
+					this.back.front = null;
+//					this.back.speedx = this.speedx;
+//					this.back.speedy = this.speedy;
 				}
-				this.back.front = null;
 			}else{
-				if(this.member){
-					this.front.back = this.back;
-					this.back.front = this.front;
+				if(this.back != null){
+					if(this.front != null){
+						this.front.back = this.back;
+						this.back.front = this.front;
+					}
+//					this.back.speedx = this.speedx;
+//					this.back.speedy = this.speedy;
 				}
 			}
 			this.member = false;
 			this.leader = false;
+			this.linking = false;
 		}
 }

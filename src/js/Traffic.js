@@ -167,9 +167,14 @@ Traffic.prototype = {
 					}
 				});
 				car.mousedown(function(){
+
 					$(".cd-id").val(object.id);
 					$(".cd-goal").val(object.goalx+","+object.goaly);
 					$(".ds-target").val(object.id);	
+				});
+				car.mouseout(function(){
+					var target = this.children[0];
+					$(target).hide();
 				});
 				car.dblclick(function(){
 					var self = this;

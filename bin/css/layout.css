@@ -1,0 +1,228 @@
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td,article,aside,canvas,details,embed,figure,figcaption,footer,header,hgroup,menu,nav,output,ruby,section,summary,time,mark,audio,video
+	{
+	margin: 0;
+	padding: 0;
+	border: 0;
+	font-size: 100%;
+	font: inherit;
+	vertical-align: baseline;
+}
+/* HTML5 display-role reset for older browsers */
+article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section
+	{
+	display: block;
+}
+
+body {
+	line-height: 1;
+}
+
+ol,ul {
+	list-style: none;
+}
+
+blockquote,q {
+	quotes: none;
+}
+
+blockquote:before,blockquote:after,q:before,q:after {
+	content: '';
+	content: none;
+}
+
+table {
+	border-collapse: collapse;
+	border-spacing: 0;
+}
+
+.test {
+	position: absolute;
+	width: 10px;
+	height: 10px;
+	background: black;
+	top: 360px;
+	left: 50px;
+}
+
+.test-over {
+	width: 100px;
+	height: 50px;
+	background: black;
+	opacity: 0.7;
+	position: relative;
+	left: 10px;
+	top: -50px;
+	color: white;
+	font-size: 12px;
+}
+
+.road {
+	border: 5px inset;
+	height: 386px;
+	width: 505px;
+	float: left;
+	width: 505px;
+}
+
+.cars {
+	border: 5px inset;
+	position: absolute;
+	width: 505px;
+	height: 386px;
+}
+
+.detail {
+	margin-left: 5px;
+	height: 386px;
+	width: 130px;
+	float: left;
+}
+
+.d-name-clear {
+	text-align: center;
+	margin: 10px 0 10px 0;
+}
+
+.d-name-setting {
+	text-align: center;
+	margin: 10px 0 10px 0;
+}
+
+.d-name-linking {
+	text-align: center;
+	margin: 10px 0 10px 0;
+}
+
+.d-name-searching {
+	text-align: center;
+	margin: 10px 0 10px 0;
+}
+
+.d-reflesh {
+	
+}
+
+.dr-reflesh {
+	width: 100%;
+	height: 20px;
+}
+
+.d-setting {
+	
+}
+
+.ds-maxcar {
+	width: 100%;
+	height: 20px;
+}
+
+.ds-name-limitspeed {
+	margin-top: 10px
+}
+
+.ds-limitspeed {
+	width: 100%;
+	height: 20px;
+}
+
+.ds-name-simulationspeed {
+	margin-top: 10px
+}
+
+.ds-simulationspeed {
+	width: 100%;
+	height: 20px;
+}
+
+.d-link {
+	
+}
+
+.dl-target {
+	width: 100%;
+	height: 20px;
+}
+
+.dl-leader {
+	width: 100%;
+	height: 20px;
+}
+
+.dl-linking {
+	width: 100%;
+	height: 20px;
+}
+
+.d-search {
+	
+}
+
+.ds-target {
+	width: 100%;
+	height: 20px;
+}
+
+.ds-searching {
+	width: 100%;
+	height: 20px;
+}
+
+.clickdetail {
+	margin-top: 10px;
+	width: 650px;
+	height: 20px;
+	float: left;
+	width: 650px;
+}
+
+.cd-name-id {
+	text-align: right;
+	height:100%;
+	float:left;
+	width: 10%;
+}
+
+.cd-id {
+	height:100%;
+	float:left;
+	width: 10%;
+}
+
+.cd-name-front {
+	text-align: right;
+	height:100%;
+	float:left;
+	width: 10%;
+}
+
+.cd-front {
+	height:100%;
+	float:left;
+	width: 10%;
+}
+
+.cd-name-back {
+	text-align: right;
+	height:100%;
+	float:left;
+	width: 10%;
+}
+
+.cd-back {
+	height:100%;
+	float:left;
+	width: 10%;
+}
+
+.cd-name-goal {
+	text-align: right;
+	height:100%;
+	float:left;
+	width: 20%;
+}
+
+.cd-goal {
+	height:100%;
+	float:left;
+	width: 20%;
+}

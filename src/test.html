@@ -1,23 +1,66 @@
 <html>
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <!-- <link rel="stylesheet" type="text/css" href="http://t.static.blog.naver.net/mylog/versioning/LayoutTopCommon-425680.css" />
  -->
-<title>
-</title>
+<link rel="stylesheet" type="text/css" href="css/layout.css" />
+
+<title></title>
 </head>
 <body>
-<div id="road" style="height:100%;width:100%;">
-</div>
-<div id="test1"></div>
+	<div id="road" class="road">
+		<div class="test">
+			<div class="test-over">
+				<div class="car-id">&nbsp;id : 자동차 id</div>
+				<div class="car-front">&nbsp;front : 앞차량</div>
+				<div class="car-back">&nbsp;back : 뒷차량</div>
+				<div class="car-goal">&nbsp;goal : 목표점 x,y</div>
+			</div>
+		</div>
+	</div>
+	<div id="cars" class="cars"></div>
+	<div id="detail" class="detail">
+		<h4 class="d-name-clear">- START -</h4>
+		<div class="d-reflesh">
+			<button class="dr-reflesh"></button>
+		</div>
+		<h4 class="d-name-setting">- SETTING -</h4>
+		<div class="d-setting">
+			<div class="ds-name-maxcar">Max of cars</div>
+			<input class="ds-maxcar" value="500" placeholder="Init 500" />
+			<div class="ds-name-limitspeed">Speed of cars</div>
+			<input class="ds-limitspeed" value="2" placeholder="Init 2" />
+			<div class="ds-name-simulationspeed">Simulation speed</div>
+			<input class="ds-simulationspeed" value="40" placeholder="Init 40" />
+		</div>
+		<h4 class="d-name-linking">- LINKING -</h4>
+		<div class="d-link">
+			<input class="dl-target" placeholder="ID of target(blue)" /> <input
+				class="dl-leader" placeholder="ID of leader(red)" />
+			<button class="dl-linking"></button>
+		</div>
+		<h4 class="d-name-searching">- SEARCH -</h4>
+		<div class="d-search">
+			<input class="ds-target" placeholder="ID of target(blue)" />
+			<button class="ds-searching"></button>
+		</div>
+	</div>
+	<div class="clickdetail">
+		<div class="cd-name-id">id&nbsp;&nbsp;:&nbsp;&nbsp;</div>
+		<input class="cd-id" />
+		<div class="cd-name-goal">goal(x,y)&nbsp;&nbsp;:&nbsp;&nbsp;</div>
+		<input class="cd-goal" />
+	</div>
 
 </body>
 <!-- <script type="text/javascript" src="http://t.static.blog.naver.net/mylog/versioning/common/js/global/RemoveSubDomain-124754.js"></script>
 <script>
  -->
-<script type="text/javascript" src="jQuery.js"></script>
-<script type="text/javascript" src="Traffic.js"></script>
-<script type="text/javascript" src="Car.js"></script>
+<script type="text/javascript" src="js/jQuery.js"></script>
+<script type="text/javascript" src="js/Car.js"></script>
+<script type="text/javascript" src="js/Traffic.js"></script>
+<script type="text/javascript" src="js/common.js"></script>
+<script type="text/javascript" src="js/button.js"></script>
 
- 
+
 </html>

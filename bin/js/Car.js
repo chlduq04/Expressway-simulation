@@ -12,6 +12,8 @@ function Car(id,x,y,limit_speed,goalx,goaly,speedx,speedy,radius,front,back,lead
 	this.back = back;
 	this.speedx = speedx;
 	this.speedy = speedy;
+	this.speed_origin_x = speedx;
+	this.speed_origin_y = speedy;
 	this.radius = radius;
 	this.leader = leader;
 	this.linking = false;

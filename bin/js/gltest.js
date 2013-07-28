@@ -1,9 +1,6 @@
-var gl;
 var scene;
-window.onload = function() {
-	gl = $("#container").WebGL();
-	gl.init();
-};
+var o_positions = {};
+
 if(jQuery)(function($){
 	$.extend($.fn, {
 		WebGL : function(opt){
@@ -11,17 +8,13 @@ if(jQuery)(function($){
 			var defaults = {
 					width :  800,
 					height : 600,
-					camera_x : -20,
-					camera_y : 5,
-					camera_z : 0,
-					position_x : 10,
-					position_y : 0,
-					position_z : 0,
 					key_right : "D",
 					key_left : "A",
 					key_down : "S",
 					key_up : "W",
-					key_break : "M"
+					key_break : "M",
+					load_width : 150,
+					load_length : 800
 			};$.extend(defaults, opt);
 
 			/** System value **/
@@ -37,34 +30,41 @@ if(jQuery)(function($){
 
 			/** Simulation value **/
 
-			var camera_lookat = { x : 0, y : 0, z : 0 };
-			var camera_position = { x : defaults.camera_x, y : defaults.camera_y, z : defaults.camera_z };
-			var m_position = { x : defaults.position_x, y : defaults.position_y, z : defaults.position_z };
-
+			var camera_lookat = { x : 0, y : 0, z : 100 };
+			var camera_position = { x : 0, y : 100, z : -500 };
+			var m_position = { x : 0, y : 0, z : 0 };
 			var m_speed = { x : 0, y : 0, z : 0 };
 			var m_limitspeed = { x : 50, y : 50, z : 50 };
 			
 			/** Other value **/
 			
 			var road_object;
-			var road_position = { x : 0, y : -2.5, z : 0 };
-			var road_scale = { x : 100, y : 0.2,z : 20 };
+			var road_position = { x : 0, y : -2.5, z : 150 };
+			var road_scale = { x : defaults.load_width, y : 0.2, z : defaults.load_length };
 
 			/** Car value **/
 
-			var o_positions = {};
+			var car_front_img = new Image();
+			car_front_img.src = "./image/carfront.png";
+			var car_back_img = new Image();
+			car_back_img.src = "./image/carback.png";
+			var road = new Image();
+			road.src = "./image/board1.png";
+			var geometry = new THREE.CubeGeometry( 5, 5, 0.001 );
+			var car_front_material = new THREE.MeshLambertMaterial( { map: THREE.ImageUtils.loadTexture(car_front_img.src), transparent: true } );
+			var car_back_material = new THREE.MeshLambertMaterial( { map: THREE.ImageUtils.loadTexture(car_back_img.src), transparent: true } );
+			var road_material = new THREE.MeshLambertMaterial( { map: THREE.ImageUtils.loadTexture(road.src), transparent: false } );
 
+			
 			/** Initialize **/
 
 			this.init = function(){
 				self.settingRender( defaults.width, defaults.height )
-				self.settingCamera( defaults.camera_x, defaults.camera_y, defaults.camera_z, target )
-				self.settingLight( 0xFFFF00, 10, 20, 10 );
+				self.settingCamera( camera_position.x, camera_position.y, camera_position.z, target )
+				self.settingLight( 0xFFFFFF, 0, 150, 0 );
 				self.settingKey();
 				self.settingMouse();
-				self.drawCar( m_position, 0xFF0000, 0 );
-				self.drawLoad( road_position, road_scale, "roada" );
-//				self.drawCar( {x:10,y:0,z:0}, 0xFF0000, 0 );
+				self.drawLoad( road_position, road_scale, "road" );
 				renderer.render( scene, camera );
 			},
 
@@ -109,22 +109,17 @@ if(jQuery)(function($){
 				$(target).bind("mouseout",function(e){
 					self.controlMouseOut(e);
 				});
+				$(target).bind("mousewheel",function(e){
+					self.controlMouseWheel(e);
+				});
+				
 			},
 			this.rendering = function(){
-				function myLoop () {           
-					setTimeout(function () {    
-						if(isUserInteracting){
-							
-						}else{
-							renderer.render( scene, camera );
-						}
-						myLoop();
-					}, simulation_speed )
-				}
-				myLoop();
+				renderer.render( scene, camera );
 			},
 
 			/** Control **/
+			
 			this.controlLight = function(){
 				light = new THREE.PointLight( color );
 				light.position.set( x, y, z );
@@ -140,48 +135,17 @@ if(jQuery)(function($){
 				currentlyPressedKeys[event.keyCode] = true;
 				var press = 0;
 				if( String.fromCharCode(event.keyCode) == defaults.key_left ){
-					press += 1;
+					m_position.z -= 0.2;
 				}
 				if( String.fromCharCode(event.keyCode) == defaults.key_right ){
-					press += 10;
+					m_position.z += 0.2;
 				}
 				if( String.fromCharCode(event.keyCode) == defaults.key_up ){
-					press += 100;
+					m_position.x += 0.2;
 				}
 				if( String.fromCharCode(event.keyCode) == defaults.key_down ){
-					press += 1000;
+					m_position.x -= 0.2;
 				}
-				switch(press){
-				case 1:
-					m_position.z -= 0.2;
-					break;
-				case 10:
-					m_position.z += 0.2;
-					break;
-				case 100:
-					m_position.x += 0.2;
-					break;
-				case 101:
-					m_position.x += 0.2;
-					m_position.z -= 0.2;
-					break;
-				case 110:
-					m_position.x += 0.2;
-					m_position.z += 0.2;
-					break;
-				case 1000:
-					m_position.x -= 0.2;
-					break;
-				case 1001:
-					m_position.x -= 0.2;
-					m_position.z -= 0.2;
-					break;
-				case 1010:
-					m_position.x -= 0.2;
-					m_position.z += 0.2;
-					break;
-				}
-				self.drawCar(m_position, "", 0);
 				renderer.render( scene, camera );
 			},
 			
@@ -209,15 +173,19 @@ if(jQuery)(function($){
 					phi = THREE.Math.degToRad( 90 - lat );
 					theta = THREE.Math.degToRad( lon );
 
-					target.x = 100 * Math.sin( phi ) * Math.cos( theta );
-					target.y = 100 * Math.cos( phi );
-					target.z = 100 * Math.sin( phi ) * Math.sin( theta );
+					target.x = 400 * Math.sin( phi ) * Math.cos( theta );
+					target.y = 400 * Math.cos( phi );
+					target.z = 400 * Math.sin( phi ) * Math.sin( theta );
 
 					self.controlCamera( -target.x, -target.y, -target.z, target );
 					renderer.render( scene, camera );
 				}
 			},
-			
+			this.controlMouseWheel = function( event ) {
+				camera.fov -= event.originalEvent.wheelDeltaY * 0.05;
+				camera.updateProjectionMatrix();
+				renderer.render( scene, camera );
+			},
 			this.controlMouseUp = function(event){
 				isUserInteracting = false;
 			},
@@ -226,12 +194,13 @@ if(jQuery)(function($){
 				isUserInteracting = false;
 			},
 			
-			this.drawCar = function( position, color, name ){
+			/** Draw objects **/
+
+			this.drawCar = function( position, name ){
 				var target = o_positions[name];
 				if( target == undefined ){
-					var geometry = new THREE.CubeGeometry( 0.2, 5, 5 );
-					var material = new THREE.MeshLambertMaterial( { color: color } );
-					var mesh = new THREE.Mesh( geometry, material );
+					var mesh = new THREE.Mesh( geometry, car_front_material );
+					mesh.overdraw = true;
 					mesh.name = name;
 					mesh.position.x = position.x;
 					mesh.position.y = position.y;
@@ -244,17 +213,40 @@ if(jQuery)(function($){
 					target.position.z = position.z;
 				}
 			},
-			
+			this.drawCarBack = function( position, name ){
+				var target = o_positions[name];
+				if( target == undefined ){
+					var mesh = new THREE.Mesh( geometry, car_back_material );
+					mesh.overdraw = true;
+					mesh.name = name;
+					mesh.position.x = position.x;
+					mesh.position.y = position.y;
+					mesh.position.z = position.z;
+					o_positions[name] = mesh;
+					scene.add( mesh );
+				}else{
+					target.position.x = position.x;
+					target.position.y = position.y;
+					target.position.z = position.z;
+				}
+			},
+			this.deleteCar = function( name ){
+				scene.remove( o_positions[name] );
+				delete o_positions[name];
+			},
+			this.resetCar = function(){
+				
+			},
 			this.drawLoad = function( position, scale, name ){
 				var geometry = new THREE.CubeGeometry( scale.x, scale.y, scale.z );
-				var material = new THREE.MeshLambertMaterial( { color: 0x888888 } );
-				var mesh = new THREE.Mesh( geometry, material );
+				var mesh = new THREE.Mesh( geometry, road_material );
 				mesh.name = name;
 				mesh.position.x = position.x;
 				mesh.position.y = position.y;
 				mesh.position.z = position.z;
 				o_positions[name] = mesh;
 				scene.add( mesh );
+				renderer.render( scene, camera );
 			}
 			return this;
 		},

@@ -15,6 +15,7 @@ article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section
 
 body {
 	line-height: 1;
+	width: 1000px;
 }
 
 ol,ul {
@@ -58,22 +59,21 @@ table {
 
 .road {
 	border: 5px inset;
-	height: 386px;
-	width: 505px;
 	float: left;
-	width: 505px;
+	width: 760px;
+	height: 430px;
 }
 
 .cars {
-	border: 5px inset;
+	border: 0px inset;
 	position: absolute;
-	width: 505px;
-	height: 386px;
+	width: 760px;
+	height: 435px;
 }
 
 .detail {
 	margin-left: 5px;
-	height: 386px;
+	height: 435px;
 	width: 130px;
 	float: left;
 }
@@ -177,52 +177,57 @@ table {
 
 .cd-name-id {
 	text-align: right;
-	height:100%;
-	float:left;
+	height: 100%;
+	float: left;
 	width: 10%;
 }
 
 .cd-id {
-	height:100%;
-	float:left;
+	height: 100%;
+	float: left;
 	width: 10%;
 }
 
 .cd-name-front {
 	text-align: right;
-	height:100%;
-	float:left;
+	height: 100%;
+	float: left;
 	width: 10%;
 }
 
 .cd-front {
-	height:100%;
-	float:left;
+	height: 100%;
+	float: left;
 	width: 10%;
 }
 
 .cd-name-back {
 	text-align: right;
-	height:100%;
-	float:left;
+	height: 100%;
+	float: left;
 	width: 10%;
 }
 
 .cd-back {
-	height:100%;
-	float:left;
+	height: 100%;
+	float: left;
 	width: 10%;
 }
 
 .cd-name-goal {
 	text-align: right;
-	height:100%;
-	float:left;
+	height: 100%;
+	float: left;
 	width: 20%;
 }
 
 .cd-goal {
-	height:100%;
-	float:left;
+	height: 100%;
+	float: left;
 	width: 20%;
+}
+
+.3D_view {
+	width: 100%;
+	height: 500px;
 }

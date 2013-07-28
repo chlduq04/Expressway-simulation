@@ -1,8 +1,6 @@
-var max_speed = 2;
-var max_car = 500;
-var simulation_speed = 40;
-var simulation_start = true;
-function Traffic(){
+
+function Traffic(opt){
+
 	this.id = 0;
 	this.link_id = 0;
 	this.cars = [];
@@ -24,37 +22,34 @@ function Traffic(){
 	                 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
 	                 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
 	                 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-	                 [5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5],
-	                 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-	                 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-	                 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-	                 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
 	                 [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
 	                 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
 	                 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
 	                 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
 	                 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-	                 [5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5,5],
-	                 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-	                 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-	                 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-	                 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-	                 [3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,1,1,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],
-	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,1,1,3,3,0,0,3,4,4,4,4,4,4,4,4,4,3,0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,1,1,3,3,0,3,1,1,1,1,2,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,1,1,3,3,3,1,1,1,1,2,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,1,1,3,3,1,1,1,1,2,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,1,1,3,1,1,1,1,2,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,1,1,1,1,1,1,2,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,1,1,1,1,1,2,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,3,1,1,1,1,2,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0],
+	                 [3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],
 	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,1,1,1,2,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,1,1,1,2,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,1,1,1,2,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,1,1,1,2,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,1,1,1,2,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,1,1,1,2,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,1,1,1,2,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,1,1,1,2,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0],
+	             	 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,1,1,1,2,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0],
 	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,1,1,1,2,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0],
 	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,1,1,1,2,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0],
 	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,1,1,1,2,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0],
 	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,1,1,1,2,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0]
 	                 ];
 	this.go = true;
+	this.defaults = {
+		drawCar3D : function(){},
+		drawCarBack3D : function(){},
+		deleteCar3D : function(){},
+		render3D : function(){}
+	};
+	$.extend(this.defaults, opt);
 }
 
 Traffic.prototype = {
@@ -67,19 +62,19 @@ Traffic.prototype = {
 				for( var j = 0 ; j < height ; j++ ){
 					if( this.testroad[i][j] == 1 ){
 						var road = $("<div id='"+i+","+j+"'></div>")
-						road.css({ "position":"absolute", "background":"gray", "width":10, "height":10, "left":j*10, "top":i*10 });
+						road.css({ "position":"absolute", "background":"gray", "width":15, "height":15, "left":j*15, "top":i*15 });
 						this.road.append(road);
 					}else if( this.testroad[i][j] == 2 ){
 						var road = $("<div id='"+i+","+j+"'></div>")
-						road.css({ "position":"absolute", "background":"yellow", "width":10, "height":10, "left":j*10, "top":i*10 });
+						road.css({ "position":"absolute", "background":"yellow", "width":15, "height":15, "left":j*15, "top":i*15 });
 						this.road.append(road);
 					}else if( this.testroad[i][j] == 3 ){
 						var road = $("<div id='"+i+","+j+"'></div>")
-						road.css({ "position":"absolute", "background":"black", "width":10, "height":10, "left":j*10, "top":i*10 });
+						road.css({ "position":"absolute", "background":"black", "width":15, "height":15, "left":j*15, "top":i*15 });
 						this.road.append(road);
 					}else if( this.testroad[i][j] == 4 ){
 						var road = $("<div id='"+i+","+j+"'></div>")
-						road.css({ "position":"absolute", "background":"gray", "width":10, "height":10, "left":j*10, "top":i*10 });
+						road.css({ "position":"absolute", "background":"gray", "width":15, "height":15, "left":j*15, "top":i*15 });
 						this.road.append(road);
 					}
 				}
@@ -88,12 +83,13 @@ Traffic.prototype = {
 		init : function(){
 			this.resetCars();
 			this.drawLoad();
-			var result = Math.floor(Math.random() * 9) + 16;
-			this.newCars(0,230,3,500,230,2,0,10);
+			this.newCars(0,180,3,500,180,2,0,15);
+			/*
+			var result = Math.floor(Math.random() * 4) + 16;
 			this.newCars(100,170,3,500,170,1,0,10);
 
 			this.addLinkById(1,0);
-
+*/
 		},
 		drawCars : function( object ){
 			var car = $("#car"+object.id);
@@ -101,11 +97,11 @@ Traffic.prototype = {
 				var detail = car.children();
 				var text = "<div class='car-id'>id : "+object.id+"</div>"
 				if(object.leader){
-					car.css({ "position":"absolute", "z-index":"1000", "background":"red", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
+					car.css({ "border-radius": "50px", "position":"absolute", "z-index":"1000", "background":"red", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
 				}else if(object.front!=null){
-					car.css({ "position":"absolute", "z-index":"1000", "background":"black", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
+					car.css({ "border-radius": "50px", "position":"absolute", "z-index":"1000", "background":"black", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
 				}else{
-					car.css({ "position":"absolute", "z-index":"1000", "background":"blue", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
+					car.css({ "border-radius": "50px", "position":"absolute", "z-index":"1000", "background":"blue", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
 				}
 				
 				if(object.front == null){
@@ -125,18 +121,18 @@ Traffic.prototype = {
 				car = $("<div id='car"+object.id+"'></div>")
 				var detail =  $("<div id='car"+object.id+"-over'></div>");
 				if(object.leader){
-					car.css({ "position":"absolute", "z-index":"1000", "background":"red", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
+					car.css({ "border-radius": "50px", "position":"absolute", "z-index":"1000", "background":"red", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
 				}else if(object.front!=null){
-					car.css({ "position":"absolute", "z-index":"1000", "background":"black", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
+					car.css({ "border-radius": "50px", "position":"absolute", "z-index":"1000", "background":"black", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
 				}else{
-					car.css({ "position":"absolute", "z-index":"1000", "background":"blue", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
+					car.css({ "border-radius": "50px", "position":"absolute", "z-index":"1000", "background":"blue", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
 				}
 				detail.css({
 					"width": "100px",
 					"height": "50px",
 					"background": "black",
 					"opacity": "0.7",
-					"position": "relative",
+					"position": "absolute",
 					"left": "10px",
 					"top": "-50px",
 					"display":"none",
@@ -144,6 +140,7 @@ Traffic.prototype = {
 					"font-size":"12px",
 					"z-index" : "1200"
 				});
+				
 				var text = "<div class='car-id'>id : "+object.id+"</div>"
 				if(object.front == null){
 					text += "<div class='car-front'>front : None</div>";	
@@ -158,23 +155,29 @@ Traffic.prototype = {
 				text += "<div class='car-goal'>goal : ("+object.goalx +","+object.goaly+")</div>";
 				detail.html(text);
 				car.append(detail);
-				car.mouseover(function(){
+/*				car.mouseover(function(){
 					var target = this.children[0];
 					if($(target).css("display") == "none"){
-						$(target).show();
+						$(target).fadeIn(900);
 					}else{
-						$(target).hide();
+						$(target).fadeOut(400);
 					}
 				});
+				*/
 				car.mousedown(function(){
-
+					var target = this.children[0];
+					if($(target).css("display") == "none"){
+						$(target).fadeIn(900);
+					}else{
+						$(target).fadeOut(400);
+					}
 					$(".cd-id").val(object.id);
 					$(".cd-goal").val(object.goalx+","+object.goaly);
 					$(".ds-target").val(object.id);	
 				});
 				car.mouseout(function(){
 					var target = this.children[0];
-					$(target).hide();
+					$(target).fadeOut(400);
 				});
 				car.dblclick(function(){
 					var self = this;
@@ -183,6 +186,11 @@ Traffic.prototype = {
 					}
 				});
 				this.car_road.append(car);
+			}
+			if(object.y > 150){
+				this.defaults.drawCarBack3D( { x : object.y - 150, y : 0.2, z : object.x - 250 }, object.id );
+			}else{
+				this.defaults.drawCar3D( { x : object.y - 150, y : 0.2, z : object.x - 250 }, object.id );
 			}
 		},
 
@@ -257,6 +265,7 @@ Traffic.prototype = {
 
 		},
 		deleteCars : function( id ){
+			this.defaults.deleteCar3D( this.cars[id].id );
 			$("#car"+this.cars[id].id).remove();
 			this.cars[id].unsignedMember();
 			delete this.cars[id];
@@ -290,13 +299,13 @@ Traffic.prototype = {
 					var crash = false;
 					if(car.front == null){
 						if(car.speedx >= 0){
-							var right = i + 10;
+							var right = i + 8;
 							if(right >= length){
 								right = length;
 							}
 							for(var j = i+1 ; j < right ; j++ ){
-								var checkx = car.x + car.speedx;
-								var checky = car.y + car.speedy;
+								var checkx = car.x + car.speed_origin_x;
+								var checky = car.y + car.speed_origin_y;
 								var checkr = car.radius;
 								if( Math.abs(checkx-this.cars[j].x)<checkr*1.2 && Math.abs(checky-this.cars[j].y)<0.5 ){
 									crash = true;
@@ -306,14 +315,16 @@ Traffic.prototype = {
 									if(result > 1){
 										if( Math.abs(car.y - this.cars[j].y - checkr/2) < checkr*1.2 && this.testroad[y-1][x] == 1 ){
 											car.y -= car.radius;
+											car.speedx = car.speed_origin_x;
 											break;
 										}else{
 											car.speedx = this.cars[j].speedx;
 											break;
 										}
 									}else{
-										if( Math.abs(car.y - this.cars[j].y + checkr/2) < checkr*1.2 && this.testroad[y+2][x] == 1 && this.testroad[y+1][x] == 1 ){
+										if( Math.abs(car.y - this.cars[j].y + checkr/2) < checkr*1.2 && this.testroad[y+1][x] == 1 ){
 											car.y += car.radius;
+											car.speedx = car.speed_origin_x;
 											break;
 										}else{
 											car.speedx = this.cars[j].speedx;
@@ -323,13 +334,13 @@ Traffic.prototype = {
 								}
 							}
 						}else{
-							var left = i - 10;
+							var left = i - 8;
 							if(left < 0){
 								left = -1;
 							}
 							for(var j = i-1 ; j > left ; j-- ){
-								var checkx = car.x + car.speedx;
-								var checky = car.y + car.speedy;
+								var checkx = car.x + car.speed_origin_x;
+								var checky = car.y + car.speed_origin_y;
 								var checkr = car.radius;
 								if( Math.abs(checkx-this.cars[j].x)< checkr*1.2 && Math.abs(checky-this.cars[j].y)<0.5 ){
 									crash = true;
@@ -339,6 +350,7 @@ Traffic.prototype = {
 									if(result > 1){
 										if( Math.abs(car.y - this.cars[j].y - checkr/2) < checkr*1.2 && this.testroad[y-1][x] == 1 ){
 											car.y -= car.radius;
+											car.speedx = car.speed_origin_x;
 											break;
 										}else{
 											car.speedx = this.cars[j].speedx;
@@ -347,6 +359,7 @@ Traffic.prototype = {
 									}else{
 										if( Math.abs(car.y - this.cars[j].y + checkr/2) < checkr*1.2 && this.testroad[y+1][x] == 1 ){
 											car.y += car.radius;
+											car.speedx = car.speed_origin_x;
 											break;
 										}else{
 											car.speedx = this.cars[j].speedx;
@@ -376,7 +389,7 @@ Traffic.prototype = {
 				this.initCars();
 				length = this.cars.length;
 			}
-
+			this.defaults.render3D();
 			return this.go;
 		},
 		test : function(){
@@ -394,31 +407,31 @@ Traffic.prototype = {
 					this.initCars();
 					this.id = 0;
 					var result = Math.floor(Math.random() * 9) + 16;
-					this.newCars(0,result*10,200,500,result*10,2,0,10);
-					this.newCars(50,result*10,200,500,result*10,1,0,10);
+					this.newCars(0,result*15,200,500,result*15,2,0,15);
+					this.newCars(50,result*15,200,500,result*15,1,0,15);
 				}
 			}else{
 				if(this.cars.length < max_car){
 					var check = Math.floor(Math.random()*100);
-					if(check > 80){
+					if(check > 90){
 						if(check > 97){
 							var speed = Math.floor(Math.random() * max_speed)+1;
-							var result = Math.floor(Math.random() * 9) + 16;
-							this.newCars(0,result*10,200,500,result*10,speed,0,10,true);
+							var result = Math.floor(Math.random() * 4) + 11;
+							this.newCars(0,result*15,200,700,result*15,speed,0,15,true);
 						}else{
 							var speed = Math.floor(Math.random() * max_speed)+1;
-							var result = Math.floor(Math.random() * 9) + 16;
-							this.newCars(0,result*10,200,500,result*10,speed,0,10,false);
+							var result = Math.floor(Math.random() * 4) + 11;
+							this.newCars(0,result*15,200,700,result*15,speed,0,15,false);
 						}
-					}else if(check < 20){
+					}else if(check < 10){
 						if(check < 2){
 							var speed = Math.floor(Math.random() * max_speed)+1;
-							var result = Math.floor(Math.random() * 9) + 6;
-							this.newCars(500,result*10,200,0,result*10,-speed,0,10,true);
+							var result = Math.floor(Math.random() * 4) + 6;
+							this.newCars(700,result*15,200,0,result*15,-speed,0,15,true);
 						}else{
 							var speed = Math.floor(Math.random() * max_speed)+1;
-							var result = Math.floor(Math.random() * 9) + 6;
-							this.newCars(500,result*10,200,0,result*10,-speed,0,10,false);
+							var result = Math.floor(Math.random() * 4) + 6;
+							this.newCars(700,result*15,200,0,result*15,-speed,0,15,false);
 						}
 					}
 				}
@@ -426,28 +439,3 @@ Traffic.prototype = {
 		}
 }
 
-var simulation_setting;
-simulation_setting = new Traffic();
-simulation_setting.drawLoad();
-function simulation_reset(){
-	simulation_start = false;
-	setTimeout(function () {
-		simulation();
-	},50);
-}
-function simulation(){
-	simulation_start = true;
-	simulation_setting = new Traffic();
-	simulation_setting.drawLoad();
-	simulation_setting.init();
-	function myLoop () {           
-		setTimeout(function () {    
-			if (simulation_setting.moveCars()) { 
-				if(simulation_setting.cars.length != 0 && simulation_start ){
-					myLoop();            
-				}
-			}                      
-		}, simulation_speed)
-	}
-	myLoop();                   
-}

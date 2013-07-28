@@ -314,27 +314,29 @@ Traffic.prototype = {
 								var checkx = car.x + car.speed_origin_x;
 								var checky = car.y + car.speed_origin_y;
 								var checkr = car.radius;
-								if( Math.abs(checkx-this.cars[j].x)<checkr*1.2 && Math.abs(checky-this.cars[j].y)<0.5 ){
+								if( Math.abs(checkx-this.cars[j].x)<checkr*1.2 && Math.abs(checky-this.cars[j].y)<checkr*1.2 ){
 									crash = true;
 									var x = Math.floor(car.x/15);
 									var y = Math.floor(car.y/15);
 									var result = Math.round(Math.random() * 2);
 									if(result > 1){
 										if( Math.abs(car.y - this.cars[j].y - checkr/2) < checkr*1.2 && this.testroad[y-1][x] == 1 ){
-											car.y -= car.radius;
+											car.speedy = -1;
+//											car.y -= car.radius;
 											car.speedx = car.speed_origin_x;
 											break;
 										}else{
-											car.speedx = this.cars[j].speedx;
+											car.x += this.cars[j].speedx;
 											break;
 										}
 									}else{
 										if( Math.abs(car.y - this.cars[j].y + checkr/2) < checkr*1.2 && this.testroad[y+1][x] == 1 ){
-											car.y += car.radius;
+											car.speedy = 1;
+//											car.y += car.radius;
 											car.speedx = car.speed_origin_x;
 											break;
 										}else{
-											car.speedx = this.cars[j].speedx;
+											car.x += this.cars[j].speedx;
 											break;
 										}
 									}
@@ -349,15 +351,16 @@ Traffic.prototype = {
 								var checkx = car.x + car.speed_origin_x;
 								var checky = car.y + car.speed_origin_y;
 								var checkr = car.radius;
-								if( Math.abs(checkx-this.cars[j].x)< checkr*1.2 && Math.abs(checky-this.cars[j].y)<0.5 ){
+								if( Math.abs(checkx-this.cars[j].x)< checkr*1.2 && Math.abs(checky-this.cars[j].y)<checkr*1.2 ){
 									crash = true;
 									var x = Math.floor(car.x/15);
 									var y = Math.floor(car.y/15);
 									var result = Math.round(Math.random() * 2);
 									if(result > 1){
 										if( Math.abs(car.y - this.cars[j].y - checkr/2) < checkr*1.2 && this.testroad[y-1][x] == 1 ){
-											car.y -= car.radius;
-											car.speedx = car.speed_origin_x;
+											car.speedy = -1;
+//											car.y -= car.radius;
+											car.x += car.speed_origin_x;
 											break;
 										}else{
 											car.speedx = this.cars[j].speedx;
@@ -365,11 +368,12 @@ Traffic.prototype = {
 										}
 									}else{
 										if( Math.abs(car.y - this.cars[j].y + checkr/2) < checkr*1.2 && this.testroad[y+1][x] == 1 ){
-											car.y += car.radius;
+											car.speedy = 1;
+//											car.y += car.radius;
 											car.speedx = car.speed_origin_x;
 											break;
 										}else{
-											car.speedx = this.cars[j].speedx;
+											car.x += this.cars[j].speedx;
 											break;
 										}
 									}
@@ -378,6 +382,8 @@ Traffic.prototype = {
 						}
 						if(!crash){
 							car.move(0,0);
+							car.speedy = 0;
+							car.goaly = car.y;
 						}
 					}
 				}else{

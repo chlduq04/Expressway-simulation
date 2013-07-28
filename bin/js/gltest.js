@@ -35,36 +35,36 @@ if(jQuery)(function($){
 			var m_position = { x : 0, y : 0, z : 0 };
 			var m_speed = { x : 0, y : 0, z : 0 };
 			var m_limitspeed = { x : 50, y : 50, z : 50 };
-			
-			/** Other value **/
-			
+
 			var road_object;
 			var road_position = { x : 0, y : -2.5, z : 150 };
-			var road_scale = { x : defaults.load_width, y : 0.2, z : defaults.load_length };
+			var road_scale = { x : defaults.load_width, y : 2, z : defaults.load_length };
 
 			/** Car value **/
 
 			var car_front_img = new Image();
-			car_front_img.src = "./image/carfront.png";
 			var car_back_img = new Image();
-			car_back_img.src = "./image/carback.png";
 			var road = new Image();
-			road.src = "./image/board1.png";
+			car_front_img.src = "./image/carfront.png";
+			car_back_img.src = "./image/carback.png";
+
 			var geometry = new THREE.CubeGeometry( 5, 5, 0.001 );
 			var car_front_material = new THREE.MeshLambertMaterial( { map: THREE.ImageUtils.loadTexture(car_front_img.src), transparent: true } );
 			var car_back_material = new THREE.MeshLambertMaterial( { map: THREE.ImageUtils.loadTexture(car_back_img.src), transparent: true } );
-			var road_material = new THREE.MeshLambertMaterial( { map: THREE.ImageUtils.loadTexture(road.src), transparent: false } );
+			var road_material;
 
-			
+
 			/** Initialize **/
 
 			this.init = function(){
 				self.settingRender( defaults.width, defaults.height )
 				self.settingCamera( camera_position.x, camera_position.y, camera_position.z, target )
-				self.settingLight( 0xFFFFFF, 0, 150, 0 );
 				self.settingKey();
 				self.settingMouse();
+				self.controlSkybox();
 				self.drawLoad( road_position, road_scale, "road" );
+				self.settingLight( 0xFFFFFF, 0, 150, 0 );
+				/** Sky box **/
 				renderer.render( scene, camera );
 			},
 
@@ -112,14 +112,14 @@ if(jQuery)(function($){
 				$(target).bind("mousewheel",function(e){
 					self.controlMouseWheel(e);
 				});
-				
+
 			},
 			this.rendering = function(){
 				renderer.render( scene, camera );
 			},
 
 			/** Control **/
-			
+
 			this.controlLight = function(){
 				light = new THREE.PointLight( color );
 				light.position.set( x, y, z );
@@ -130,25 +130,21 @@ if(jQuery)(function($){
 				camera.position.set( posx, posy, posz );
 				camera.lookAt( lookat );
 			},
-			
+
 			this.controlKeyDown =  function (event) {
 				currentlyPressedKeys[event.keyCode] = true;
 				var press = 0;
 				if( String.fromCharCode(event.keyCode) == defaults.key_left ){
-					m_position.z -= 0.2;
 				}
 				if( String.fromCharCode(event.keyCode) == defaults.key_right ){
-					m_position.z += 0.2;
 				}
 				if( String.fromCharCode(event.keyCode) == defaults.key_up ){
-					m_position.x += 0.2;
 				}
 				if( String.fromCharCode(event.keyCode) == defaults.key_down ){
-					m_position.x -= 0.2;
 				}
 				renderer.render( scene, camera );
 			},
-			
+
 			this.controlKeyUp = function(event) {
 				currentlyPressedKeys[event.keyCode] = false;
 			},
@@ -156,14 +152,14 @@ if(jQuery)(function($){
 			this.controlMouseDown = function(event){
 				event.preventDefault();
 				isUserInteracting = true;
-				
+
 				onPointerDownPointerX = event.clientX;
 				onPointerDownPointerY = event.clientY;
 
 				onPointerDownLon = lon;
 				onPointerDownLat = lat;
 			},
-			
+
 			this.controlMouseMove = function(event){
 				if ( isUserInteracting ) {
 					lon = ( onPointerDownPointerX - event.clientX ) * 0.1 + onPointerDownLon;
@@ -189,11 +185,48 @@ if(jQuery)(function($){
 			this.controlMouseUp = function(event){
 				isUserInteracting = false;
 			},
-			
+
 			this.controlMouseOut = function(){
 				isUserInteracting = false;
 			},
-			
+
+			/** Game Setting **/
+
+			this.controlSkybox = function(){
+				var sky_materials = [
+				                     self.loadTexture( './image/skybox/px.jpg' ), // right
+				                     self.loadTexture( './image/skybox/nx.jpg' ), // left
+				                     self.loadTexture( './image/skybox/py.jpg' ), // top
+				                     self.loadTexture( './image/skybox/ny.jpg' ), // bottom
+				                     self.loadTexture( './image/skybox/pz.jpg' ), // back
+				                     self.loadTexture( './image/skybox/nz.jpg' )  // front
+				                     ];
+
+				var sky_mesh = new THREE.Mesh( new THREE.CubeGeometry( 800, 800, 800, 7, 7, 7 ), new THREE.MeshFaceMaterial( sky_materials ) );
+				sky_mesh.scale.x = - 1;
+				scene.add( sky_mesh );
+			},
+
+			/** Other setting function **/
+
+			this.loadTexture = function( path ) {
+
+				var texture = new THREE.Texture( renderer );
+				var material = new THREE.MeshBasicMaterial( { map: texture, overdraw: true } );
+
+				var image = new Image();
+				image.onload = function () {
+					texture.needsUpdate = true;
+					material.map.image = this;
+					renderer.render( scene, camera );
+
+				};
+				image.src = path;
+
+				return material;
+
+			},
+
 			/** Draw objects **/
 
 			this.drawCar = function( position, name ){
@@ -235,18 +268,22 @@ if(jQuery)(function($){
 				delete o_positions[name];
 			},
 			this.resetCar = function(){
-				
+
 			},
 			this.drawLoad = function( position, scale, name ){
-				var geometry = new THREE.CubeGeometry( scale.x, scale.y, scale.z );
-				var mesh = new THREE.Mesh( geometry, road_material );
-				mesh.name = name;
-				mesh.position.x = position.x;
-				mesh.position.y = position.y;
-				mesh.position.z = position.z;
-				o_positions[name] = mesh;
-				scene.add( mesh );
-				renderer.render( scene, camera );
+				road.src = "./image/board1.png";
+				road.onload = function(){
+					road_material = new THREE.MeshLambertMaterial( { map: THREE.ImageUtils.loadTexture(road.src), transparent: false } );
+					var geometry = new THREE.CubeGeometry( scale.x, scale.y, scale.z );
+					var mesh = new THREE.Mesh( geometry, road_material );
+					mesh.name = name;
+					mesh.position.x = position.x;
+					mesh.position.y = position.y;
+					mesh.position.z = position.z;
+					o_positions[name] = mesh;
+					scene.add( mesh );
+					renderer.render( scene, camera );
+				}
 			}
 			return this;
 		},

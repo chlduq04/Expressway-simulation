@@ -68,6 +68,7 @@ window.onload = function() {
 		}
 		simulation_reset();
 	});
+
 	$(".dl-linking").click(function(){
 		var leader = $(".dl-leader").val();
 		var after = $(".dl-target").val();
@@ -75,19 +76,18 @@ window.onload = function() {
 			simulation_setting.addLinkById(leader,after);
 		}
 	});
+
 	$(".ds-searching").click(function(){
 		var target = $(".ds-target").val();
 		if(target.length != 0){
 			simulation_setting.searchLink(target);
 		}
 	});
-	$(".test").mousedown(function(){
-		var target = this.children[0];
-		if($(target).css("display") == "none"){
-			$(target).show();
-		}else{
-			$(target).hide();
+
+	$(".ds-unlinking").click(function(){
+		var target = $(".ds-unlink-target").val();
+		if(target.length != 0){
+			simulation_setting.unlink(target);
 		}
 	});
-
 };

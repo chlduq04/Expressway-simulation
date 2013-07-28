@@ -174,6 +174,7 @@ Traffic.prototype = {
 					$(".cd-id").val(object.id);
 					$(".cd-goal").val(object.goalx+","+object.goaly);
 					$(".ds-target").val(object.id);	
+					$(".ds-unlink-target").val(object.id);	
 				});
 				car.mouseout(function(){
 					var target = this.children[0];
@@ -263,6 +264,16 @@ Traffic.prototype = {
 				}
 			}
 
+		},
+		unlink : function(id){
+			var car;
+			for( var i=0 ; i < this.cars.length ; i++ ){
+				if( this.cars[i].id == id ){
+					car = this.cars[i];
+					break;
+				}
+			}
+			car.unsignedMember();
 		},
 		deleteCars : function( id ){
 			this.defaults.deleteCar3D( this.cars[id].id );

@@ -139,12 +139,12 @@ table {
 }
 
 .dl-target {
-	width: 100%;
+	width: 48%;
 	height: 20px;
 }
 
 .dl-leader {
-	width: 100%;
+	width: 48%;
 	height: 20px;
 }
 
@@ -157,6 +157,11 @@ table {
 	
 }
 
+.d-name-unlinking {
+	text-align: center;
+	margin: 10px 0 10px 0;
+}
+
 .ds-target {
 	width: 100%;
 	height: 20px;
@@ -167,8 +172,21 @@ table {
 	height: 20px;
 }
 
+
+.ds-unlink-target {
+	width: 100%;
+	height: 20px;
+}
+
+.ds-unlinking {
+	width: 100%;
+	height: 20px;
+}
+
+
 .clickdetail {
-	margin-top: 10px;
+	margin-top: 2px;
+	margin-bottom: 2px;
 	width: 650px;
 	height: 20px;
 	float: left;

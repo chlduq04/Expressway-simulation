@@ -149,5 +149,7 @@ Car.prototype = {
 			this.member = false;
 			this.leader = false;
 			this.linking = false;
+			this.front = null;
+			this.back = null;
 		}
 }

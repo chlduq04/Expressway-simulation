@@ -6,7 +6,7 @@ if(jQuery)(function($){
 		WebGL : function(opt){
 			var self = this;
 			var defaults = {
-					width :  800,
+					width :  770,
 					height : 600,
 					key_right : "D",
 					key_left : "A",
@@ -48,9 +48,11 @@ if(jQuery)(function($){
 			car_front_img.src = "./image/carfront.png";
 			car_back_img.src = "./image/carback.png";
 
-			var geometry = new THREE.CubeGeometry( 5, 5, 0.001 );
-			var car_front_material = new THREE.MeshLambertMaterial( { map: THREE.ImageUtils.loadTexture(car_front_img.src), transparent: true } );
-			var car_back_material = new THREE.MeshLambertMaterial( { map: THREE.ImageUtils.loadTexture(car_back_img.src), transparent: true } );
+			var geometry = new THREE.CubeGeometry( 5, 5, 10 );
+			var car_front_material = new THREE.MeshLambertMaterial( { color : 0xFFFFFF } );
+			var car_back_material = new THREE.MeshLambertMaterial( { color : 0xFFFFFF } );
+//			var car_front_material = new THREE.MeshLambertMaterial( { map: THREE.ImageUtils.loadTexture(car_front_img.src), transparent: true } );
+//			var car_back_material = new THREE.MeshLambertMaterial( { map: THREE.ImageUtils.loadTexture(car_back_img.src), transparent: true } );
 			var road_material;
 
 

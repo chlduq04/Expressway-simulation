@@ -19,7 +19,7 @@ function Traffic(opt){
 	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,1,1,1,2,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0],
 	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,1,1,1,2,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0],
 	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,1,1,1,2,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,4,4,4,4,4,4,4,4,4,3,0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,4,4,4,4,2,4,4,4,4,3,0,0,0,0,0,0,0,0,0,0],
 	                 [3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],
 	                 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
 	                 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
@@ -161,15 +161,7 @@ Traffic.prototype = {
 				text += "<div class='car-goal'>goal : ("+object.goalx +","+object.goaly+")</div>";
 				detail.html(text);
 				car.append(detail);
-/*				car.mouseover(function(){
-					var target = this.children[0];
-					if($(target).css("display") == "none"){
-						$(target).fadeIn(900);
-					}else{
-						$(target).fadeOut(400);
-					}
-				});
-				*/
+
 				car.mousedown(function(){
 					var target = this.children[0];
 					if($(target).css("display") == "none"){
@@ -177,8 +169,6 @@ Traffic.prototype = {
 					}else{
 						$(target).fadeOut(400);
 					}
-					$(".cd-id").val(object.id);
-					$(".cd-goal").val(object.goalx+","+object.goaly);
 					$(".ds-target").val(object.id);	
 					$(".ds-unlink-target").val(object.id);	
 				});
@@ -326,8 +316,8 @@ Traffic.prototype = {
 								var checkr = car.radius;
 								if( Math.abs(checkx-this.cars[j].x)<checkr*1.2 && Math.abs(checky-this.cars[j].y)<0.5 ){
 									crash = true;
-									var x = Math.floor(car.x/10);
-									var y = Math.floor(car.y/10);
+									var x = Math.floor(car.x/15);
+									var y = Math.floor(car.y/15);
 									var result = Math.round(Math.random() * 2);
 									if(result > 1){
 										if( Math.abs(car.y - this.cars[j].y - checkr/2) < checkr*1.2 && this.testroad[y-1][x] == 1 ){
@@ -361,8 +351,8 @@ Traffic.prototype = {
 								var checkr = car.radius;
 								if( Math.abs(checkx-this.cars[j].x)< checkr*1.2 && Math.abs(checky-this.cars[j].y)<0.5 ){
 									crash = true;
-									var x = Math.floor(car.x/10);
-									var y = Math.floor(car.y/10);
+									var x = Math.floor(car.x/15);
+									var y = Math.floor(car.y/15);
 									var result = Math.round(Math.random() * 2);
 									if(result > 1){
 										if( Math.abs(car.y - this.cars[j].y - checkr/2) < checkr*1.2 && this.testroad[y-1][x] == 1 ){

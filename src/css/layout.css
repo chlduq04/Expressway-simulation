@@ -15,7 +15,7 @@ article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section
 
 body {
 	line-height: 1;
-	width: 1000px;
+	width: 915px;
 }
 
 ol,ul {
@@ -73,9 +73,9 @@ table {
 
 .detail {
 	margin-left: 5px;
-	height: 435px;
+	height: 835px;
 	width: 130px;
-	float: left;
+	float: right;
 }
 
 .d-name-clear {
@@ -117,7 +117,7 @@ table {
 }
 
 .ds-name-limitspeed {
-	margin-top: 10px
+	margin-top: 5px
 }
 
 .ds-limitspeed {
@@ -126,7 +126,7 @@ table {
 }
 
 .ds-name-simulationspeed {
-	margin-top: 10px
+	margin-top: 5px
 }
 
 .ds-simulationspeed {
@@ -172,7 +172,6 @@ table {
 	height: 20px;
 }
 
-
 .ds-unlink-target {
 	width: 100%;
 	height: 20px;
@@ -182,7 +181,6 @@ table {
 	width: 100%;
 	height: 20px;
 }
-
 
 .clickdetail {
 	margin-top: 2px;
@@ -245,7 +243,16 @@ table {
 	width: 20%;
 }
 
+
+
+
+
 .3D_view {
 	width: 100%;
 	height: 500px;
+}
+
+.three-name-title {
+	text-align: center;
+	margin: 10px 0 10px 0;
 }

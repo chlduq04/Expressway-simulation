@@ -11,6 +11,9 @@ function Traffic(opt){
 	this.road;
 	this.car_road;
 	this.object_div; 
+	this.car_image = new Image();
+	this.leader_image = new Image();
+	this.follower_image = new Image();
 	this.testroad = [
 	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,1,1,1,2,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0],
 	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,1,1,1,2,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0],
@@ -81,6 +84,9 @@ Traffic.prototype = {
 			}
 		},
 		init : function(){
+			this.car_image.src = "./image/navigation/car.png";
+			this.leader_image.src = "./image/navigation/leader.png";
+			this.follower_image.src = "./image/navigation/follower.png";
 			this.resetCars();
 			this.drawLoad();
 			this.newCars(0,180,3,500,180,2,0,15);
@@ -97,11 +103,11 @@ Traffic.prototype = {
 				var detail = car.children();
 				var text = "<div class='car-id'>id : "+object.id+"</div>"
 				if(object.leader){
-					car.css({ "border-radius": "50px", "position":"absolute", "z-index":"1000", "background":"red", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
+					car.css({ "background-position":"center","background-size":"cover", "border-radius": "50px", "position":"absolute", "z-index":"1000", "background-image":"url('./image/navigation/leader.png')", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
 				}else if(object.front!=null){
-					car.css({ "border-radius": "50px", "position":"absolute", "z-index":"1000", "background":"black", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
+					car.css({ "background-position":"center","background-size":"cover", "border-radius": "50px", "position":"absolute", "z-index":"1000", "background-image":"url('./image/navigation/follower.png')", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
 				}else{
-					car.css({ "border-radius": "50px", "position":"absolute", "z-index":"1000", "background":"blue", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
+					car.css({ "background-position":"center","background-size":"cover", "border-radius": "50px", "position":"absolute", "z-index":"1000", "background-image":"url('./image/navigation/car.png')", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
 				}
 				
 				if(object.front == null){
@@ -121,11 +127,11 @@ Traffic.prototype = {
 				car = $("<div id='car"+object.id+"'></div>")
 				var detail =  $("<div id='car"+object.id+"-over'></div>");
 				if(object.leader){
-					car.css({ "border-radius": "50px", "position":"absolute", "z-index":"1000", "background":"red", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
+					car.css({ "background-position":"center","background-size":"cover", "border-radius": "50px", "position":"absolute", "z-index":"1000", "background-image":"url('./image/navigation/leader.png')", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
 				}else if(object.front!=null){
-					car.css({ "border-radius": "50px", "position":"absolute", "z-index":"1000", "background":"black", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
+					car.css({ "background-position":"center","background-size":"cover", "border-radius": "50px", "position":"absolute", "z-index":"1000", "background-image":"url('./image/navigation/follower.png')", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
 				}else{
-					car.css({ "border-radius": "50px", "position":"absolute", "z-index":"1000", "background":"blue", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
+					car.css({ "background-position":"center","background-size":"cover", "border-radius": "50px", "position":"absolute", "z-index":"1000", "background-image":"url('./image/navigation/car.png')", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
 				}
 				detail.css({
 					"width": "100px",

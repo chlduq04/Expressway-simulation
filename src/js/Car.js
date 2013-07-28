@@ -89,7 +89,7 @@ Car.prototype = {
 					}
 				}
 			}
-			if( this.member ){
+			if( this.back != null ){
 				this.back.move(this.realx,this.realy);
 			}
 		},
@@ -139,10 +139,13 @@ Car.prototype = {
 					this.back.front = null;
 				}
 			}else{
-				if(this.back != null){
-					if(this.front != null){
+				if(this.front != null){
+					if(this.back != null){
 						this.front.back = this.back;
 						this.back.front = this.front;
+					}else{
+						this.front.member = false;
+						this.front.back = null;
 					}
 				}
 			}

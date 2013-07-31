@@ -1,19 +1,21 @@
 
 function Traffic(opt){
-
+	
 	this.id = 0;
 	this.link_id = 0;
 	this.cars = [];
 	this.sortCars;
-	this.links = [];
-	this.member = [];
 	this.sortLinks;
 	this.road;
 	this.car_road;
 	this.object_div; 
-	this.car_image = new Image();
-	this.leader_image = new Image();
-	this.follower_image = new Image();
+	this.car_image_right = new Image();
+	this.leader_image_right = new Image();
+	this.follower_image_right = new Image();
+
+	this.car_image_left = new Image();
+	this.leader_image_left = new Image();
+	this.follower_image_left = new Image();
 	this.testroad = [
 	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,1,1,1,2,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0],
 	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,1,1,1,2,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0],
@@ -24,9 +26,7 @@ function Traffic(opt){
 	                 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
 	                 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
 	                 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
-	                 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
 	                 [2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2],
-	                 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
 	                 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
 	                 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
 	                 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
@@ -39,18 +39,23 @@ function Traffic(opt){
 	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,1,1,1,2,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0],
 	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,1,1,1,2,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0],
 	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,1,1,1,2,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0],
-	             	 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,1,1,1,2,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,1,1,1,2,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0],
 	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,1,1,1,2,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0],
 	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,1,1,1,2,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0],
 	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,1,1,1,2,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0],
 	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,1,1,1,2,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0]
 	                 ];
 	this.go = true;
+	this.click_car = null;
+	this.pick_car = false;
 	this.defaults = {
-		drawCar3D : function(){},
-		drawCarBack3D : function(){},
-		deleteCar3D : function(){},
-		render3D : function(){}
+			drawCar3D : function(){},
+			drawCarBack3D : function(){},
+			drawCarColor : function(){},
+			deleteCar3D : function(){},
+			camera3D : function(){},
+			initCamera3D : function(){},
+			render3D : function(){}
 	};
 	$.extend(this.defaults, opt);
 }
@@ -84,32 +89,41 @@ Traffic.prototype = {
 			}
 		},
 		init : function(){
-			this.car_image.src = "./image/navigation/car.png";
-			this.leader_image.src = "./image/navigation/leader.png";
-			this.follower_image.src = "./image/navigation/follower.png";
+			this.car_image_right.src = "./image/navigation/top-right-normal.png";
+			this.leader_image_right.src = "./image/navigation/top-right-leader.png";
+			this.follower_image_right.src = "./image/navigation/top-right-fallower.png";
+			this.car_image_left.src = "./image/navigation/top-left-normal.png";
+			this.leader_image_left.src = "./image/navigation/top-left-leader.png";
+			this.follower_image_left.src = "./image/navigation/top-left-fallower.png";
+			
 			this.resetCars();
 			this.drawLoad();
 			this.newCars(0,180,3,500,180,2,0,15);
-			/*
-			var result = Math.floor(Math.random() * 4) + 16;
-			this.newCars(100,170,3,500,170,1,0,10);
-
-			this.addLinkById(1,0);
-*/
+			
 		},
 		drawCars : function( object ){
 			var car = $("#car"+object.id);
 			if(car.length>0){
 				var detail = car.children();
 				var text = "<div class='car-id'>id : "+object.id+"</div>"
-				if(object.leader){
-					car.css({ "background-position":"center","background-size":"cover", "border-radius": "50px", "position":"absolute", "z-index":"1000", "background-image":"url('./image/navigation/leader.png')", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
-				}else if(object.front!=null){
-					car.css({ "background-position":"center","background-size":"cover", "border-radius": "50px", "position":"absolute", "z-index":"1000", "background-image":"url('./image/navigation/follower.png')", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
+				if( object.speedx > 0 ){
+					if(object.leader){
+						car.css({ "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
+					}else if(object.front!=null){
+						car.css({ "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
+					}else{
+						car.css({ "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
+					}
 				}else{
-					car.css({ "background-position":"center","background-size":"cover", "border-radius": "50px", "position":"absolute", "z-index":"1000", "background-image":"url('./image/navigation/car.png')", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
+					if(object.leader){
+						car.css({ "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
+					}else if(object.front!=null){
+						car.css({ "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
+					}else{
+						car.css({ "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
+					}
 				}
-				
+
 				if(object.front == null){
 					text += "<div class='car-front'>front : None</div>";	
 				}else{
@@ -126,12 +140,23 @@ Traffic.prototype = {
 			}else{
 				car = $("<div id='car"+object.id+"'></div>")
 				var detail =  $("<div id='car"+object.id+"-over'></div>");
-				if(object.leader){
-					car.css({ "background-position":"center","background-size":"cover", "border-radius": "50px", "position":"absolute", "z-index":"1000", "background-image":"url('./image/navigation/leader.png')", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
-				}else if(object.front!=null){
-					car.css({ "background-position":"center","background-size":"cover", "border-radius": "50px", "position":"absolute", "z-index":"1000", "background-image":"url('./image/navigation/follower.png')", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
-				}else{
-					car.css({ "background-position":"center","background-size":"cover", "border-radius": "50px", "position":"absolute", "z-index":"1000", "background-image":"url('./image/navigation/car.png')", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
+				if( object.speedx > 0 ){
+					if(object.leader){
+						car.css({ "background-position":"center","background-size":"cover", "border-radius": "50px", "position":"absolute", "z-index":"1000", "background-image":"url('./image/navigation/top-right-leader.png')", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
+					}else if(object.front!=null){
+						car.css({ "background-position":"center","background-size":"cover", "border-radius": "50px", "position":"absolute", "z-index":"1000", "background-image":"url('./image/navigation/top-right-follower.png')", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
+					}else{
+						car.css({ "background-position":"center","background-size":"cover", "border-radius": "50px", "position":"absolute", "z-index":"1000", "background-image":"url('./image/navigation/top-right-normal.png')", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
+					}
+				}
+				else{
+					if(object.leader){
+						car.css({ "background-position":"center","background-size":"cover", "border-radius": "50px", "position":"absolute", "z-index":"1000", "background-image":"url('./image/navigation/top-left-leader.png')", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
+					}else if(object.front!=null){
+						car.css({ "background-position":"center","background-size":"cover", "border-radius": "50px", "position":"absolute", "z-index":"1000", "background-image":"url('./image/navigation/top-left-follower.png')", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
+					}else{
+						car.css({ "background-position":"center","background-size":"cover", "border-radius": "50px", "position":"absolute", "z-index":"1000", "background-image":"url('./image/navigation/top-left-normal.png')", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
+					}
 				}
 				detail.css({
 					"width": "100px",
@@ -146,7 +171,7 @@ Traffic.prototype = {
 					"font-size":"12px",
 					"z-index" : "1200"
 				});
-				
+
 				var text = "<div class='car-id'>id : "+object.id+"</div>"
 				if(object.front == null){
 					text += "<div class='car-front'>front : None</div>";	
@@ -181,13 +206,25 @@ Traffic.prototype = {
 					if(!object.leader && self.front==null){
 						simulation_setting.searchLink(object.id);
 					}
+					simulation_setting.click_car = object;
+					simulation_setting.pick_car = true;
 				});
 				this.car_road.append(car);
 			}
+			
+			/*
 			if(object.y > 150){
-				this.defaults.drawCarBack3D( { x : object.y - 150, y : 0.2, z : object.x - 250 }, object.id );
+				this.defaults.drawCarBack3D( { x : object.y - 150, y : 0.2, z : object.x - 250 }, object.id, "leader" );
 			}else{
-				this.defaults.drawCar3D( { x : object.y - 150, y : 0.2, z : object.x - 250 }, object.id );
+				this.defaults.drawCar3D( { x : object.y - 150, y : 0.2, z : object.x - 250 }, object.id, "leader" );
+			}
+			*/
+			if(object.leader){
+				this.defaults.drawCarColor( { x : object.y - 150, y : 0.2, z : object.x - 250 }, object.id, "leader" );
+			}else if(object.front!=null){
+				this.defaults.drawCarColor( { x : object.y - 150, y : 0.2, z : object.x - 250 }, object.id, "follower" );
+			}else{
+				this.defaults.drawCarColor( { x : object.y - 150, y : 0.2, z : object.x - 250 }, object.id, "normal" );
 			}
 		},
 
@@ -272,6 +309,9 @@ Traffic.prototype = {
 			car.unsignedMember();
 		},
 		deleteCars : function( id ){
+			if( this.click_car != null && this.click_car.id == this.cars[id].id){
+				this.click_car = null;
+			}
 			this.defaults.deleteCar3D( this.cars[id].id );
 			$("#car"+this.cars[id].id).remove();
 			this.cars[id].unsignedMember();
@@ -292,106 +332,49 @@ Traffic.prototype = {
 		moveCars : function(time){
 			this.go = false;
 			var length = this.cars.length;
-			var linkLength = this.links.length;
 			var goal = [];
 			var linkGoal = [];
 			var goalNum;
 			var	goalLinkNum;
 
 			this.cars.sort(function(a,b){return a.x-b.x});
+
 			for( var i = 0 ; i < length ; i++ ){
 				var car = this.cars[i];
+				var x = Math.floor( car.x / 15);
+				var y = Math.floor( car.y / 15);
 				if(!car.finish()){
 					this.go = true;
-					var crash = false;
-					if(car.front == null){
-						if(car.speedx >= 0){
-							var right = i + 8;
-							if(right >= length){
-								right = length;
-							}
-							for(var j = i+1 ; j < right ; j++ ){
-								var checkx = car.x + car.speed_origin_x;
-								var checky = car.y + car.speed_origin_y;
-								var checkr = car.radius;
-								if( Math.abs(checkx-this.cars[j].x)<checkr*1.2 && Math.abs(checky-this.cars[j].y)<checkr*1.2 ){
-									crash = true;
-									var x = Math.floor(car.x/15);
-									var y = Math.floor(car.y/15);
-									var result = Math.round(Math.random() * 2);
-									if(result > 1){
-										if( Math.abs(car.y - this.cars[j].y - checkr/2) < checkr*1.2 && this.testroad[y-1][x] == 1 ){
-											car.speedy = -1;
-//											car.y -= car.radius;
-											car.speedx = car.speed_origin_x;
-											break;
-										}else{
-											car.x += this.cars[j].speedx;
-											break;
-										}
-									}else{
-										if( Math.abs(car.y - this.cars[j].y + checkr/2) < checkr*1.2 && this.testroad[y+1][x] == 1 ){
-											car.speedy = 1;
-//											car.y += car.radius;
-											car.speedx = car.speed_origin_x;
-											break;
-										}else{
-											car.x += this.cars[j].speedx;
-											break;
-										}
-									}
-								}
-							}
-						}else{
-							var left = i - 8;
-							if(left < 0){
-								left = -1;
-							}
-							for(var j = i-1 ; j > left ; j-- ){
-								var checkx = car.x + car.speed_origin_x;
-								var checky = car.y + car.speed_origin_y;
-								var checkr = car.radius;
-								if( Math.abs(checkx-this.cars[j].x)< checkr*1.2 && Math.abs(checky-this.cars[j].y)<checkr*1.2 ){
-									crash = true;
-									var x = Math.floor(car.x/15);
-									var y = Math.floor(car.y/15);
-									var result = Math.round(Math.random() * 2);
-									if(result > 1){
-										if( Math.abs(car.y - this.cars[j].y - checkr/2) < checkr*1.2 && this.testroad[y-1][x] == 1 ){
-											car.speedy = -1;
-//											car.y -= car.radius;
-											car.x += car.speed_origin_x;
-											break;
-										}else{
-											car.speedx = this.cars[j].speedx;
-											break;
-										}
-									}else{
-										if( Math.abs(car.y - this.cars[j].y + checkr/2) < checkr*1.2 && this.testroad[y+1][x] == 1 ){
-											car.speedy = 1;
-//											car.y += car.radius;
-											car.speedx = car.speed_origin_x;
-											break;
-										}else{
-											car.x += this.cars[j].speedx;
-											break;
-										}
-									}
-								}
-							}
+					if(car.speedx >= 0){
+						var right = i + 10;
+						var left = i - 6;
+						if(right >= length){
+							right = length;
 						}
-						if(!crash){
-							car.move(0,0);
-							car.speedy = 0;
-							car.goaly = car.y;
+						if(left < 0){
+							left = 0;
 						}
+						car.navigationPlusSpeedx( this.cars.slice( i+1, right ), this.cars.slice(left+1, i), this.testroad[y-1][x], this.testroad[y+1][x] );
+					}
+					else{
+						var right = i + 6;
+						if(right >= length){
+							right = length;
+						}
+						var left = i - 10;
+						if(left < 0){
+							left = 0;
+						}
+						car.navigationMinusSpeedx( this.cars.slice( left+1, i ), this.cars.slice( i+1, right ), this.testroad[y-1][x], this.testroad[y+1][x] );
 					}
 				}else{
 					goal.push(i);
 				}
 				this.drawCars( car );
 			}
-
+			if(this.pick_car){
+				this.pickCars();
+			}
 			this.simulation();
 			goalNum = goal.length;
 			if(goalNum > 0){
@@ -405,11 +388,18 @@ Traffic.prototype = {
 			this.defaults.render3D();
 			return this.go;
 		},
-		test : function(){
-		},
-		popLinks : function(){
-			this.links.pop();
-			return this.links.length;
+		pickCars : function(){
+			if( this.click_car != null && this.click_car != undefined ){
+				var x = this.click_car.y - 150 ;
+				var y = 2 ;
+				var z = this.click_car.x - 250;
+				var look = z + this.click_car.speedx;
+				var lookat = { x : x, y : y, z : look };
+				this.defaults.camera3D( x, y, z, lookat );
+			}else{
+				this.defaults.initCamera3D();
+				this.pick_car = false;
+			}
 		},
 		simulation : function(){
 			if( this.id > 5000 ){
@@ -419,31 +409,31 @@ Traffic.prototype = {
 					}
 					this.initCars();
 					this.id = 0;
-					var result = Math.floor(Math.random() * 9) + 16;
-					this.newCars(0,result*15,200,500,result*15,2,0,15);
-					this.newCars(50,result*15,200,500,result*15,1,0,15);
+					var result = Math.floor(Math.random() * 3) + 10;
+					this.newCars(0,result*15,200,700,result*15,2,0,15);
+					this.newCars(50,result*15,200,700,result*15,1,0,15);
 				}
 			}else{
 				if(this.cars.length < max_car){
 					var check = Math.floor(Math.random()*100);
 					if(check > 90){
 						if(check > 97){
-							var speed = Math.floor(Math.random() * max_speed)+1;
-							var result = Math.floor(Math.random() * 4) + 11;
-							this.newCars(0,result*15,200,700,result*15,speed,0,15,true);
+							var speed = Math.floor(Math.random() * 2) + max_speed;
+							var result = Math.floor(Math.random() * 3) + 10;
+							this.newCars(0,result*15,200,700,result*15,max_speed,0,15,true);
 						}else{
-							var speed = Math.floor(Math.random() * max_speed)+1;
-							var result = Math.floor(Math.random() * 4) + 11;
+							var speed = Math.floor(Math.random() * 2) + max_speed;
+							var result = Math.floor(Math.random() * 3) + 10;
 							this.newCars(0,result*15,200,700,result*15,speed,0,15,false);
 						}
 					}else if(check < 10){
 						if(check < 2){
-							var speed = Math.floor(Math.random() * max_speed)+1;
-							var result = Math.floor(Math.random() * 4) + 6;
-							this.newCars(700,result*15,200,0,result*15,-speed,0,15,true);
+							var speed = Math.floor(Math.random() * 2) + max_speed;
+							var result = Math.floor(Math.random() * 3) + 6;
+							this.newCars(700,result*15,200,0,result*15,-max_speed,0,15,true);
 						}else{
-							var speed = Math.floor(Math.random() * max_speed)+1;
-							var result = Math.floor(Math.random() * 4) + 6;
+							var speed = Math.floor(Math.random() * 2) + max_speed;
+							var result = Math.floor(Math.random() * 3) + 6;
 							this.newCars(700,result*15,200,0,result*15,-speed,0,15,false);
 						}
 					}

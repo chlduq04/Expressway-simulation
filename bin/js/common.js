@@ -1,4 +1,4 @@
-var max_speed = 2;
+var max_speed = 1;
 var max_car = 200;
 var simulation_speed = 30;
 var simulation_start = true;
@@ -13,7 +13,6 @@ window.onload = function() {
 
 	simulation_setting = new Traffic({});
 	simulation_setting.drawLoad();
-
 	
 	function simulation_reset(){
 		simulation_start = false;
@@ -26,7 +25,10 @@ window.onload = function() {
 		simulation_setting = new Traffic({
 			drawCar3D : gl.drawCar,
 			drawCarBack3D : gl.drawCarBack,
+			drawCarColor : gl.drawCar3D,
 			deleteCar3D : gl.deleteCar,
+			camera3D : gl.controlCamera,
+			initCamera3D : gl.initCamera,
 			render3D : gl.rendering
 		});
 		simulation_setting.drawLoad();

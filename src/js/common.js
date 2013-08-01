@@ -1,6 +1,6 @@
-var max_speed = 1;
+var max_speed = 2;
 var max_car = 200;
-var simulation_speed = 30;
+var simulation_speed = 40;
 var simulation_start = true;
 var simulation_setting;
 var gl;

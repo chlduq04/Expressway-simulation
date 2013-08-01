@@ -37,7 +37,7 @@ if(jQuery)(function($){
 			var m_limitspeed = { x : 50, y : 50, z : 50 };
 
 			var road_object;
-			var road_position = { x : -15, y : -2.5, z : 250 };
+			var road_position = { x : -15, y : -2.5, z : 180 };
 			var road_scale = { x : defaults.load_width, y : 2, z : defaults.load_length };
 
 			/** Car value **/
@@ -57,7 +57,9 @@ if(jQuery)(function($){
 			var car_follower = new THREE.MeshLambertMaterial( { color : 0x00FFFF } );
 			var car_normal = new THREE.MeshLambertMaterial( { color : 0x0000FF } );
 			var road_material;
-			var car_model;
+			var car_leader_model;
+			var car_follower_model;
+			var car_normal_model;
 			/** Initialize **/
 
 			this.init = function(){
@@ -87,20 +89,22 @@ if(jQuery)(function($){
 				var texture = new THREE.Texture();
 
 				var loader = new THREE.ImageLoader( manager );
-				loader.load( './image/carfront.png', function ( image ) {
+				loader.load( './image/red.jpg', function ( image ) {
 					texture.image = image;
 					texture.needsUpdate = true;
 				} );
 
 				var loader = new THREE.OBJLoader( manager );
-				loader.load( './image/mini_obj.obj', function ( object ) {
+				loader.load( './image/Police car.obj', function ( object ) {
 					object.traverse( function ( child ) {
 						if ( child instanceof THREE.Mesh ) {
 							child.material.map = texture;
 						}
 					} );
-					car_model = object;
+					car_leader_model = object;
 				} );
+				
+				
 			},
 			this.returnScene = function(){
 				return scene;
@@ -220,7 +224,7 @@ if(jQuery)(function($){
 				}
 			},
 			this.controlMouseWheel = function( event ) {
-				camera.fov -= event.originalEvent.wheelDeltaY * 0.05;
+				camera.fov -= event.originalEvent.wheelDeltaY * 0.01;
 				camera.updateProjectionMatrix();
 				renderer.render( scene, camera );
 			},
@@ -340,7 +344,7 @@ if(jQuery)(function($){
 			this.drawCar3D = function( position, name, color ){
 				var target = o_positions[name];
 				if( target == undefined ){
-					var mesh = car_model.clone();
+					var mesh = car_leader_model.clone();
 					mesh.name = name;
 					mesh.position.x = position.x;
 					mesh.position.y = position.y;
@@ -364,6 +368,26 @@ if(jQuery)(function($){
 
 			},
 			this.drawLoad = function( position, scale, name ){
+				var material = new THREE.MeshLambertMaterial( { color : 0x006600 } );
+				var geometry = new THREE.CubeGeometry( scale.x * 3, scale.y, scale.z );
+				var mesh = new THREE.Mesh( geometry, material );
+				mesh.name = name;
+				mesh.position.x = position.x;
+				mesh.position.y = position.y-2;
+				mesh.position.z = position.z;
+				o_positions[name] = mesh;
+				scene.add( mesh );
+				
+				material = new THREE.MeshLambertMaterial( { color : 0xFFCC33 } );
+				geometry = new THREE.CubeGeometry( scale.x * 1.2, scale.y, scale.z );
+				mesh = new THREE.Mesh( geometry, material );
+				mesh.name = name;
+				mesh.position.x = position.x;
+				mesh.position.y = position.y-1;
+				mesh.position.z = position.z;
+				o_positions[name] = mesh;
+				scene.add( mesh );
+				
 				road.src = "./image/board1.png";
 				road.onload = function(){
 					road_material = new THREE.MeshLambertMaterial( { map: THREE.ImageUtils.loadTexture(road.src), transparent: false } );

@@ -17,11 +17,11 @@ function Traffic(opt){
 	this.leader_image_left = new Image();
 	this.follower_image_left = new Image();
 	this.testroad = [
-	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,1,1,1,2,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,1,1,1,2,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,1,1,1,2,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,1,1,1,2,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,4,4,4,4,2,4,4,4,4,3,0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,3,1,1,1,1,2,1,1,1,1,3,9,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,3,1,1,1,1,2,1,1,1,1,3,9,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,3,1,1,1,1,2,1,1,1,1,3,9,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,3,1,1,1,1,2,1,1,1,1,3,9,0,0,0,0,0,0,0,0,0],
+	                 [9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,3,4,4,4,4,2,4,4,4,4,3,9,9,9,9,9,9,9,9,9,9],
 	                 [3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],
 	                 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
 	                 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
@@ -31,19 +31,19 @@ function Traffic(opt){
 	                 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
 	                 [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1],
 	                 [3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3],
-	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,1,1,1,2,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,1,1,1,2,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,1,1,1,2,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,1,1,1,2,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,1,1,1,2,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,1,1,1,2,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,1,1,1,2,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,1,1,1,2,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,1,1,1,2,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,1,1,1,2,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,1,1,1,2,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,1,1,1,2,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,3,1,1,1,1,2,1,1,1,1,3,0,0,0,0,0,0,0,0,0,0]
+	                 [9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,3,1,1,1,1,2,1,1,1,1,3,9,9,9,9,9,9,9,9,9,9],
+	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,3,1,1,1,1,2,1,1,1,1,3,9,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,3,1,1,1,1,2,1,1,1,1,3,9,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,3,1,1,1,1,2,1,1,1,1,3,9,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,3,1,1,1,1,2,1,1,1,1,3,9,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,3,1,1,1,1,2,1,1,1,1,3,9,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,3,1,1,1,1,2,1,1,1,1,3,9,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,3,1,1,1,1,2,1,1,1,1,3,9,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,3,1,1,1,1,2,1,1,1,1,3,9,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,3,1,1,1,1,2,1,1,1,1,3,9,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,3,1,1,1,1,2,1,1,1,1,3,9,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,3,1,1,1,1,2,1,1,1,1,3,9,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,9,3,1,1,1,1,2,1,1,1,1,3,9,0,0,0,0,0,0,0,0,0]
 	                 ];
 	this.go = true;
 	this.click_car = null;
@@ -84,6 +84,14 @@ Traffic.prototype = {
 						var road = $("<div id='"+i+","+j+"'></div>")
 						road.css({ "position":"absolute", "background":"gray", "width":15, "height":15, "left":j*15, "top":i*15 });
 						this.road.append(road);
+					}else if( this.testroad[i][j] == 0 ){
+						var road = $("<div id='"+i+","+j+"'></div>")
+						road.css({ "position":"absolute", "background":"green", "width":15, "height":15, "left":j*15, "top":i*15 });
+						this.road.append(road);
+					}else if( this.testroad[i][j] == 9){
+						var road = $("<div id='"+i+","+j+"'></div>")
+						road.css({ "position":"absolute", "background":"brown", "width":15, "height":15, "left":j*15, "top":i*15 });
+						this.road.append(road);
 					}
 				}
 			}
@@ -98,7 +106,7 @@ Traffic.prototype = {
 			
 			this.resetCars();
 			this.drawLoad();
-			this.newCars(0,180,3,500,180,2,0,15);
+			this.newCars(0,180,3,700,180,2,0,15);
 			
 		},
 		drawCars : function( object ){
@@ -110,17 +118,17 @@ Traffic.prototype = {
 					if(object.leader){
 						car.css({ "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
 					}else if(object.front!=null){
-						car.css({ "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
+						car.css({ "background-image":"url('./image/navigation/top-right-follower.png')", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
 					}else{
-						car.css({ "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
+						car.css({ "background-image":"url('./image/navigation/top-right-normal.png')", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
 					}
 				}else{
 					if(object.leader){
 						car.css({ "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
 					}else if(object.front!=null){
-						car.css({ "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
+						car.css({ "background-image":"url('./image/navigation/top-right-follower.png')", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
 					}else{
-						car.css({ "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
+						car.css({ "background-image":"url('./image/navigation/top-right-normal.png')", "width":object.radius, "height":object.radius, "left":object.realx, "top":object.realy });
 					}
 				}
 
@@ -220,11 +228,11 @@ Traffic.prototype = {
 			}
 			*/
 			if(object.leader){
-				this.defaults.drawCarColor( { x : object.y - 150, y : 0.2, z : object.x - 250 }, object.id, "leader" );
+				this.defaults.drawCarColor( { x : object.y - 150, y : 0.2, z : object.x - 320 }, object.id, "leader" );
 			}else if(object.front!=null){
-				this.defaults.drawCarColor( { x : object.y - 150, y : 0.2, z : object.x - 250 }, object.id, "follower" );
+				this.defaults.drawCarColor( { x : object.y - 150, y : 0.2, z : object.x - 320 }, object.id, "follower" );
 			}else{
-				this.defaults.drawCarColor( { x : object.y - 150, y : 0.2, z : object.x - 250 }, object.id, "normal" );
+				this.defaults.drawCarColor( { x : object.y - 150, y : 0.2, z : object.x - 320 }, object.id, "normal" );
 			}
 		},
 
@@ -336,36 +344,48 @@ Traffic.prototype = {
 			var linkGoal = [];
 			var goalNum;
 			var	goalLinkNum;
-
+			var plus_speed = [];
+			var minus_speed = [];
 			this.cars.sort(function(a,b){return a.x-b.x});
+			for( var i = 0 ; i < length ; i++ ){
+				if( this.cars[i].speedx > 0 ){
+					plus_speed.push( this.cars[i] );
+				}else{
+					minus_speed.push( this.cars[i] );
+				}
+			}
 
 			for( var i = 0 ; i < length ; i++ ){
 				var car = this.cars[i];
-				var x = Math.floor( car.x / 15);
-				var y = Math.floor( car.y / 15);
+				var x = Math.floor( car.x / car.radius );
+				var y = Math.floor( car.y / car.radius );
 				if(!car.finish()){
 					this.go = true;
 					if(car.speedx >= 0){
-						var right = i + 10;
-						var left = i - 6;
-						if(right >= length){
-							right = length;
+						var limit = plus_speed.length;
+						var me = plus_speed.indexOf(car);
+						var right = me + 10;
+						var left = me - 5;
+						if(right >= limit){
+							right = limit;
 						}
 						if(left < 0){
 							left = 0;
 						}
-						car.navigationPlusSpeedx( this.cars.slice( i+1, right ), this.cars.slice(left+1, i), this.testroad[y-1][x], this.testroad[y+1][x] );
+						car.navigationPlusSpeedx( plus_speed.slice( me+1, right ), plus_speed.slice( left, me ), this.testroad[y-1][x], this.testroad[y+1][x] );
 					}
 					else{
-						var right = i + 6;
-						if(right >= length){
+						var limit = minus_speed.length;
+						var me = minus_speed.indexOf(car);
+						var right = me + 5;
+						var left = me - 10;
+						if(right >= limit){
 							right = length;
 						}
-						var left = i - 10;
 						if(left < 0){
 							left = 0;
 						}
-						car.navigationMinusSpeedx( this.cars.slice( left+1, i ), this.cars.slice( i+1, right ), this.testroad[y-1][x], this.testroad[y+1][x] );
+						car.navigationMinusSpeedx( minus_speed.slice( left, me ), minus_speed.slice( me+1, right ), this.testroad[y-1][x], this.testroad[y+1][x] );
 					}
 				}else{
 					goal.push(i);
@@ -392,7 +412,7 @@ Traffic.prototype = {
 			if( this.click_car != null && this.click_car != undefined ){
 				var x = this.click_car.y - 150 ;
 				var y = 2 ;
-				var z = this.click_car.x - 250;
+				var z = this.click_car.x - 320;
 				var look = z + this.click_car.speedx;
 				var lookat = { x : x, y : y, z : look };
 				this.defaults.camera3D( x, y, z, lookat );
@@ -410,31 +430,31 @@ Traffic.prototype = {
 					this.initCars();
 					this.id = 0;
 					var result = Math.floor(Math.random() * 3) + 10;
-					this.newCars(0,result*15,200,700,result*15,2,0,15);
-					this.newCars(50,result*15,200,700,result*15,1,0,15);
+					this.newCars(0,result*15,4,700,result*15,2,0,15);
+					this.newCars(50,result*15,4,700,result*15,1,0,15);
 				}
 			}else{
 				if(this.cars.length < max_car){
 					var check = Math.floor(Math.random()*100);
 					if(check > 90){
 						if(check > 97){
-							var speed = Math.floor(Math.random() * 2) + max_speed;
+							var speed = Math.random() * 1 + max_speed;
 							var result = Math.floor(Math.random() * 3) + 10;
-							this.newCars(0,result*15,200,700,result*15,max_speed,0,15,true);
+							this.newCars(0,result*15,4,700,result*15,max_speed,0,15,true);
 						}else{
-							var speed = Math.floor(Math.random() * 2) + max_speed;
+							var speed = Math.random() * 1 + max_speed;
 							var result = Math.floor(Math.random() * 3) + 10;
-							this.newCars(0,result*15,200,700,result*15,speed,0,15,false);
+							this.newCars(0,result*15,4,700,result*15,speed,0,15,false);
 						}
 					}else if(check < 10){
 						if(check < 2){
-							var speed = Math.floor(Math.random() * 2) + max_speed;
+							var speed = Math.random() * 1 + max_speed;
 							var result = Math.floor(Math.random() * 3) + 6;
-							this.newCars(700,result*15,200,0,result*15,-max_speed,0,15,true);
+							this.newCars(700,result*15,4,0,result*15,-max_speed,0,15,true);
 						}else{
-							var speed = Math.floor(Math.random() * 2) + max_speed;
+							var speed = Math.random() * 1 + max_speed;
 							var result = Math.floor(Math.random() * 3) + 6;
-							this.newCars(700,result*15,200,0,result*15,-speed,0,15,false);
+							this.newCars(700,result*15,4,0,result*15,-speed,0,15,false);
 						}
 					}
 				}

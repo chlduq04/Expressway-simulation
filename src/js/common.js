@@ -23,9 +23,8 @@ window.onload = function() {
 	function simulation(){
 		simulation_start = true;
 		simulation_setting = new Traffic({
-			drawCar3D : gl.drawCar,
-			drawCarBack3D : gl.drawCarBack,
-			drawCarColor : gl.drawCar3D,
+			drawCar3D : gl.drawCar3D,
+			drawCarBack3D : gl.drawCarBack3D,
 			deleteCar3D : gl.deleteCar,
 			camera3D : gl.controlCamera,
 			initCamera3D : gl.initCamera,

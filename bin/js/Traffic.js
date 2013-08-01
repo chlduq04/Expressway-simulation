@@ -51,7 +51,6 @@ function Traffic(opt){
 	this.defaults = {
 			drawCar3D : function(){},
 			drawCarBack3D : function(){},
-			drawCarColor : function(){},
 			deleteCar3D : function(){},
 			camera3D : function(){},
 			initCamera3D : function(){},
@@ -99,10 +98,10 @@ Traffic.prototype = {
 		init : function(){
 			this.car_image_right.src = "./image/navigation/top-right-normal.png";
 			this.leader_image_right.src = "./image/navigation/top-right-leader.png";
-			this.follower_image_right.src = "./image/navigation/top-right-fallower.png";
+			this.follower_image_right.src = "./image/navigation/top-right-follower.png";
 			this.car_image_left.src = "./image/navigation/top-left-normal.png";
 			this.leader_image_left.src = "./image/navigation/top-left-leader.png";
-			this.follower_image_left.src = "./image/navigation/top-left-fallower.png";
+			this.follower_image_left.src = "./image/navigation/top-left-follower.png";
 			
 			this.resetCars();
 			this.drawLoad();
@@ -227,12 +226,22 @@ Traffic.prototype = {
 				this.defaults.drawCar3D( { x : object.y - 150, y : 0.2, z : object.x - 250 }, object.id, "leader" );
 			}
 			*/
-			if(object.leader){
-				this.defaults.drawCarColor( { x : object.y - 150, y : 0.2, z : object.x - 320 }, object.id, "leader" );
-			}else if(object.front!=null){
-				this.defaults.drawCarColor( { x : object.y - 150, y : 0.2, z : object.x - 320 }, object.id, "follower" );
+			if( object.speedx > 0 ){
+				if(object.leader){
+					this.defaults.drawCar3D( { x : object.y - 150, y : 0.2, z : object.x - 320 }, object.id, "leader" );
+				}else if( object.front != null ){
+					this.defaults.drawCar3D( { x : object.y - 150, y : 0.2, z : object.x - 320 }, object.id, "follower" );
+				}else{
+					this.defaults.drawCar3D( { x : object.y - 150, y : 0.2, z : object.x - 320 }, object.id, "normal" );
+				}
 			}else{
-				this.defaults.drawCarColor( { x : object.y - 150, y : 0.2, z : object.x - 320 }, object.id, "normal" );
+				if(object.leader){
+					this.defaults.drawCarBack3D( { x : object.y - 150, y : 0.2, z : object.x - 320 }, object.id, "leader" );
+				}else if( object.front != null ){
+					this.defaults.drawCarBack3D( { x : object.y - 150, y : 0.2, z : object.x - 320 }, object.id, "follower" );
+				}else{
+					this.defaults.drawCarBack3D( { x : object.y - 150, y : 0.2, z : object.x - 320 }, object.id, "normal" );
+				}
 			}
 		},
 

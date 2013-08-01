@@ -86,14 +86,14 @@ if(jQuery)(function($){
 					console.log( item, loaded, total );
 				};
 
+				
+				
 				var texture = new THREE.Texture();
-
 				var loader = new THREE.ImageLoader( manager );
 				loader.load( './image/red.jpg', function ( image ) {
 					texture.image = image;
 					texture.needsUpdate = true;
 				} );
-
 				var loader = new THREE.OBJLoader( manager );
 				loader.load( './image/Police car.obj', function ( object ) {
 					object.traverse( function ( child ) {
@@ -104,6 +104,41 @@ if(jQuery)(function($){
 					car_leader_model = object;
 				} );
 				
+				
+				var texture1 = new THREE.Texture();
+				var loader1 = new THREE.ImageLoader( manager );
+				loader1.load( './image/blue.jpg', function ( image ) {
+					texture1.image = image;
+					texture1.needsUpdate = true;
+				} );
+				
+				var loader1 = new THREE.OBJLoader( manager );
+				loader1.load( './image/Police car.obj', function ( object ) {
+					object.traverse( function ( child ) {
+						if ( child instanceof THREE.Mesh ) {
+							child.material.map = texture1;
+						}
+					} );
+					car_follower_model = object;
+				} );
+
+				
+				var texture2 = new THREE.Texture();
+				var loader2 = new THREE.ImageLoader( manager );
+				loader2.load( './image/sky.jpg', function ( image ) {
+					texture2.image = image;
+					texture2.needsUpdate = true;
+				} );
+				var loader2 = new THREE.OBJLoader( manager );
+				loader2.load( './image/Police car.obj', function ( object ) {
+					object.traverse( function ( child ) {
+						if ( child instanceof THREE.Mesh ) {
+							child.material.map = texture2;
+						}
+					} );
+					car_normal_model = object;
+				} );
+
 				
 			},
 			this.returnScene = function(){
@@ -344,7 +379,42 @@ if(jQuery)(function($){
 			this.drawCar3D = function( position, name, color ){
 				var target = o_positions[name];
 				if( target == undefined ){
-					var mesh = car_leader_model.clone();
+					var mesh;
+					if(color == "leader"){
+						mesh = car_leader_model.clone();
+					}else if(color = "follower"){
+						mesh = car_follower_model.clone();
+					}else{
+						mesh = car_normal_model.clone();
+					}
+					mesh.name = name;
+					mesh.position.x = position.x;
+					mesh.position.y = position.y;
+					mesh.position.z = position.z;
+					mesh.scale.x = 0.02;
+					mesh.scale.y = 0.02;
+					mesh.scale.z = 0.02;
+					mesh.rotation.y = Math.PI;
+					o_positions[name] = mesh;
+					scene.add( mesh );
+				}else{
+					target.position.x = position.x;
+					target.position.y = position.y;
+					target.rotation.y = Math.PI;
+					target.position.z = position.z;
+				}
+			},
+			this.drawCarBack3D = function( position, name, color ){
+				var target = o_positions[name];
+				if( target == undefined ){
+					var mesh;
+					if(color == "leader"){
+						mesh = car_leader_model.clone();
+					}else if(color = "follower"){
+						mesh = car_follower_model.clone();
+					}else{
+						mesh = car_normal_model.clone();
+					}
 					mesh.name = name;
 					mesh.position.x = position.x;
 					mesh.position.y = position.y;

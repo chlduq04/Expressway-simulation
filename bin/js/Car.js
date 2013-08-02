@@ -35,7 +35,7 @@ Car.prototype = {
 			}else{
 				if( this.speedx >= 0 ){
 					var lengthx = ( (x - this.realx) / this.radius ) / 10; 
-					var lengthy = ( (y - this.realy) / this.radius ) / 10;
+					var lengthy = ( (y - this.realy) / this.radius );
 					if( lengthx > this.limit_speed ){ lengthx = this.limit_speed; }
 					if( lengthy > this.limit_speed ){ lengthy = this.limit_speed; }
 					if( lengthx < -this.limit_speed){ lengthx = -this.limit_speed; }
@@ -64,7 +64,7 @@ Car.prototype = {
 					}
 				}else{
 					var lengthx = ( (x - this.realx) / this.radius ) / 10; 
-					var lengthy = ( (y - this.realy) / this.radius ) / 10;
+					var lengthy = ( (y - this.realy) / this.radius );
 					if( lengthx > this.limit_speed ){ lengthx = this.limit_speed; }
 					if( lengthy > this.limit_speed ){ lengthy = this.limit_speed; }
 					if( lengthx < -this.limit_speed){ lengthx = -this.limit_speed; }
@@ -97,6 +97,101 @@ Car.prototype = {
 				this.back.move(this.realx,this.realy);
 			}
 		},
+		navigationPlusSpeedxOne : function( other_cars, back_cars, up_road, down_road, option ){
+			var crash = false;
+			var checkx = this.x + this.speedx;
+			var checky = this.y + this.speedy;
+			var checkr = this.radius;
+			if( this.front == null || ( this.leader && this.back == null )){
+				if( this.line_change ){
+					if( this.next_y == this.y ){
+						this.line_change = false;
+						this.speedy = this.speed_origin_y;
+						this.speedx = this.speed_origin_x;
+						this.goaly = this.y;
+					}
+				}else{
+					var front_check = false;
+					for( var car in other_cars ){
+						if( Math.abs( checkx - other_cars[car].x ) < checkr && Math.abs( checky - other_cars[car].y ) < checkr && other_cars[car].line_change ){
+							this.speedx = other_cars[car].speedx;
+							front_check = true;
+							break;
+						}
+					}
+					if(this.back_crash > 5){
+						if(this.speedx > 0){
+							if(this.speedx + 1 < this.limit_speed){
+								this.speedx += 1;
+								this.back_crash = 0;
+							}
+						}else{
+							
+						}
+					}else if( !front_check ){
+						for( var car in other_cars ){
+							if( Math.abs( checkx - other_cars[car].x ) < checkr && Math.abs( checky - other_cars[car].y ) < checkr ){
+								crash = true;
+								var result = Math.random() * 10;
+								if(this.leader){
+									this.speedx = other_cars[car].speedx;
+									break;
+								}else if( up_road == 1 && result < 2 ){
+									this.line_change = true;
+									var array  = back_cars;
+									array.push.apply( array, other_cars );
+									for( var i in array ){
+										if( array[i].y < this.y && Math.abs( this.x - array[i].x ) < checkr * 1.5 ){
+											this.line_change = false;
+											break;
+										}
+									}
+									if(this.line_change){
+										this.next_y = this.y - this.radius;
+										this.speedx = -max_speed + option;
+										this.speedy = - 0.5;
+									}else{
+										this.speedx = other_cars[car].speedx;
+										other_cars[car].back_crash++;
+									}
+									break;
+								}else if( down_road == 1 && result > 8 ){
+									this.line_change = true;
+									var array  = back_cars;
+									array.push.apply( array, other_cars );
+									for( var i in array ){
+										if( array[i].y > this.y && Math.abs( this.x - array[i].x ) < checkr * 1.5 ){
+											this.line_change = false;
+											break;
+										}
+									}
+									if(this.line_change){
+										this.next_y = this.y + this.radius;
+										this.speedx = -max_speed + option;
+										this.speedy = + 0.5;
+									}else{
+										this.speedx = other_cars[car].speedx;
+										other_cars[car].back_crash++;
+									}
+									break;
+								}else{
+									this.speedx = other_cars[car].speedx;
+									other_cars[car].back_crash++;
+									break;
+								}
+							}else if(this.speed_origin_x > this.speedx){
+								this.speedx = this.speed_origin_x;
+								crash = false;
+							}
+						}
+					}
+				}
+				if(!crash){
+					this.move(0,0);
+				}
+			}			
+		},
+		
 		navigationPlusSpeedx : function( other_cars, back_cars, up_road, down_road ){
 			var crash = false;
 			var checkx = this.x + this.speedx;
@@ -176,6 +271,97 @@ Car.prototype = {
 									break;
 								}
 							}else if(this.speed_origin_x > this.speedx){
+								this.speedx = this.speed_origin_x;
+								crash = false;
+							}
+						}
+					}
+				}
+				if(!crash){
+					this.move(0,0);
+				}
+			}
+		},
+		navigationMinusSpeedxOne : function( other_cars, back_cars, up_road, down_road, option ){
+			var crash = false;
+			var checkx = this.x + this.speedx;
+			var checky = this.y + this.speedy;
+			var checkr = this.radius;
+			var length = other_cars.length;
+			if( this.front == null || ( this.leader && this.back == null )){
+				if( this.line_change ){
+					if( this.next_y == this.y ){
+						this.line_change = false;
+						this.speedy = this.speed_origin_y;
+						this.speedx = this.speed_origin_x;
+						this.goaly = this.y;
+					}
+				}else{
+					var front_check = false;
+					for( var car in other_cars ){
+						if( Math.abs( checkx - other_cars[car].x ) < checkr && Math.abs( checky - other_cars[car].y ) < checkr && other_cars[car].line_change ){
+							this.speedx = other_cars[car].speedx;
+							front_check = true;
+							break;
+						}
+					}
+					if(this.back_crash > 5){
+						if(this.speedx - 1 > -(this.limit_speed)){
+							this.speedx -= 1;
+							this.back_crash = 0;
+						}
+					}else if( !front_check ){
+						for( var car in other_cars ){
+							if( Math.abs( checkx - other_cars[car].x ) < checkr && Math.abs( checky - other_cars[car].y ) < checkr ){
+								crash = true;
+								var result = Math.random() * 10;
+								if(this.leader){
+									this.speedx = other_cars[car].speedx;
+									break;
+								}else if( up_road == 1 && result < 2 ){
+									this.line_change = true;
+									var array  = other_cars.slice(0);
+									array.push.apply( array, back_cars );
+									for( var i in array ){
+										if( array[i].y < this.y && Math.abs( this.x - array[i].x ) < checkr * 1.5 ){
+											this.line_change = false;
+											break;
+										}
+									}
+									if(this.line_change){
+										this.next_y = this.y - this.radius;
+										this.speedx = - max_speed - option;
+										this.speedy = - 0.5;
+									}else{
+										this.speedx = other_cars[car].speedx;
+										other_cars[car].back_crash++;
+									}
+									break;
+								}else if( down_road == 1 && result > 8 ){
+									this.line_change = true;
+									var array  = other_cars.slice(0);
+									array.push.apply( array, back_cars );
+									for( var i in array ){
+										if( array[i].y > this.y && Math.abs( this.x - array[i].x ) < checkr * 1.5 ){
+											this.line_change = false;
+											break;
+										}
+									}
+									if(this.line_change){
+										this.next_y = this.y + this.radius;
+										this.speedx = - max_speed - option;
+										this.speedy = + 0.5;
+									}else{
+										this.speedx = other_cars[car].speedx;
+										other_cars[car].back_crash++;
+									}
+									break;
+								}else{
+									this.speedx = other_cars[car].speedx;
+									other_cars[car].back_crash++;
+									break;
+								}
+							}else if( this.speed_origin_x < this.speedx ){
 								this.speedx = this.speed_origin_x;
 								crash = false;
 							}
@@ -287,7 +473,7 @@ Car.prototype = {
 			this.speedy = this.front.speedy;
 		},
 		finish : function(){
-			if( Math.abs(this.x - this.goalx) < 2 ){
+			if( Math.abs(this.x - this.goalx) < 2 || this.x < 0 || this.x > 700){
 				return true;
 			}else{
 				return false;

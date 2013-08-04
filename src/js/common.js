@@ -8,10 +8,12 @@ var gl;
 window.onload = function() {
 	/** Navigation **/
 
-	gl = $("#container").WebGL();
+	gl = $(".view_3d").WebGL();
 	gl.init();
 
-	simulation_setting = new Traffic({});
+	simulation_setting = new Traffic({
+		
+	});
 	simulation_setting.drawLoad();
 	
 	function simulation_reset(){

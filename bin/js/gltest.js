@@ -37,7 +37,7 @@ if(jQuery)(function($){
 			var m_limitspeed = { x : 50, y : 50, z : 50 };
 
 			var road_object;
-			var road_position = { x : -15, y : -2.5, z : 180 };
+			var road_position = { x : -15, y : -1.0, z : 180 };
 			var road_scale = { x : defaults.load_width, y : 2, z : defaults.load_length };
 
 			/** Car value **/
@@ -95,7 +95,7 @@ if(jQuery)(function($){
 					texture.needsUpdate = true;
 				} );
 				var loader = new THREE.OBJLoader( manager );
-				loader.load( './image/Police car.obj', function ( object ) {
+				loader.load( './image/3.natla car.obj', function ( object ) {
 					object.traverse( function ( child ) {
 						if ( child instanceof THREE.Mesh ) {
 							child.material.map = texture;
@@ -113,7 +113,7 @@ if(jQuery)(function($){
 				} );
 				
 				var loader1 = new THREE.OBJLoader( manager );
-				loader1.load( './image/Police car.obj', function ( object ) {
+				loader1.load( './image/3.natla car.obj', function ( object ) {
 					object.traverse( function ( child ) {
 						if ( child instanceof THREE.Mesh ) {
 							child.material.map = texture1;
@@ -130,7 +130,7 @@ if(jQuery)(function($){
 					texture2.needsUpdate = true;
 				} );
 				var loader2 = new THREE.OBJLoader( manager );
-				loader2.load( './image/Police car.obj', function ( object ) {
+				loader2.load( './image/3.natla car.obj', function ( object ) {
 					object.traverse( function ( child ) {
 						if ( child instanceof THREE.Mesh ) {
 							child.material.map = texture2;
@@ -151,7 +151,7 @@ if(jQuery)(function($){
 				renderer = new THREE.WebGLRenderer();
 				scene = new THREE.Scene();
 				renderer.setSize( width, height );
-				document.body.appendChild( renderer.domElement );
+				$(this)[0].appendChild( renderer.domElement );
 			}
 			this.settingCamera = function( x, y, z ){
 				camera = new THREE.PerspectiveCamera(
@@ -391,9 +391,9 @@ if(jQuery)(function($){
 					mesh.position.x = position.x;
 					mesh.position.y = position.y;
 					mesh.position.z = position.z;
-					mesh.scale.x = 0.02;
-					mesh.scale.y = 0.02;
-					mesh.scale.z = 0.02;
+					mesh.scale.x = 1;
+					mesh.scale.y = 1;
+					mesh.scale.z = 1;
 					mesh.rotation.y = Math.PI;
 					o_positions[name] = mesh;
 					scene.add( mesh );
@@ -419,9 +419,9 @@ if(jQuery)(function($){
 					mesh.position.x = position.x;
 					mesh.position.y = position.y;
 					mesh.position.z = position.z;
-					mesh.scale.x = 0.02;
-					mesh.scale.y = 0.02;
-					mesh.scale.z = 0.02;
+					mesh.scale.x = 1;
+					mesh.scale.y = 1;
+					mesh.scale.z = 1;
 					o_positions[name] = mesh;
 					scene.add( mesh );
 				}else{

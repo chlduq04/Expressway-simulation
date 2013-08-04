@@ -23,6 +23,7 @@ function Car(id,x,y,limit_speed,goalx,goaly,speedx,speedy,radius,front,back,lead
 	this.num_member = 0;
 	this.line_change = false;
 	this.back_crash = 0;
+	this.clicked = false;
 }
 
 Car.prototype = {
@@ -120,13 +121,9 @@ Car.prototype = {
 						}
 					}
 					if(this.back_crash > 5){
-						if(this.speedx > 0){
-							if(this.speedx + 1 < this.limit_speed){
-								this.speedx += 1;
-								this.back_crash = 0;
-							}
-						}else{
-							
+						if(this.speedx + 1 < this.limit_speed){
+							this.speedx += 1;
+							this.back_crash = 0;
 						}
 					}else if( !front_check ){
 						for( var car in other_cars ){
@@ -148,7 +145,6 @@ Car.prototype = {
 									}
 									if(this.line_change){
 										this.next_y = this.y - this.radius;
-										this.speedx = -max_speed + option;
 										this.speedy = - 0.5;
 									}else{
 										this.speedx = other_cars[car].speedx;
@@ -167,7 +163,6 @@ Car.prototype = {
 									}
 									if(this.line_change){
 										this.next_y = this.y + this.radius;
-										this.speedx = -max_speed + option;
 										this.speedy = + 0.5;
 									}else{
 										this.speedx = other_cars[car].speedx;

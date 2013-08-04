@@ -162,6 +162,17 @@ table {
 	margin: 10px 0 10px 0;
 }
 
+.d-name-speed {
+	text-align: center;
+	margin: 10px 0 10px 0;
+}
+
+.ds-speed-value {
+	width: 100%;
+	height: 20px;
+}
+
+
 .ds-target {
 	width: 100%;
 	height: 20px;
@@ -243,16 +254,20 @@ table {
 	width: 20%;
 }
 
-
-
-
-
-.3D_view {
-	width: 100%;
-	height: 500px;
+.view_3d {
+	float: left;
+	width: 760px;
 }
 
 .three-name-title {
 	text-align: center;
 	margin: 10px 0 10px 0;
+}
+
+.car-inner {
+	float: left;
+	width: 770px;
+	position: relative;
+	height: 90px;
+	top: 500px;
 }

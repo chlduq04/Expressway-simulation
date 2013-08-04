@@ -212,6 +212,8 @@ Traffic.prototype = {
 					}
 					$(".ds-target").val(object.id);	
 					$(".ds-unlink-target").val(object.id);	
+					$(".ds-speed-value").val( Math.abs(Math.floor(object.speedx*10)) );
+					
 				});
 				car.mouseout(function(){
 					var target = this.children[0];
@@ -219,9 +221,6 @@ Traffic.prototype = {
 				});
 				car.dblclick(function(){
 					var self = this;
-					if(!object.leader && self.front==null){
-						simulation_setting.searchLink(object.id);
-					}
 					simulation_setting.click_car = object;
 					simulation_setting.pick_car = true;
 					simulation_setting.pick_car_speed = object.speedx;
@@ -259,7 +258,7 @@ Traffic.prototype = {
 			this.car_road.children().remove();
 		},
 		newCars : function( x,y,limit_speed,goalx,goaly,speedx,speedy,radius,leader ){
-			this.cars.push( new Car( this.id++,x,y,limit_speed,goalx,goaly,speedx,speedy,radius,null,null,leader ) );
+			this.cars.push( new Car( this.id++, x, y, limit_speed, goalx, goaly, speedx, speedy, radius, null, null, leader ) );
 		},
 		addLink : function( id, object ){
 			var car = this.cars;
@@ -433,7 +432,8 @@ Traffic.prototype = {
 						this.cars[i].speed_origin_x -= this.pick_car_speed;
 					}
 					this.mode_change = true;
-				}*/
+				}
+				*/
 				for( var i = 0 ; i < length ; i++ ){
 					if( this.cars[i].y < 140 ){
 						minus_speed.push( this.cars[i] );
@@ -463,8 +463,8 @@ Traffic.prototype = {
 						else{
 							var limit = plus_speed.length;
 							var me = plus_speed.indexOf(car);
-							var right = me + 15;
-							var left = me - 10;
+							var right = +10;
+							var left = -10;
 							if(right >= limit){
 								right = limit;
 							}
@@ -565,8 +565,8 @@ Traffic.prototype = {
 				}else{
 					if(this.cars.length < max_car){
 						var check = Math.floor(Math.random()*200);
-						if( check > 195 ){
-							if( check > 198 ){
+						if( check > 197 ){
+							if( check > 199 ){
 								var result = Math.floor(Math.random() * 3) + 10;
 								this.newCars( 0, result*15, 4 - this.pick_car_speed, 700, result*15, max_speed - this.pick_car_speed, 0, 15, true );
 							}else{
@@ -578,7 +578,8 @@ Traffic.prototype = {
 									this.newCars( 0, result*15, 4 - this.pick_car_speed, 700, result*15, speed, 0, 15, false );
 								}
 							}
-						}else if(check < 10){
+						}
+						else if(check < 10){
 							if(check < 2){
 								var result = Math.floor(Math.random() * 3) + 6;
 								this.newCars( 700, result*15, 4 - this.pick_car_speed, 0, result*15, -max_speed - this.pick_car_speed, 0, 15, true );

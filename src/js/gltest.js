@@ -90,12 +90,12 @@ if(jQuery)(function($){
 				
 				var texture = new THREE.Texture();
 				var loader = new THREE.ImageLoader( manager );
-				loader.load( './image/red.jpg', function ( image ) {
+				loader.load( './image/cartexture.jpg', function ( image ) {
 					texture.image = image;
 					texture.needsUpdate = true;
 				} );
 				var loader = new THREE.OBJLoader( manager );
-				loader.load( './image/3.natla car.obj', function ( object ) {
+				loader.load( './image/carmodel.obj', function ( object ) {
 					object.traverse( function ( child ) {
 						if ( child instanceof THREE.Mesh ) {
 							child.material.map = texture;
@@ -376,34 +376,6 @@ if(jQuery)(function($){
 					target.position.z = position.z;
 				}
 			},
-			this.drawCar3D = function( position, name, color ){
-				var target = o_positions[name];
-				if( target == undefined ){
-					var mesh;
-					if(color == "leader"){
-						mesh = car_leader_model.clone();
-					}else if(color = "follower"){
-						mesh = car_follower_model.clone();
-					}else{
-						mesh = car_normal_model.clone();
-					}
-					mesh.name = name;
-					mesh.position.x = position.x;
-					mesh.position.y = position.y;
-					mesh.position.z = position.z;
-					mesh.scale.x = 1;
-					mesh.scale.y = 1;
-					mesh.scale.z = 1;
-					mesh.rotation.y = Math.PI;
-					o_positions[name] = mesh;
-					scene.add( mesh );
-				}else{
-					target.position.x = position.x;
-					target.position.y = position.y;
-					target.rotation.y = Math.PI;
-					target.position.z = position.z;
-				}
-			},
 			this.drawCarBack3D = function( position, name, color ){
 				var target = o_positions[name];
 				if( target == undefined ){
@@ -419,9 +391,37 @@ if(jQuery)(function($){
 					mesh.position.x = position.x;
 					mesh.position.y = position.y;
 					mesh.position.z = position.z;
-					mesh.scale.x = 1;
-					mesh.scale.y = 1;
-					mesh.scale.z = 1;
+					mesh.scale.x = 2;
+					mesh.scale.y = 2;
+					mesh.scale.z = 2;
+					mesh.rotation.y = Math.PI;
+					o_positions[name] = mesh;
+					scene.add( mesh );
+				}else{
+					target.position.x = position.x;
+					target.position.y = position.y;
+					target.rotation.y = Math.PI;
+					target.position.z = position.z;
+				}
+			},
+			this.drawCar3D = function( position, name, color ){
+				var target = o_positions[name];
+				if( target == undefined ){
+					var mesh;
+					if(color == "leader"){
+						mesh = car_leader_model.clone();
+					}else if(color = "follower"){
+						mesh = car_follower_model.clone();
+					}else{
+						mesh = car_normal_model.clone();
+					}
+					mesh.name = name;
+					mesh.position.x = position.x;
+					mesh.position.y = position.y;
+					mesh.position.z = position.z;
+					mesh.scale.x = 2;
+					mesh.scale.y = 2;
+					mesh.scale.z = 2;
 					o_positions[name] = mesh;
 					scene.add( mesh );
 				}else{

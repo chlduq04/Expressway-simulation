@@ -212,7 +212,7 @@ Traffic.prototype = {
 					}
 					$(".ds-target").val(object.id);	
 					$(".ds-unlink-target").val(object.id);	
-					$(".ds-speed-value").val( Math.abs(Math.floor(object.speedx*10)) );
+					$(".ds-speed-value").val( Math.abs(Math.floor(object.speedx*10))+"km" );
 					
 				});
 				car.mouseout(function(){
@@ -220,9 +220,7 @@ Traffic.prototype = {
 					$(target).fadeOut(400);
 				});
 				car.dblclick(function(){
-					var self = this;
-					simulation_setting.click_car = object;
-					simulation_setting.pick_car = true;
+//					simulation_setting.mode = "one";
 					simulation_setting.pick_car_speed = object.speedx;
 				});
 				this.car_road.append(car);

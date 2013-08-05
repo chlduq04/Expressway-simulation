@@ -33,16 +33,31 @@ Car.prototype = {
 				this.realy = this.y + this.speedy; 
 				this.x = Math.floor(this.realx*10000)*0.0001;
 				this.y = Math.floor(this.realy*10000)*0.0001;
+				
+				if( this.linking && x - this.x > this.radius * 1.1 ){
+					this.speedx += 0.02;
+				}else if( this.linking && x - this.x < this.radius * 1.1 ){
+					this.speedx -= 0.02;
+				}
+				
+				if( this.linking && x - this.x < this.radius * 1.1 ){
+					this.speedx -= 0.02;
+				}else if( this.linking && x - this.x > this.radius * 1.1 ){
+					this.speedx += 0.02;
+				}
 			}else{
 				if( this.speedx >= 0 ){
 					var lengthx = ( (x - this.realx) / this.radius ) / 10; 
 					var lengthy = ( (y - this.realy) / this.radius );
+
 					if( lengthx > this.limit_speed ){ lengthx = this.limit_speed; }
 					if( lengthy > this.limit_speed ){ lengthy = this.limit_speed; }
 					if( lengthx < -this.limit_speed){ lengthx = -this.limit_speed; }
 					if( lengthy < -this.limit_speed){ lengthy = -this.limit_speed; }
+					
 					var checkx = Math.abs(lengthx);
 					var checky = Math.abs(lengthy);
+
 					if( checkx < 0.1 && checky < 0.1 ){
 						this.linking = true;
 						this.speedx = this.front.speedx;

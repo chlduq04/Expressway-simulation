@@ -6,7 +6,7 @@ if(jQuery)(function($){
 		WebGL : function(opt){
 			var self = this;
 			var defaults = {
-					width :  770,
+					width :  760,
 					height : 600,
 					key_right : "D",
 					key_left : "A",
@@ -16,7 +16,7 @@ if(jQuery)(function($){
 					load_width : 120,
 					load_length : 1000
 			};$.extend(defaults, opt);
-
+			
 			/** System value **/
 
 			var renderer;
@@ -32,6 +32,7 @@ if(jQuery)(function($){
 
 			var camera_lookat = { x : -15, y : 0, z : 100 };
 			var camera_position = { x : -15, y : 100, z : -500 };
+			var camera_lookat_next = {x:0,y:0,z:0};
 			var m_position = { x : 0, y : 0, z : 0 };
 			var m_speed = { x : 0, y : 0, z : 0 };
 			var m_limitspeed = { x : 50, y : 50, z : 50 };
@@ -60,6 +61,11 @@ if(jQuery)(function($){
 			var car_leader_model;
 			var car_follower_model;
 			var car_normal_model;
+
+			/** Move Camera **/
+			
+			var camera_move = false;
+			
 			/** Initialize **/
 
 			this.init = function(){
@@ -90,12 +96,12 @@ if(jQuery)(function($){
 				
 				var texture = new THREE.Texture();
 				var loader = new THREE.ImageLoader( manager );
-				loader.load( './image/cartexture.jpg', function ( image ) {
+				loader.load( './image/red.jpg', function ( image ) {
 					texture.image = image;
 					texture.needsUpdate = true;
 				} );
 				var loader = new THREE.OBJLoader( manager );
-				loader.load( './image/carmodel.obj', function ( object ) {
+				loader.load( './image/3.natla car.obj', function ( object ) {
 					object.traverse( function ( child ) {
 						if ( child instanceof THREE.Mesh ) {
 							child.material.map = texture;
@@ -145,7 +151,11 @@ if(jQuery)(function($){
 				return scene;
 			},
 			this.initCamera = function(){
+				camera_lookat_next.x = camera.position.x;
+				camera_lookat_next.y = camera.position.y;
+				camera_lookat_next.z = camera.position.z + 50;
 				self.settingCamera( camera_position.x, camera_position.y, camera_position.z, target )
+//				camera_move = true;
 			},
 			this.settingRender = function( width, height ){
 				renderer = new THREE.WebGLRenderer();
@@ -192,6 +202,17 @@ if(jQuery)(function($){
 
 			},
 			this.rendering = function(){
+				/*
+				if(camera_move){
+					if( camera.position.y < camera_position.y * 2 ){
+						camera.position.y += 0.5;
+						camera_lookat_next.z += 1;
+						camera.lookAt( camera_lookat_next );
+					}else{
+						self.settingCamera( camera_position.x, camera_position.y, camera_position.z, target )
+						camera_move = false;
+					}
+				}*/
 				renderer.render( scene, camera );
 			},
 
@@ -391,9 +412,9 @@ if(jQuery)(function($){
 					mesh.position.x = position.x;
 					mesh.position.y = position.y;
 					mesh.position.z = position.z;
-					mesh.scale.x = 2;
-					mesh.scale.y = 2;
-					mesh.scale.z = 2;
+					mesh.scale.x = 1.5;
+					mesh.scale.y = 1.5;
+					mesh.scale.z = 1.5;
 					mesh.rotation.y = Math.PI;
 					o_positions[name] = mesh;
 					scene.add( mesh );
@@ -419,9 +440,9 @@ if(jQuery)(function($){
 					mesh.position.x = position.x;
 					mesh.position.y = position.y;
 					mesh.position.z = position.z;
-					mesh.scale.x = 2;
-					mesh.scale.y = 2;
-					mesh.scale.z = 2;
+					mesh.scale.x = 1.5;
+					mesh.scale.y = 1.5;
+					mesh.scale.z = 1.5;
 					o_positions[name] = mesh;
 					scene.add( mesh );
 				}else{

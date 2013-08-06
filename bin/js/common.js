@@ -1,10 +1,10 @@
-var max_speed = 2;
+var max_speed = 0.5;
 var max_car = 200;
 var simulation_speed = 40;
 var simulation_start = true;
 var simulation_setting;
 var gl;
-
+var toggle_navigation = false;
 window.onload = function() {
 	/** Navigation **/
 
@@ -12,10 +12,10 @@ window.onload = function() {
 	gl.init();
 
 	simulation_setting = new Traffic({
-		
+
 	});
-	simulation_setting.drawLoad();
-	
+//	simulation_setting.drawLoad();
+
 	function simulation_reset(){
 		simulation_start = false;
 		setTimeout(function () {
@@ -45,11 +45,11 @@ window.onload = function() {
 		}
 		myLoop();                   
 	}
-	
 
-	
+
+
 	/** Mouse click **/
-	
+
 	$(".dr-reflesh").click(function(){
 		var max = $(".ds-maxcar").val();
 		var speed_car = $(".ds-limitspeed").val();
@@ -91,6 +91,17 @@ window.onload = function() {
 		var target = $(".ds-unlink-target").val();
 		if(target.length != 0){
 			simulation_setting.unlink(target);
+		}
+	});
+	$(".road").click(function(){ 
+		if(toggle_navigation){
+			$("#top-navigation").fadeIn(800);
+			$("#bottom-navigation").fadeIn(800);
+			toggle_navigation = false;
+		}else{
+			$("#top-navigation").fadeOut(400);
+			$("#bottom-navigation").fadeOut(400);
+			toggle_navigation = true;
 		}
 	});
 };

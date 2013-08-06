@@ -7,13 +7,13 @@ if(jQuery)(function($){
 			var self = this;
 			var defaults = {
 					width :  770,
-					height : 600,
+					height : 500,
 					key_right : "D",
 					key_left : "A",
 					key_down : "S",
 					key_up : "W",
 					key_break : "M",
-					load_width : 120,
+					load_width : 240,
 					load_length : 1000
 			};$.extend(defaults, opt);
 
@@ -90,12 +90,12 @@ if(jQuery)(function($){
 				
 				var texture = new THREE.Texture();
 				var loader = new THREE.ImageLoader( manager );
-				loader.load( './image/cartexture.jpg', function ( image ) {
+				loader.load( './image/red.jpg', function ( image ) {
 					texture.image = image;
 					texture.needsUpdate = true;
 				} );
 				var loader = new THREE.OBJLoader( manager );
-				loader.load( './image/carmodel.obj', function ( object ) {
+				loader.load( './image/3.natla car.obj', function ( object ) {
 					object.traverse( function ( child ) {
 						if ( child instanceof THREE.Mesh ) {
 							child.material.map = texture;
@@ -391,16 +391,15 @@ if(jQuery)(function($){
 					mesh.position.x = position.x;
 					mesh.position.y = position.y;
 					mesh.position.z = position.z;
-					mesh.scale.x = 2;
-					mesh.scale.y = 2;
-					mesh.scale.z = 2;
+					mesh.scale.x = 6;
+					mesh.scale.y = 9;
+					mesh.scale.z = 6;
 					mesh.rotation.y = Math.PI;
 					o_positions[name] = mesh;
 					scene.add( mesh );
 				}else{
 					target.position.x = position.x;
 					target.position.y = position.y;
-					target.rotation.y = Math.PI;
 					target.position.z = position.z;
 				}
 			},
@@ -419,9 +418,9 @@ if(jQuery)(function($){
 					mesh.position.x = position.x;
 					mesh.position.y = position.y;
 					mesh.position.z = position.z;
-					mesh.scale.x = 2;
-					mesh.scale.y = 2;
-					mesh.scale.z = 2;
+					mesh.scale.x = 6;
+					mesh.scale.y = 9;
+					mesh.scale.z = 6;
 					o_positions[name] = mesh;
 					scene.add( mesh );
 				}else{
@@ -458,7 +457,7 @@ if(jQuery)(function($){
 				o_positions[name] = mesh;
 				scene.add( mesh );
 				
-				road.src = "./image/board1.png";
+				road.src = "./image/board2.png";
 				road.onload = function(){
 					road_material = new THREE.MeshLambertMaterial( { map: THREE.ImageUtils.loadTexture(road.src), transparent: false } );
 					var geometry = new THREE.CubeGeometry( scale.x, scale.y, scale.z );

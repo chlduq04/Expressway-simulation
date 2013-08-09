@@ -1,10 +1,10 @@
-var max_speed = 2;
+var max_speed = 0.5;
 var max_car = 200;
 var simulation_speed = 40;
 var simulation_start = true;
 var simulation_setting;
 var gl;
-
+var toggle_navigation = false;
 window.onload = function() {
 	/** Navigation **/
 
@@ -12,10 +12,10 @@ window.onload = function() {
 	gl.init();
 
 	simulation_setting = new Traffic({
-		
+
 	});
-	simulation_setting.drawLoad();
-	
+//	simulation_setting.drawLoad();
+
 	function simulation_reset(){
 		simulation_start = false;
 		setTimeout(function () {
@@ -36,8 +36,8 @@ window.onload = function() {
 		simulation_setting.init();
 		function myLoop () {           
 			setTimeout(function () {    
-				if (simulation_setting.moveCars()) { 
-					if(simulation_setting.cars.length != 0 && simulation_start ){
+				if ( simulation_setting.moveCars()) { 
+					if( simulation_setting.cars.length != 0 && simulation_start ){
 						myLoop();            
 					}
 				}                      
@@ -45,11 +45,11 @@ window.onload = function() {
 		}
 		myLoop();                   
 	}
-	
 
-	
+
+
 	/** Mouse click **/
-	
+
 	$(".dr-reflesh").click(function(){
 		var max = $(".ds-maxcar").val();
 		var speed_car = $(".ds-limitspeed").val();
@@ -92,5 +92,40 @@ window.onload = function() {
 		if(target.length != 0){
 			simulation_setting.unlink(target);
 		}
+	});
+	$(".road").dblclick(function(){ 
+		if(toggle_navigation){
+			$("#top-navigation").fadeIn(800);
+			$("#bottom-navigation").fadeIn(800);
+			toggle_navigation = false;
+		}else{
+			$("#top-navigation").fadeOut(400);
+			$("#bottom-navigation").fadeOut(400);
+			toggle_navigation = true;
+		}
+	})
+	$('.make-car1-blue').click(function(){
+		simulation_setting.startCar( "top", 32, false );
+	});
+	$('.make-car1-red').click(function(){
+		simulation_setting.startCar( "top", 32, true );
+	});
+	$('.make-car2-blue').click(function(){
+		simulation_setting.startCar( "top", 35, false );
+	});
+	$('.make-car2-red').click(function(){
+		simulation_setting.startCar( "top", 35, true );
+	});
+	$('.make-car3-blue').click(function(){
+		simulation_setting.startCar( "bottom", 41, false );
+	});
+	$('.make-car3-red').click(function(){
+		simulation_setting.startCar( "bottom", 41, true );
+	});
+	$('.make-car4-blue').click(function(){
+		simulation_setting.startCar( "bottom", 44, false );
+	});
+	$('.make-car4-red').click(function(){
+		simulation_setting.startCar( "bottom", 44, true );
 	});
 };

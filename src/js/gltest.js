@@ -5,18 +5,19 @@ if(jQuery)(function($){
 	$.extend($.fn, {
 		WebGL : function(opt){
 			var self = this;
+			var canvas;
 			var defaults = {
-					width :  760,
-					height : 600,
+					width :  1280,
+					height : 800,
 					key_right : "D",
 					key_left : "A",
 					key_down : "S",
 					key_up : "W",
 					key_break : "M",
-					load_width : 120,
+					load_width : 240,
 					load_length : 1000
 			};$.extend(defaults, opt);
-			
+
 			/** System value **/
 
 			var renderer;
@@ -63,9 +64,20 @@ if(jQuery)(function($){
 			var car_normal_model;
 
 			/** Move Camera **/
-			
+
 			var camera_move = false;
+
+			/** Sound **/
+
+//			var character_sound = {};
+//			var character_ctx = new AudioContext();
+//			var character_request = new XMLHttpRequest();
 			
+			/** Get value **/
+
+			this.returnCanvas = function(){
+				return canvas;
+			},
 			/** Initialize **/
 
 			this.init = function(){
@@ -73,6 +85,7 @@ if(jQuery)(function($){
 				self.settingCamera( camera_position.x, camera_position.y, camera_position.z, target )
 				self.settingKey();
 				self.settingMouse();
+				self.settingSound();
 				self.controlSkybox();
 				self.initCar();
 				self.drawLoad( road_position, road_scale, "road" );
@@ -82,18 +95,18 @@ if(jQuery)(function($){
 			},
 
 			/** Setting **/
-			
+
 			this.initCar = function(){
 				/** 3D model **/
 				var car3D;
-				
+
 				var manager = new THREE.LoadingManager();
 				manager.onProgress = function ( item, loaded, total ) {
 					console.log( item, loaded, total );
 				};
 
-				
-				
+
+
 				var texture = new THREE.Texture();
 				var loader = new THREE.ImageLoader( manager );
 				loader.load( './image/red.jpg', function ( image ) {
@@ -109,15 +122,15 @@ if(jQuery)(function($){
 					} );
 					car_leader_model = object;
 				} );
-				
-				
+
+
 				var texture1 = new THREE.Texture();
 				var loader1 = new THREE.ImageLoader( manager );
 				loader1.load( './image/blue.jpg', function ( image ) {
 					texture1.image = image;
 					texture1.needsUpdate = true;
 				} );
-				
+
 				var loader1 = new THREE.OBJLoader( manager );
 				loader1.load( './image/3.natla car.obj', function ( object ) {
 					object.traverse( function ( child ) {
@@ -128,7 +141,7 @@ if(jQuery)(function($){
 					car_follower_model = object;
 				} );
 
-				
+
 				var texture2 = new THREE.Texture();
 				var loader2 = new THREE.ImageLoader( manager );
 				loader2.load( './image/sky.jpg', function ( image ) {
@@ -145,7 +158,10 @@ if(jQuery)(function($){
 					car_normal_model = object;
 				} );
 
-				
+
+			},
+			this.returnRequest = function(){
+				return request;
 			},
 			this.returnScene = function(){
 				return scene;
@@ -161,7 +177,7 @@ if(jQuery)(function($){
 				renderer = new THREE.WebGLRenderer();
 				scene = new THREE.Scene();
 				renderer.setSize( width, height );
-				$(this)[0].appendChild( renderer.domElement );
+				canvas = $(this)[0].appendChild( renderer.domElement );
 			}
 			this.settingCamera = function( x, y, z ){
 				camera = new THREE.PerspectiveCamera(
@@ -216,6 +232,12 @@ if(jQuery)(function($){
 				renderer.render( scene, camera );
 			},
 
+			/** audio **/
+			
+			this.settingSound = function(){
+				self.sound("./sound/sound_car_drive.wav");
+			},
+			
 			/** Control **/
 
 			this.controlLight = function(){
@@ -412,16 +434,15 @@ if(jQuery)(function($){
 					mesh.position.x = position.x;
 					mesh.position.y = position.y;
 					mesh.position.z = position.z;
-					mesh.scale.x = 1.5;
-					mesh.scale.y = 1.5;
-					mesh.scale.z = 1.5;
+					mesh.scale.x = 8;
+					mesh.scale.y = 10;
+					mesh.scale.z = 6;
 					mesh.rotation.y = Math.PI;
 					o_positions[name] = mesh;
 					scene.add( mesh );
 				}else{
 					target.position.x = position.x;
 					target.position.y = position.y;
-					target.rotation.y = Math.PI;
 					target.position.z = position.z;
 				}
 			},
@@ -440,9 +461,9 @@ if(jQuery)(function($){
 					mesh.position.x = position.x;
 					mesh.position.y = position.y;
 					mesh.position.z = position.z;
-					mesh.scale.x = 1.5;
-					mesh.scale.y = 1.5;
-					mesh.scale.z = 1.5;
+					mesh.scale.x = 8;
+					mesh.scale.y = 10;
+					mesh.scale.z = 6;
 					o_positions[name] = mesh;
 					scene.add( mesh );
 				}else{
@@ -468,7 +489,7 @@ if(jQuery)(function($){
 				mesh.position.z = position.z;
 				o_positions[name] = mesh;
 				scene.add( mesh );
-				
+
 				material = new THREE.MeshLambertMaterial( { color : 0xFFCC33 } );
 				geometry = new THREE.CubeGeometry( scale.x * 1.2, scale.y, scale.z );
 				mesh = new THREE.Mesh( geometry, material );
@@ -478,8 +499,8 @@ if(jQuery)(function($){
 				mesh.position.z = position.z;
 				o_positions[name] = mesh;
 				scene.add( mesh );
-				
-				road.src = "./image/board1.png";
+
+				road.src = "./image/board2.png";
 				road.onload = function(){
 					road_material = new THREE.MeshLambertMaterial( { map: THREE.ImageUtils.loadTexture(road.src), transparent: false } );
 					var geometry = new THREE.CubeGeometry( scale.x, scale.y, scale.z );
@@ -492,6 +513,115 @@ if(jQuery)(function($){
 					scene.add( mesh );
 					renderer.render( scene, camera );
 				}
+			},
+			this.ui = function(){
+
+			},
+			this.characterControlSound = function( x, y, z ){
+				// And copy the position over to the sound of the object.
+				character_sound.panner.setPosition( x, y, z );
+				character_ctx.listener.setPosition(p.x, p.y, p.z);
+
+			},
+			this.characterSound = function(url){
+				window.AudioContext = (
+						window.AudioContext ||
+						window.webkitAudioContext ||
+						null
+				);
+
+				if (!AudioContext) {
+					throw new Error("AudioContext not supported!");
+				} 
+
+				// Create a new audio context.
+
+				// Create a AudioGainNode to control the main volume.
+				var mainVolume = character_ctx.createGain();
+				// Connect the main volume node to the context destination.
+				mainVolume.connect(character_ctx.destination);
+
+				// Create an object with a sound source and a volume control.
+				character_sound.source = character_ctx.createBufferSource();
+				character_sound.volume = character_ctx.createGain();
+
+				// Connect the sound source to the volume control.
+				character_sound.source.connect(character_sound.volume);
+				// Hook up the sound volume control to the main volume.
+				character_sound.volume.connect(mainVolume);
+
+				// Make the sound source loop.
+				character_sound.source.loop = true;
+
+				character_sound.panner = character_ctx.createPanner();
+				// Instead of hooking up the volume to the main volume, hook it up to the panner.
+				character_sound.volume.connect(character_sound.panner);
+				// And hook up the panner to the main volume.
+				character_sound.panner.connect(mainVolume);
+				
+				// Load a sound file using an ArrayBuffer XMLHttpRequest.
+				character_request.open("GET", url, true);
+				character_request.responseType = "arraybuffer";
+				character_request.onload = function(e) {
+
+					// Create a buffer from the response ArrayBuffer.
+					var buffer = character_ctx.createBuffer(this.response, false);
+					character_sound.buffer = buffer;
+
+					// Make the sound source use the buffer and start playing it.
+					character_sound.source.buffer = character_sound.buffer;
+					character_sound.source.start(character_ctx.currentTime);
+				};
+				character_request.send();
+			},
+			this.sound = function(url){
+				var sound = {};
+				var request = new XMLHttpRequest();
+				
+				window.AudioContext = (
+						window.AudioContext ||
+						window.webkitAudioContext ||
+						null
+				);
+
+				if (!AudioContext) {
+					throw new Error("AudioContext not supported!");
+				} 
+
+				// Create a new audio context.
+				var ctx = new AudioContext();
+
+				// Create a AudioGainNode to control the main volume.
+				var mainVolume = ctx.createGain();
+				// Connect the main volume node to the context destination.
+				mainVolume.connect(ctx.destination);
+
+				// Create an object with a sound source and a volume control.
+				sound.source = ctx.createBufferSource();
+				sound.volume = ctx.createGain();
+
+				// Connect the sound source to the volume control.
+				sound.source.connect(sound.volume);
+				// Hook up the sound volume control to the main volume.
+				sound.volume.connect(mainVolume);
+
+				// Make the sound source loop.
+				sound.source.loop = true;
+				
+				// Load a sound file using an ArrayBuffer XMLHttpRequest.
+				request.open("GET", url, true);
+				request.responseType = "arraybuffer";
+				request.onload = function(e) {
+
+					// Create a buffer from the response ArrayBuffer.
+					var buffer = ctx.createBuffer(this.response, false);
+					sound.buffer = buffer;
+
+					// Make the sound source use the buffer and start playing it.
+					sound.source.buffer = sound.buffer;
+					sound.source.start(ctx.currentTime);
+				};
+				request.send();
 			}
 			return this;
 		},

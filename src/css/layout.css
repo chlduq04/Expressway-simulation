@@ -15,7 +15,7 @@ article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section
 
 body {
 	line-height: 1;
-	width: 915px;
+	width: 2800px;
 }
 
 ol,ul {
@@ -60,22 +60,23 @@ table {
 .road {
 	border: 5px inset;
 	float: left;
-	width: 760px;
-	height: 430px;
+	width: 1330px;
+	height: 800px;
+	background: url("../image/navigation/background.png");
+	background-position: center;
+	background-repeat: no-repeat;
 }
 
 .cars {
-	border: 0px inset;
 	position: absolute;
-	width: 760px;
-	height: 435px;
 }
 
 .detail {
-	margin-left: 5px;
+	margin-left: 10px;
 	height: 835px;
 	width: 130px;
-	float: right;
+	float: left;
+	margin-right: 10px;
 }
 
 .d-name-clear {
@@ -139,6 +140,7 @@ table {
 }
 
 .dl-target {
+	float: left;
 	width: 48%;
 	height: 20px;
 }
@@ -171,7 +173,6 @@ table {
 	width: 100%;
 	height: 20px;
 }
-
 
 .ds-target {
 	width: 100%;
@@ -256,7 +257,7 @@ table {
 
 .view_3d {
 	float: left;
-	width: 760px;
+	width: 1024px;
 }
 
 .three-name-title {
@@ -270,4 +271,185 @@ table {
 	position: relative;
 	height: 90px;
 	top: 500px;
+}
+
+#top-navigation {
+	position: absolute;
+	width: 1330px;
+	height: 170px;
+	z-index: 20;
+	background: url("../image/navigation/navigation-top.png");
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+#bottom-navigation {
+	margin-top: 635px;
+	position: absolute;
+	width: 1330px;
+	height: 170px;
+	z-index: 20;
+	background: url("../image/navigation/navigation-bottom.png");
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.car-id {
+	margin-top: 13px;
+	width: 50px;
+	height: 15px;
+	margin-left: 186px;
+	font-size: 15px;
+	font-family: serif;
+}
+
+.car-front {
+	margin-top: 5px;
+	width: 200px;
+	height: 45px;
+	margin-left: 90px;
+	font-size: 48px;
+	font-family: serif;
+}
+
+.car-speed {
+	margin-top: 5px;
+	width: 20px;
+	height: 15px;
+	margin-left: 308px;
+	font-size: 13px;
+	font-family: serif;
+}
+
+.ui {
+	width: 1280px;
+	margin-top: 350px;
+	height: 100px;
+	position: absolute;
+}
+
+.ui-left {
+	float: left;
+	width: 30%;
+	height: 100%;
+	margin-right: 5%;
+}
+
+.ui-right {
+	float: left;
+	width: 30%;
+	height: 100%;
+	margin-left: 5%;
+}
+
+.ui-center {
+	float: left;
+	width: 30%;
+	height: 100%;
+}
+
+.road-make-car1 {
+	width: 60px;
+	height: 60px;
+	float: left;
+	margin-left: 495px;
+	opacity: 0.1;
+}
+
+.road-make-car2 {
+	width: 60px;
+	height: 60px;
+	float: left;
+	margin-left: 10px;
+	opacity: 0.1;
+}
+
+.road-make-car3 {
+	width: 60px;
+	height: 60px;
+	float: left;
+	margin-top: 740px;
+	margin-left: 10px;
+	opacity: 0.1;
+}
+
+.road-make-car4 {
+	width: 60px;
+	height: 60px;
+	float: left;
+	margin-top: 740px;
+	margin-left: 10px;
+	opacity: 0.1;
+}
+
+.make-car1-blue {
+	background: url("../image/navigation/blue.png");
+	background-position: center;
+	background-repeat: no-repeat;
+	height: 100%;
+	width: 50%;
+	float: left;
+}
+
+.make-car1-red {
+	background: url("../image/navigation/red.png");
+	background-position: center;
+	background-repeat: no-repeat;
+	height: 100%;
+	width: 50%;
+	float: left;
+}
+
+.make-car2-blue {
+	background: url("../image/navigation/blue.png");
+	background-position: center;
+	background-repeat: no-repeat;
+	height: 100%;
+	width: 50%;
+	float: left;
+}
+
+.make-car2-red {
+	background: url("../image/navigation/red.png");
+	background-position: center;
+	background-repeat: no-repeat;
+	height: 100%;
+	width: 50%;
+	float: left;
+}
+
+.make-car3-blue {
+	background: url("../image/navigation/blue.png");
+	background-position: center;
+	background-repeat: no-repeat;
+	height: 100%;
+	width: 50%;
+	float: left;
+}
+
+.make-car3-red {
+	background: url("../image/navigation/red.png");
+	background-position: center;
+	background-repeat: no-repeat;
+	height: 100%;
+	width: 50%;
+	float: left;
+}
+
+.make-car4-blue {
+	background: url("../image/navigation/blue.png");
+	background-position: center;
+	background-repeat: no-repeat;
+	height: 100%;
+	width: 50%;
+	float: left;
+}
+
+.make-car4-red {
+	background: url("../image/navigation/red.png");
+	background-position: center;
+	background-repeat: no-repeat;
+	height: 100%;
+	width: 50%;
+	float: left;
 }

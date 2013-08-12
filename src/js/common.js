@@ -5,10 +5,13 @@ var simulation_start = true;
 var simulation_setting;
 var gl;
 var toggle_navigation = false;
+var toggle_sound = false;
 window.onload = function() {
 	/** Navigation **/
 
-	gl = $(".view_3d").WebGL();
+	gl = $(".view_3d").WebGL({
+		sound : toggle_sound
+	});
 	gl.init();
 
 	simulation_setting = new Traffic({
@@ -30,7 +33,8 @@ window.onload = function() {
 			deleteCar3D : gl.deleteCar,
 			camera3D : gl.controlCamera,
 			initCamera3D : gl.initCamera,
-			render3D : gl.rendering
+			render3D : gl.rendering,
+			drawPlayer : gl.drawCarPlayer3D
 		});
 		simulation_setting.drawLoad();
 		simulation_setting.init();
@@ -111,10 +115,10 @@ window.onload = function() {
 		simulation_setting.startCar( "top", 32, true );
 	});
 	$('.make-car2-blue').click(function(){
-		simulation_setting.startCar( "top", 35, false );
+		simulation_setting.startCar( "top", 36, false );
 	});
 	$('.make-car2-red').click(function(){
-		simulation_setting.startCar( "top", 35, true );
+		simulation_setting.startCar( "top", 36, true );
 	});
 	$('.make-car3-blue').click(function(){
 		simulation_setting.startCar( "bottom", 41, false );
@@ -123,9 +127,9 @@ window.onload = function() {
 		simulation_setting.startCar( "bottom", 41, true );
 	});
 	$('.make-car4-blue').click(function(){
-		simulation_setting.startCar( "bottom", 44, false );
+		simulation_setting.startCar( "bottom", 45, false );
 	});
 	$('.make-car4-red').click(function(){
-		simulation_setting.startCar( "bottom", 44, true );
+		simulation_setting.startCar( "bottom", 45, true );
 	});
 };

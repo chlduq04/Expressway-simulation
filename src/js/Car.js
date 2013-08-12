@@ -25,6 +25,9 @@ function Car(id,x,y,limit_speed,goalx,goaly,speedx,speedy,radius,front,back,lead
 	this.back_crash = 0;
 	this.clicked = false;
 	this.player = false;
+	this.rotate = 0;
+	this.line_change_left = false;
+	this.line_change_right = false;
 }
 
 Car.prototype = {
@@ -36,19 +39,19 @@ Car.prototype = {
 				this.y = Math.floor(this.realy*10000)*0.0001;
 
 //				if(this.speedy < 0){
-//					if( this.linking && this.y - y >= this.radius * 3.0 ){
-//						this.speedy -= 0.05;
-//					}else if( this.linking && this.y - y < this.radius * 3.0 ){
-//						this.speedy += 0.05;
-//					}
-//				}else{
-//					if( this.linking && y - this.y >= this.radius * 3.0 ){
-//						this.speedy += 0.05;
-//					}else if( this.linking && y - this.y < this.radius * 3.0 ){
-//						this.speedy -= 0.05;
-//					}
+//				if( this.linking && this.y - y >= this.radius * 3.0 ){
+//				this.speedy -= 0.05;
+//				}else if( this.linking && this.y - y < this.radius * 3.0 ){
+//				this.speedy += 0.05;
 //				}
-				
+//				}else{
+//				if( this.linking && y - this.y >= this.radius * 3.0 ){
+//				this.speedy += 0.05;
+//				}else if( this.linking && y - this.y < this.radius * 3.0 ){
+//				this.speedy -= 0.05;
+//				}
+//				}
+
 			}else{
 				if( this.speedy >= 0 ){
 					var lengthx = ( (x - this.realx) / this.radius / 3 ); 
@@ -57,7 +60,7 @@ Car.prototype = {
 					if( lengthy > this.limit_speed ){ lengthy = this.limit_speed; }
 					if( lengthx < -this.limit_speed){ lengthx = -this.limit_speed; }
 					if( lengthy < -this.limit_speed){ lengthy = -this.limit_speed; }
-					
+
 					var checkx = Math.abs(lengthx);
 					var checky = Math.abs(lengthy);
 
@@ -226,8 +229,30 @@ Car.prototype = {
 			var checkr = this.radius;
 			if( this.front == null || ( this.leader && this.back == null )){
 				if( this.line_change ){
+					if( Math.abs(this.next_x - this.x) > 32 ){
+						if(this.line_change_left){
+							this.rotate = 10;
+						}else{
+							this.rotate = -10;
+						}					
+					}else if( Math.abs(this.next_x - this.x) < 16 ){
+						if(this.line_change_left){
+							this.rotate = 10;
+						}else{
+							this.rotate = -10;
+						}
+					}else{
+						if(this.line_change_left){
+							this.rotate = 30;
+						}else{
+							this.rotate = -30;
+						}
+					}
 					if( this.next_x == this.x ){
+						this.rotate = 0;
 						this.line_change = false;
+						this.line_change_left = false;
+						this.line_change_right = false;
 						this.speedy = this.speed_origin_y;
 						this.speedx = this.speed_origin_x;
 						this.goalx = this.x;
@@ -259,15 +284,17 @@ Car.prototype = {
 									var array  = back_cars;
 									array.push.apply( array, other_cars );
 									for( var i in array ){
-										if( array[i].x < this.x && Math.abs( this.y - array[i].y ) < checkr * 1.5 * 3 ){
+										if( array[i].x < this.x && Math.abs( this.y - array[i].y ) < checkr * 3 ){
 											this.line_change = false;
 											break;
 										}
 									}
 									if(this.line_change){
-										this.next_x = this.x - this.radius * 3;
-										this.speedy = max_speed;
+										this.line_change_left = true;
+										this.next_x = this.x - this.radius * 4;
+										this.speedy = max_speed+2;
 										this.speedx = - 0.5;
+										this.rotate = 30;
 									}else{
 										this.speedy = other_cars[car].speedy;
 										other_cars[car].back_crash++;
@@ -278,15 +305,17 @@ Car.prototype = {
 									var array  = back_cars;
 									array.push.apply( array, other_cars );
 									for( var i in array ){
-										if( array[i].x > this.x && Math.abs( this.y - array[i].y ) < checkr * 1.5 * 3 ){
+										if( array[i].x > this.x && Math.abs( this.y - array[i].y ) < checkr  * 3 ){
 											this.line_change = false;
 											break;
 										}
 									}
 									if(this.line_change){
-										this.next_x = this.x + this.radius * 3;
-										this.speedy = max_speed;
+										this.line_change_right = true;
+										this.next_x = this.x + this.radius * 4;
+										this.speedy = max_speed+2;
 										this.speedx = + 0.5;
+										this.rotate = -30;
 									}else{
 										this.speedy = other_cars[car].speedy;
 										other_cars[car].back_crash++;
@@ -410,10 +439,32 @@ Car.prototype = {
 			var length = other_cars.length;
 			if( this.front == null || ( this.leader && this.back == null )){
 				if( this.line_change ){
+					if( Math.abs(this.next_x - this.x) > 32 ){
+						if(this.line_change_left){
+							this.rotate = 10;
+						}else{
+							this.rotate = -10;
+						}					
+					}else if( Math.abs(this.next_x - this.x) < 16 ){
+						if(this.line_change_left){
+							this.rotate = 10;
+						}else{
+							this.rotate = -10;
+						}
+					}else{
+						if(this.line_change_left){
+							this.rotate = 30;
+						}else{
+							this.rotate = -30;
+						}
+					}
 					if( this.next_x== this.x ){
+						this.rotate = 0;
 						this.line_change = false;
 						this.speedy = this.speed_origin_y;
 						this.speedx = this.speed_origin_x;
+						this.line_change_left = false;
+						this.line_change_right = false;
 						this.goalx = this.x;
 					}
 				}else{
@@ -426,9 +477,11 @@ Car.prototype = {
 						}
 					}
 					if(this.back_crash > 5){
-						if(this.speedy - 1 > -(this.limit_speed)){
-							this.speedy -= 1;
-							this.back_crash = 0;
+						if(!this.player){
+							if(this.speedy - 1 > -(this.limit_speed)){
+								this.speedy -= 1;
+								this.back_crash = 0;
+							}
 						}
 					}else if( !front_check ){
 						for( var car in other_cars ){
@@ -443,18 +496,17 @@ Car.prototype = {
 									var array = other_cars.slice(0);
 									array.push.apply( array, back_cars );
 									for( var i in array ){
-										if( array[i].x < this.x && Math.abs( this.y - array[i].y ) < checkr * 1.5 * 3 ){
+										if( array[i].x < this.x && Math.abs( this.y - array[i].y ) < checkr * 3 ){
 											this.line_change = false;
 											break;
 										}
 									}
 									if(this.line_change){
-										this.next_x = this.x - this.radius * 3;
-										this.speedy = - max_speed;
+										this.line_change_right = true;
+										this.next_x = this.x - this.radius * 4;
+										this.speedy = 0;
 										this.speedx = - 0.5;
 									}else{
-										var bang = $("<div></div>")
-//										bang.css({ "width":"50px", "height":"50px", "position": });
 										this.speedy = other_cars[car].speedy;
 										other_cars[car].back_crash++;
 									}
@@ -464,14 +516,15 @@ Car.prototype = {
 									var array  = other_cars.slice(0);
 									array.push.apply( array, back_cars );
 									for( var i in array ){
-										if( array[i].x > this.x && Math.abs( this.y - array[i].y ) < checkr * 1.5 * 3 ){
+										if( array[i].x > this.x && Math.abs( this.y - array[i].y ) < checkr * 3 ){
 											this.line_change = false;
 											break;
 										}
 									}
 									if(this.line_change){
-										this.next_x = this.x + this.radius * 3;
-										this.speedy = - max_speed;
+										this.line_change_left = true;
+										this.next_x = this.x + this.radius * 4;
+										this.speedy = 0;
 										this.speedx = + 0.5;
 									}else{
 										this.speedy = other_cars[car].speedy;

@@ -1,6 +1,6 @@
 
 function Traffic(opt){
-
+	this.time= -800;
 	this.id = 0;
 	this.link_id = 0;
 	this.cars = [];
@@ -17,60 +17,60 @@ function Traffic(opt){
 	this.leader_image_left = new Image();
 	this.follower_image_left = new Image();
 	this.testroad = [
-	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,1,8,8,2,8, 8,1,8,8,1,8,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,1,8,8,2,8, 8,1,8,8,1,8,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,1,8,8,2,8, 8,1,8,8,1,8,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,1,8,8,2,8, 8,1,8,8,1,8,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,1,8,8,2,8, 8,1,8,8,1,8,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,1,8,8,2,8, 8,1,8,8,1,8,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,1,8,8,2,8, 8,1,8,8,1,8,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,1,8,8,2,8, 8,1,8,8,1,8,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,1,8,8,2,8, 8,1,8,8,1,8,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,1,8,8,2,8, 8,1,8,8,1,8,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,8,1,8,2,8, 8,1,8,8,8,1,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,8,1,8,2,8, 8,1,8,8,8,1,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,8,1,8,2,8, 8,1,8,8,8,1,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,8,1,8,2,8, 8,1,8,8,8,1,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,8,1,8,2,8, 8,1,8,8,8,1,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,8,1,8,2,8, 8,1,8,8,8,1,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,8,1,8,2,8, 8,1,8,8,8,1,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,8,1,8,2,8, 8,1,8,8,8,1,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,8,1,8,2,8, 8,1,8,8,8,1,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,8,1,8,2,8, 8,1,8,8,8,1,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
 
-	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,1,8,8,2,8, 8,1,8,8,1,8,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,1,8,8,2,8, 8,1,8,8,1,8,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,1,8,8,2,8, 8,1,8,8,1,8,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,1,8,8,2,8, 8,1,8,8,1,8,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,1,8,8,2,8, 8,1,8,8,1,8,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,1,8,8,2,8, 8,1,8,8,1,8,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,1,8,8,2,8, 8,1,8,8,1,8,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,1,8,8,2,8, 8,1,8,8,1,8,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,1,8,8,2,8, 8,1,8,8,1,8,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,1,8,8,2,8, 8,1,8,8,1,8,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,8,1,8,2,8, 8,1,8,8,8,1,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,8,1,8,2,8, 8,1,8,8,8,1,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,8,1,8,2,8, 8,1,8,8,8,1,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,8,1,8,2,8, 8,1,8,8,8,1,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,8,1,8,2,8, 8,1,8,8,8,1,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,8,1,8,2,8, 8,1,8,8,8,1,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,8,1,8,2,8, 8,1,8,8,8,1,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,8,1,8,2,8, 8,1,8,8,8,1,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,8,1,8,2,8, 8,1,8,8,8,1,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,8,1,8,2,8, 8,1,8,8,8,1,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
 
-	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,1,8,8,2,8, 8,1,8,8,1,8,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,1,8,8,2,8, 8,1,8,8,1,8,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,1,8,8,2,8, 8,1,8,8,1,8,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,1,8,8,2,8, 8,1,8,8,1,8,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,1,8,8,2,8, 8,1,8,8,1,8,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,1,8,8,2,8, 8,1,8,8,1,8,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,1,8,8,2,8, 8,1,8,8,1,8,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,1,8,8,2,8, 8,1,8,8,1,8,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,1,8,8,2,8, 8,1,8,8,1,8,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,1,8,8,2,8, 8,1,8,8,1,8,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,8,1,8,2,8, 8,1,8,8,8,1,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,8,1,8,2,8, 8,1,8,8,8,1,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,8,1,8,2,8, 8,1,8,8,8,1,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,8,1,8,2,8, 8,1,8,8,8,1,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,8,1,8,2,8, 8,1,8,8,8,1,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,8,1,8,2,8, 8,1,8,8,8,1,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,8,1,8,2,8, 8,1,8,8,8,1,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,8,1,8,2,8, 8,1,8,8,8,1,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,8,1,8,2,8, 8,1,8,8,8,1,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,8,1,8,2,8, 8,1,8,8,8,1,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
 
-	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,1,8,8,2,8, 8,1,8,8,1,8,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,1,8,8,2,8, 8,1,8,8,1,8,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,1,8,8,2,8, 8,1,8,8,1,8,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,1,8,8,2,8, 8,1,8,8,1,8,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,1,8,8,2,8, 8,1,8,8,1,8,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,1,8,8,2,8, 8,1,8,8,1,8,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,1,8,8,2,8, 8,1,8,8,1,8,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,1,8,8,2,8, 8,1,8,8,1,8,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,1,8,8,2,8, 8,1,8,8,1,8,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,1,8,8,2,8, 8,1,8,8,1,8,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,8,1,8,2,8, 8,1,8,8,8,1,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,8,1,8,2,8, 8,1,8,8,8,1,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,8,1,8,2,8, 8,1,8,8,8,1,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,8,1,8,2,8, 8,1,8,8,8,1,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,8,1,8,2,8, 8,1,8,8,8,1,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,8,1,8,2,8, 8,1,8,8,8,1,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,8,1,8,2,8, 8,1,8,8,8,1,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,8,1,8,2,8, 8,1,8,8,8,1,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,8,1,8,2,8, 8,1,8,8,8,1,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,8,1,8,2,8, 8,1,8,8,8,1,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
 
-	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,1,8,8,2,8, 8,1,8,8,1,8,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,1,8,8,2,8, 8,1,8,8,1,8,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,1,8,8,2,8, 8,1,8,8,1,8,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,1,8,8,2,8, 8,1,8,8,1,8,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,1,8,8,2,8, 8,1,8,8,1,8,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,1,8,8,2,8, 8,1,8,8,1,8,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,1,8,8,2,8, 8,1,8,8,1,8,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,1,8,8,2,8, 8,1,8,8,1,8,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,1,8,8,2,8, 8,1,8,8,1,8,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
-	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,1,8,8,2,8, 8,1,8,8,1,8,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0]
+	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,8,1,8,2,8, 8,1,8,8,8,1,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,8,1,8,2,8, 8,1,8,8,8,1,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,8,1,8,2,8, 8,1,8,8,8,1,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,8,1,8,2,8, 8,1,8,8,8,1,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,8,1,8,2,8, 8,1,8,8,8,1,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,8,1,8,2,8, 8,1,8,8,8,1,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,8,1,8,2,8, 8,1,8,8,8,1,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,8,1,8,2,8, 8,1,8,8,8,1,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,8,1,8,2,8, 8,1,8,8,8,1,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
+	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,9,3, 8,8,1,8,8,8,1,8,2,8, 8,1,8,8,8,1,8,3,9,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0]
 	                 ];
 	this.go = true;
 	this.click_car = null;
@@ -85,6 +85,7 @@ function Traffic(opt){
 			camera3D : function(){},
 			initCamera3D : function(){},
 			render3D : function(){},
+			drawPlayer : function(){},
 			pixelLarge : 16,
 			pixelSmall : 4,
 			carSize : 48,
@@ -138,16 +139,10 @@ Traffic.prototype = {
 			this.follower_image_left.src = "./image/navigation/top-left-follower.png";
 
 			this.resetCars();
-			if(this.mode == "one"){
-				var speed = Math.random() * 1 + max_speed;
-				var result = 41;
-				this.newCars( result*this.defaults.pixelLarge, 360, 4, result*this.defaults.pixelLarge, 400, 0, 0, this.defaults.pixelLarge, false );
-				this.cars[0].player = true;
-			}else{
-				var speed = Math.random() * 1 + max_speed;
-				var result = 32;
-				this.newCars( result*this.defaults.pixelLarge, 1, 4, result*this.defaults.pixelLarge, 720, 0, speed, this.defaults.pixelLarge, false );
-			}
+			var speed = Math.random() * 1 + max_speed;
+			var result = 45;
+			this.newCars( result*this.defaults.pixelLarge, 500, 4, result*this.defaults.pixelLarge, 550, 0, 0, this.defaults.pixelLarge, false );
+			this.cars[0].player = true;
 		},
 		drawCars : function( object ){
 			var car = $("#car"+object.id);
@@ -156,19 +151,19 @@ Traffic.prototype = {
 				var text = "<div class='car-id'>id : "+object.id+"</div>"
 				if( object.x > this.defaults.lineSize ){
 					if(object.leader){
-						car.css({ "width":this.defaults.carSize, "height":this.defaults.carSize, "left":object.realx, "top":object.realy });
+						car.css({ "width":this.defaults.carSize, "height":this.defaults.carSize, "left":object.realx, "top":object.realy, "transform":"rotate("+object.rotate+"deg)" });
 					}else if(object.front!=null){
-						car.css({ "background-image":"url('./image/navigation/top-top-follower.png')", "width":this.defaults.carSize, "height":this.defaults.carSize, "left":object.realx, "top":object.realy });
+						car.css({ "background-image":"url('./image/navigation/top-top-follower.png')", "width":this.defaults.carSize, "height":this.defaults.carSize, "left":object.realx, "top":object.realy, "transform":"rotate("+object.rotate+"deg)"});
 					}else{
-						car.css({ "background-image":"url('./image/navigation/top-top-normal.png')", "width":this.defaults.carSize, "height":this.defaults.carSize, "left":object.realx, "top":object.realy });
+						car.css({ "background-image":"url('./image/navigation/top-top-normal.png')", "width":this.defaults.carSize, "height":this.defaults.carSize, "left":object.realx, "top":object.realy, "transform":"rotate("+object.rotate+"deg)" });
 					}
 				}else{
 					if(object.leader){
-						car.css({ "width":this.defaults.carSize, "height":this.defaults.carSize, "left":object.realx, "top":object.realy });
+						car.css({ "width":this.defaults.carSize, "height":this.defaults.carSize, "left":object.realx, "top":object.realy, "transform":"rotate("+object.rotate+"deg)" });
 					}else if(object.front!=null){
-						car.css({ "background-image":"url('./image/navigation/top-bottom-follower.png')", "width":this.defaults.carSize, "height":this.defaults.carSize, "left":object.realx, "top":object.realy });
+						car.css({ "background-image":"url('./image/navigation/top-bottom-follower.png')", "width":this.defaults.carSize, "height":this.defaults.carSize, "left":object.realx, "top":object.realy, "transform":"rotate("+object.rotate+"deg)" });
 					}else{
-						car.css({ "background-image":"url('./image/navigation/top-bottom-normal.png')", "width":this.defaults.carSize, "height":this.defaults.carSize, "left":object.realx, "top":object.realy });
+						car.css({ "background-image":"url('./image/navigation/top-bottom-normal.png')", "width":this.defaults.carSize, "height":this.defaults.carSize, "left":object.realx, "top":object.realy, "transform":"rotate("+object.rotate+"deg)" });
 					}
 				}
 				var text;
@@ -188,20 +183,20 @@ Traffic.prototype = {
 				var detail =  $("<div id='car"+object.id+"-over'></div>");
 				if( object.x > this.defaults.lineSize ){
 					if(object.leader){
-						car.css({ "background-position":"center","background-size":"cover", "border-radius": "50px", "position":"absolute", "z-index":"10", "background-image":"url('./image/navigation/top-top-leader.png')", "width":this.defaults.carSize, "height":this.defaults.carSize, "left":object.realx, "top":object.realy });
+						car.css({ "background-position":"center","background-size":"cover", "border-radius": "50px", "position":"absolute", "z-index":"10", "background-image":"url('./image/navigation/top-top-leader.png')", "width":this.defaults.carSize, "height":this.defaults.carSize, "left":object.realx, "top":object.realy, "transform":"rotate("+object.rotate+"deg)" });
 					}else if(object.front!=null){
-						car.css({ "background-position":"center","background-size":"cover", "border-radius": "50px", "position":"absolute", "z-index":"10", "background-image":"url('./image/navigation/top-top-follower.png')", "width":this.defaults.carSize, "height":this.defaults.carSize, "left":object.realx, "top":object.realy });
+						car.css({ "background-position":"center","background-size":"cover", "border-radius": "50px", "position":"absolute", "z-index":"10", "background-image":"url('./image/navigation/top-top-follower.png')", "width":this.defaults.carSize, "height":this.defaults.carSize, "left":object.realx, "top":object.realy, "transform":"rotate("+object.rotate+"deg)" });
 					}else{
-						car.css({ "background-position":"center","background-size":"cover", "border-radius": "50px", "position":"absolute", "z-index":"10", "background-image":"url('./image/navigation/top-top-normal.png')", "width":this.defaults.carSize, "height":this.defaults.carSize, "left":object.realx, "top":object.realy });
+						car.css({ "background-position":"center","background-size":"cover", "border-radius": "50px", "position":"absolute", "z-index":"10", "background-image":"url('./image/navigation/top-top-normal.png')", "width":this.defaults.carSize, "height":this.defaults.carSize, "left":object.realx, "top":object.realy, "transform":"rotate("+object.rotate+"deg)" });
 					}
 				}
 				else{
 					if(object.leader){
-						car.css({ "background-position":"center","background-size":"cover", "border-radius": "50px", "position":"absolute", "z-index":"10", "background-image":"url('./image/navigation/top-bottom-leader.png')", "width":this.defaults.carSize, "height":this.defaults.carSize, "left":object.realx, "top":object.realy });
+						car.css({ "background-position":"center","background-size":"cover", "border-radius": "50px", "position":"absolute", "z-index":"10", "background-image":"url('./image/navigation/top-bottom-leader.png')", "width":this.defaults.carSize, "height":this.defaults.carSize, "left":object.realx, "top":object.realy, "transform":"rotate("+object.rotate+"deg)" });
 					}else if(object.front!=null){
-						car.css({ "background-position":"center","background-size":"cover", "border-radius": "50px", "position":"absolute", "z-index":"10", "background-image":"url('./image/navigation/top-bottom-follower.png')", "width":this.defaults.carSize, "height":this.defaults.carSize, "left":object.realx, "top":object.realy });
+						car.css({ "background-position":"center","background-size":"cover", "border-radius": "50px", "position":"absolute", "z-index":"10", "background-image":"url('./image/navigation/top-bottom-follower.png')", "width":this.defaults.carSize, "height":this.defaults.carSize, "left":object.realx, "top":object.realy, "transform":"rotate("+object.rotate+"deg)" });
 					}else{
-						car.css({ "background-position":"center","background-size":"cover", "border-radius": "50px", "position":"absolute", "z-index":"10", "background-image":"url('./image/navigation/top-bottom-normal.png')", "width":this.defaults.carSize, "height":this.defaults.carSize, "left":object.realx, "top":object.realy });
+						car.css({ "background-position":"center","background-size":"cover", "border-radius": "50px", "position":"absolute", "z-index":"10", "background-image":"url('./image/navigation/top-bottom-normal.png')", "width":this.defaults.carSize, "height":this.defaults.carSize, "left":object.realx, "top":object.realy, "transform":"rotate("+object.rotate+"deg)" });
 					}
 				}
 				detail.css({
@@ -252,22 +247,27 @@ Traffic.prototype = {
 				this.car_road.append(car);
 			}
 
-			if( object.x < this.defaults.lineSize ){
-				if(object.leader){
-					this.defaults.drawCar3D( { x : object.x - 620, y : 0.2, z : object.y - 320 }, object.id, "leader" );
-				}else if( object.front != null ){
-					this.defaults.drawCar3D( { x : object.x - 620, y : 0.2, z : object.y - 320 }, object.id, "follower" );
-				}else{
-					this.defaults.drawCar3D( { x : object.x - 620, y : 0.2, z : object.y - 320 }, object.id, "normal" );
-				}
+			if(object.player){
+				this.defaults.drawPlayer( { x : object.x - 620, y : 15, z : ( object.y - 320 ) * 1.8 }, object.id, "follower", 0 );
 			}else{
-				if(object.leader){
-					this.defaults.drawCarBack3D( { x : object.x - 640, y : 0.2, z : object.y - 320 }, object.id, "leader" );
-				}else if( object.front != null ){
-					this.defaults.drawCarBack3D( { x : object.x - 640, y : 0.2, z : object.y - 320 }, object.id, "follower" );
+				if( object.x < this.defaults.lineSize ){
+					if(object.leader){
+						this.defaults.drawCar3D( { x : object.x - 620, y : 15, z : (object.y - 320) * 1.8 }, object.id, "leader", 0 );
+					}else if( object.front != null ){
+						this.defaults.drawCar3D( { x : object.x - 620, y : 15, z : ( object.y - 320 ) * 1.8 }, object.id, "follower", 0 );
+					}else{
+						this.defaults.drawCar3D( { x : object.x - 620, y : 15, z : ( object.y - 320 ) * 1.8 }, object.id, "normal", 0 );
+					}
 				}else{
-					this.defaults.drawCarBack3D( { x : object.x - 640, y : 0.2, z : object.y - 320 }, object.id, "normal" );
+					if(object.leader){
+						this.defaults.drawCarBack3D( { x : object.x - 640, y : 15, z : ( object.y - 320 ) * 1.8 }, object.id, "leader", 0 );
+					}else if( object.front != null ){
+						this.defaults.drawCarBack3D( { x : object.x - 640, y : 15, z : ( object.y - 320 ) * 1.8 }, object.id, "follower", 0 );
+					}else{
+						this.defaults.drawCarBack3D( { x : object.x - 640, y : 15, z : ( object.y - 320 ) * 1.8 }, object.id, "normal", 0 );
+					}
 				}
+
 			}
 		},
 
@@ -339,9 +339,9 @@ Traffic.prototype = {
 					}
 				}
 			}
-			simulation_setting.click_car = car;
-			simulation_setting.pick_car = true;
-			simulation_setting.pick_car_speed = car.speedy;
+//			simulation_setting.click_car = car;
+//			simulation_setting.pick_car = true;
+//			simulation_setting.pick_car_speed = car.speedy;
 
 		},
 		unlink : function( id ){
@@ -391,55 +391,10 @@ Traffic.prototype = {
 				for( var i = 0 ; i < length ; i++ ){
 					if( this.cars[i].speedy > 0 ){
 						plus_speed.push( this.cars[i] );
-					}else{
+					}else if( this.cars[i].speedy < 0 ){
 						minus_speed.push( this.cars[i] );
-					}
-				}
-				for( var i = 0 ; i < length ; i++ ){
-					var car = this.cars[i];
-					var x = Math.floor( car.x / car.radius );
-					var y = Math.floor( car.y / car.radius );
-					if(!car.finish()){
-						this.go = true;
-						if(car.speedy >= 0){
-							var limit = plus_speed.length;
-							var me = plus_speed.indexOf(car);
-							var right = me + 10;
-							var left = me - 10;
-							if(right >= limit){
-								right = limit;
-							}
-							if(left < 0){
-								left = 0;
-							}
-							car.navigationPlusSpeedx( plus_speed.slice( me+1, right ), plus_speed.slice( left, me ), this.testroad[y][x-3], this.testroad[y][x+3] );
-						}
-						else{
-							var limit = minus_speed.length;
-							var me = minus_speed.indexOf(car);
-							var right = me + 10;
-							var left = me - 10;
-							if(right >= limit){
-								right = length;
-							}
-							if(left < 0){
-								left = 0;
-							}
-							car.navigationMinusSpeedx( minus_speed.slice( left, me ), minus_speed.slice( me+1, right ), this.testroad[y][x-3], this.testroad[y][x+3] );
-						}
 					}else{
-						goal.push(i);
-					}
-					this.drawCars( car );
-				}
-				if(this.pick_car){
-					this.pickCars();
-				}
-			}else if( this.mode == "one" ){
-				for( var i = 0 ; i < length ; i++ ){
-					if( this.cars[i].x <= 40 * this.defaults.pixelLarge ){
 						plus_speed.push( this.cars[i] );
-					}else{
 						minus_speed.push( this.cars[i] );
 					}
 				}
@@ -449,22 +404,9 @@ Traffic.prototype = {
 					var y = Math.floor( car.y / car.radius );
 					if(!car.finish()){
 						this.go = true;
-						if( car.x <=  40 * this.defaults.pixelLarge  ){
+						if( car.speedy > 0 ){
 							var limit = plus_speed.length;
 							var me = plus_speed.indexOf(car);
-							var right = me + 10;
-							var left = me - 10;
-							if(right >= limit){
-								right = length;
-							}
-							if(left < 0){
-								left = 0;
-							}
-							car.navigationPlusSpeedx( plus_speed.slice( me+1, right ), plus_speed.slice( left, me ), this.testroad[y][x-1], this.testroad[y][x+1] );
-						}
-						else{
-							var limit = minus_speed.length;
-							var me = minus_speed.indexOf(car);
 							var right = me + 10;
 							var left = me - 10;
 							if(right >= limit){
@@ -473,7 +415,34 @@ Traffic.prototype = {
 							if(left < 0){
 								left = 0;
 							}
-							car.navigationMinusSpeedx( minus_speed.slice( left, me ), minus_speed.slice( me+1, right ), this.testroad[y][x-1], this.testroad[y][x+1], this.pick_car_speed  );
+							car.navigationPlusSpeedx( plus_speed.slice( me+1, right ), plus_speed.slice( left, me ), this.testroad[y][x-4], this.testroad[y][x+4] );
+						}
+						else if( car.speedy < 0 ){
+							var limit = minus_speed.length;
+							var me = minus_speed.indexOf(car);
+							var right = me + 10;
+							var left = me - 10;
+							if(right >= limit){
+								right = length;
+							}
+							if(left < 0){
+								left = 0;
+							}
+							car.navigationMinusSpeedx( minus_speed.slice( left, me ), minus_speed.slice( me+1, right ), this.testroad[y][x-4], this.testroad[y][x+4] );
+						}else{
+							if(!car.player){
+								var limit = minus_speed.length;
+								var me = minus_speed.indexOf(car);
+								var right = me + 10;
+								var left = me - 10;
+								if(right >= limit){
+									right = length;
+								}
+								if(left < 0){
+									left = 0;
+								}
+								car.navigationMinusSpeedx( minus_speed.slice( left, me ), minus_speed.slice( me+1, right ), this.testroad[y][x-4], this.testroad[y][x+4] );
+							}
 						}
 					}else{
 						goal.push(i);
@@ -484,9 +453,7 @@ Traffic.prototype = {
 					this.pickCars();
 				}
 			}
-
-
-//			this.simulation();
+			this.simulation();
 			goalNum = goal.length;
 			if(goalNum > 0){
 				for( var i = 0 ; i < goalNum ; i++ ){
@@ -496,8 +463,21 @@ Traffic.prototype = {
 				this.initCars();
 				length = this.cars.length;
 			}
+
+			$("#road").css({ "background-position" : "center "+this.time });
+			this.time+=2;
+			if(this.time > -1){
+				this.time = -800;
+			}
+
 			this.defaults.render3D();
 			return this.go;
+		},
+		driveCars : function( move, speed ){
+			switch(move){
+			case "":
+				break;
+			}
 		},
 		pickCars : function(){
 			if( this.click_car != null && this.click_car != undefined ){
@@ -527,15 +507,15 @@ Traffic.prototype = {
 				var speed = Math.random() * 1 + max_speed;
 				if( startposition == "top" ){
 					if(leader){
-						this.newCars( result*this.defaults.pixelLarge, 1, 4, result*this.defaults.pixelLarge, 720, 0, max_speed, this.defaults.pixelLarge, true );
+						this.newCars( result*this.defaults.pixelLarge, 1, 6, result*this.defaults.pixelLarge, 720, 0, max_speed+2, this.defaults.pixelLarge, true );
 					}else{
-						this.newCars( result*this.defaults.pixelLarge, 1, 4, result*this.defaults.pixelLarge, 720, 0, max_speed, this.defaults.pixelLarge, false );
+						this.newCars( result*this.defaults.pixelLarge, 1, 6, result*this.defaults.pixelLarge, 720, 0, max_speed+2, this.defaults.pixelLarge, false );
 					}
 				}else{
 					if(leader){
-						this.newCars( result*this.defaults.pixelLarge, 720, 4, result*this.defaults.pixelLarge, 1, 0, -max_speed, this.defaults.pixelLarge, true );
+						this.newCars( result*this.defaults.pixelLarge, 720, 6, result*this.defaults.pixelLarge, 1, 0, -max_speed, this.defaults.pixelLarge, true );
 					}else{
-						this.newCars( result*this.defaults.pixelLarge, 720, 4, result*this.defaults.pixelLarge, 1, 0, -max_speed, this.defaults.pixelLarge, false );
+						this.newCars( result*this.defaults.pixelLarge, 720, 6, result*this.defaults.pixelLarge, 1, 0, -max_speed, this.defaults.pixelLarge, false );
 					}
 				}
 			}
@@ -544,119 +524,37 @@ Traffic.prototype = {
 			if( this.mode == "road" ){
 				if( this.id > 5000 ){
 					if(this.cars.length < 10){
-						for( var i=0 ; i < 9 ; i++ ){
+						for( var i=1 ; i < 9 ; i++ ){
 							this.deleteCars(i);
 						}
 						this.initCars();
-						this.id = 0;
+						this.id = 1;
 						var speed = Math.random() * 1 + max_speed;
 						var result = Math.floor(Math.random() * 3) + 22;
 						this.newCars( result*this.defaults.pixelLarge, 0, 4, result*10, 720, 0, speed, this.defaults.pixelLarge, false );
 					}
 				}else{
 					if(this.cars.length < max_car){
-						var check = Math.floor(Math.random()*200);
-						if(check > 196){
-							if(check > 199){
-								var speed = Math.random() * 1 + max_speed;
+						var check = Math.floor(Math.random()*300);
+						if(check > 294){
+							if(check > 298.5){
 								var result;
 								if(Math.random() > 0.5){
 									result = 32;
 								}else{
-									result = 35;
+									result = 36;
 								}
-								this.newCars( result*this.defaults.pixelLarge, 1, 4, result*this.defaults.pixelLarge, 720, 0, max_speed, this.defaults.pixelLarge, true );
+								this.newCars( result*this.defaults.pixelLarge, 1, 8, result*this.defaults.pixelLarge, 720, 0, max_speed + 2, this.defaults.pixelLarge, true );
 							}else{
-								var speed = Math.random() * 1 + max_speed;
+								var speed = Math.random() * 1 + max_speed + 4;
 								if(Math.random() > 0.5){
 									result = 32;
 								}else{
-									result = 35;
+									result = 36;
 								}
-								this.newCars( result*this.defaults.pixelLarge, 1, 4, result*this.defaults.pixelLarge, 720, 0, speed, this.defaults.pixelLarge, false );
-							}
-						}else if(check < 4){
-							if(check < 1){
-								var speed = Math.random() * 1 + max_speed;
-								if(Math.random() > 0.5){
-									result = 41;
-								}else{
-									result = 44;
-								}
-								this.newCars( result*this.defaults.pixelLarge, 720, 4, result*this.defaults.pixelLarge, 1, 0, -max_speed, this.defaults.pixelLarge, true );
-							}else{
-								var speed = Math.random() * 1 + max_speed;
-								if(Math.random() > 0.5){
-									result = 41;
-								}else{
-									result = 44;
-								}
-								this.newCars( result*this.defaults.pixelLarge, 720, 4, result*this.defaults.pixelLarge, 1, 0, -speed, this.defaults.pixelLarge, false );
+								this.newCars( result*this.defaults.pixelLarge, 1, 8, result*this.defaults.pixelLarge, 720, 0, speed, this.defaults.pixelLarge, false );
 							}
 						}
-					}
-				}
-			}else if( this.mode == "one" ){
-				if( this.id > 5000 ){
-					if(this.cars.length < 10){
-						for( var i=0 ; i < 9 ; i++ ){
-							this.deleteCars(i);
-						}
-						this.initCars();
-						this.id = 0;
-
-						var speed = Math.random() * 1 + max_speed - this.pick_car_speed;
-						var result = Math.floor(Math.random() * 3) + 22;
-						this.newCars( result*this.defaults.pixelLarge, 0, 4, result*10, 720, 0, speed, this.defaults.pixelLarge, false );
-					}
-				}else{
-					if(this.cars.length < max_car){
-						var check = Math.floor(Math.random()*200);
-						if(check > 196){
-							/*
-							if(check > 199){
-								var speed = Math.random() * 1 + max_speed + this.pick_car_speed;
-								var result;
-								if(Math.random() > 0.5){
-									result = 32;
-								}else{
-									result = 35;
-								}
-								this.newCars( result*this.defaults.pixelLarge, 0, 4+ this.pick_car_speed, result*this.defaults.pixelLarge, 720, 0, max_speed, this.defaults.pixelLarge, true );
-							}else{
-								var speed = Math.random() * 1 + max_speed + this.pick_car_speed;
-								if(Math.random() > 0.5){
-									result = 32;
-								}else{
-									result = 35;
-								}
-								this.newCars( result*this.defaults.pixelLarge, 0, 4+ this.pick_car_speed, result*this.defaults.pixelLarge, 720, 0, speed, this.defaults.pixelLarge, false );
-							}
-							 */
-						}else if(check < 4){
-							if(check < 1){
-//								var speed = Math.random() * 1 + max_speed - this.pick_car_speed;
-//								if(Math.random() > 0.5){
-//								result = 41;
-//								}else{
-//								result = 44;
-//								}
-//								this.newCars( result*this.defaults.pixelLarge, 720, 4, result*this.defaults.pixelLarge, 0, 0, -max_speed, this.defaults.pixelLarge, true );
-							}else{
-								var speed = Math.random() * 1 + max_speed - this.pick_car_speed;
-								if(Math.random() > 0.5){
-									result = 41;
-								}else{
-									result = 44;
-								}
-								if(speed > 0){
-									this.newCars( result*this.defaults.pixelLarge, 720, 4- this.pick_car_speed, result*this.defaults.pixelLarge, 0, 0, -speed, this.defaults.pixelLarge, false );
-								}else{
-									this.newCars( result*this.defaults.pixelLarge, 0, 4- this.pick_car_speed, result*this.defaults.pixelLarge, 720, 0, -speed, this.defaults.pixelLarge, false );
-								}
-							}
-						}
-
 					}
 				}
 			}

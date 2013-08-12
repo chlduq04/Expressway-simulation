@@ -62,8 +62,9 @@ table {
 	float: left;
 	width: 1330px;
 	height: 800px;
-	background: url("../image/navigation/background.png");
-	background-position: center;
+	background: url("../image/navigation/road.png");
+/*	background: url("../image/navigation/background.png");*/
+	background-position: center -800px;
 	background-repeat: no-repeat;
 }
 

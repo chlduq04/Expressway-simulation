@@ -85,17 +85,10 @@ window.onload = function() {
 	});
 
 	$(".ds-searching").click(function(){
-		var target = $(".ds-target").val();
-		if(target.length != 0){
-			simulation_setting.searchLink(target);
-		}
+		simulation_setting.startCar( "top", 43, true );
 	});
 
 	$(".ds-unlinking").click(function(){
-		var target = $(".ds-unlink-target").val();
-		if(target.length != 0){
-			simulation_setting.unlink(target);
-		}
 	});
 	$(".road").dblclick(function(){ 
 		if(toggle_navigation){
@@ -109,27 +102,27 @@ window.onload = function() {
 		}
 	})
 	$('.make-car1-blue').click(function(){
-		simulation_setting.startCar( "top", 32, false );
+		simulation_setting.startCar( "top", 30, false );
 	});
 	$('.make-car1-red').click(function(){
-		simulation_setting.startCar( "top", 32, true );
+		simulation_setting.startCar( "top", 30, true );
 	});
 	$('.make-car2-blue').click(function(){
-		simulation_setting.startCar( "top", 36, false );
+		simulation_setting.startCar( "top", 34, false );
 	});
 	$('.make-car2-red').click(function(){
-		simulation_setting.startCar( "top", 36, true );
+		simulation_setting.startCar( "top", 34, true );
 	});
 	$('.make-car3-blue').click(function(){
-		simulation_setting.startCar( "bottom", 41, false );
+		simulation_setting.startCar( "bottom", 39, false );
 	});
 	$('.make-car3-red').click(function(){
-		simulation_setting.startCar( "bottom", 41, true );
+		simulation_setting.startCar( "bottom", 39, true );
 	});
 	$('.make-car4-blue').click(function(){
-		simulation_setting.startCar( "bottom", 45, false );
+		simulation_setting.startCar( "bottom", 43, false );
 	});
 	$('.make-car4-red').click(function(){
-		simulation_setting.startCar( "bottom", 45, true );
+		simulation_setting.startCar( "top", 43, true );
 	});
 };

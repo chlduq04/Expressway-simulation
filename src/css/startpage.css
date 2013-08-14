@@ -1,0 +1,48 @@
+.startpage {
+	float: left;
+	width: 1280px;
+	height: 800px;
+	background: url("../image/navigation/startpage_background.png");
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.sp-startbutton {
+	width: 424px;
+	height: 424px;
+	margin-top: 95px;
+	margin-left: 428px;
+	float: left;
+	background: url("../image/navigation/startpage_start.png");
+	background-repeat: no-repeat;
+	background-position: 0px -1px;
+}
+
+.sp-startbutton-light {
+	width: 424px;
+	height: 424px;
+	margin-top: 95px;
+	margin-left: 428px;
+	background: url("../image/navigation/startpage_start.png");
+	background-repeat: no-repeat;
+	background-position: -450px 0px;
+}
+
+.sp-replaybutton {
+	float: left;
+	width: 222px;
+	height: 228px;
+	margin-left: 1000px;
+	background: url("../image/navigation/startpage_replay.png");
+	background-repeat: no-repeat;
+	background-position: 0px 0px;
+}
+
+.sp-replaybutton-light {
+	width: 222px;
+	height: 228px;
+	margin-left: 1000px;
+	background: url("../image/navigation/startpage_replay.png");
+	background-repeat: no-repeat;
+	background-position: -250px 0px;
+}

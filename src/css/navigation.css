@@ -1,0 +1,166 @@
+.top-navigation-normal {
+	position: absolute;
+	width: 1280px;
+	height: 79px;
+	z-index: 20;
+	background: url("../image/navigation/navigation-top.png");
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.top-navigation {
+	position: absolute;
+	width: 1280px;
+	height: 170px;
+	z-index: 19;
+	background: url("../image/navigation/navigation-top.png");
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.bottom-navigation-normal {
+	margin-top: 726px;
+	position: absolute;
+	width: 1280px;
+	height: 74px;
+	z-index: 20;
+	background: url("../image/navigation/navigation-bottom.png");
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.bottom-navigation {
+	margin-top: 630px;
+	position: absolute;
+	width: 1280px;
+	height: 170px;
+	z-index: 19;
+	background: url("../image/navigation/navigation-bottom-up.png");
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.bottom-navigation-clicked {
+	margin-top: 500px;
+	position: absolute;
+	width: 1280px;
+	height: 300px;
+	z-index: 18;
+	background: url("../image/navigation/navigation-bottom-click.png");
+	background-position: 0 200px;
+	background-repeat: no-repeat;
+}
+
+.bn-button {
+	margin-top: 40px;
+	margin-left: 14px;
+	width: 46px;
+	height: 45px;
+	background: url("../image/navigation/navigation-bottom-button.png");
+	background-position: -50px 0;
+	background-repeat: no-repeat;
+}
+
+.bnc-1 {
+	float: left;
+	margin-top: 32px;
+	width: 220px;
+	height: 193px;
+}
+
+.bnc-2 {
+	float: left;
+	margin-top: 32px;
+	width: 140px;
+	height: 193px;
+	background:
+		url("../image/navigation/navigation-bottom-largebutton.png");
+	background-position: -152px 30px;
+	background-repeat: no-repeat;
+}
+
+.bnc-3 {
+	float: left;
+	margin-top: 32px;
+	width: 140px;
+	height: 193px;
+	background:
+		url("../image/navigation/navigation-bottom-largebuttons.png");
+	background-position: 22px 30px;
+	background-repeat: no-repeat;
+}
+
+.bnc-4 {
+	float: left;
+	margin-top: 32px;
+	width: 140px;
+	height: 193px;
+	background:
+		url("../image/navigation/navigation-bottom-largebuttons.png");
+	background-position: -129px 30px;
+	background-repeat: no-repeat;
+}
+
+.bnc-5 {
+	float: left;
+	margin-top: 32px;
+	width: 140px;
+	height: 193px;
+	background:
+		url("../image/navigation/navigation-bottom-largebuttons.png");
+	background-position: -280px 30px;
+	background-repeat: no-repeat;
+}
+
+.bnc-6 {
+	float: left;
+	margin-top: 32px;
+	width: 140px;
+	height: 193px;
+	background:
+		url("../image/navigation/navigation-bottom-largebuttons.png");
+	background-position: -431px 30px;
+	background-repeat: no-repeat;
+}
+
+.bnc-7 {
+	float: left;
+	margin-top: 32px;
+	width: 140px;
+	height: 193px;
+	background:
+		url("../image/navigation/navigation-bottom-largebuttons.png");
+	background-position: -582px 30px;
+	background-repeat: no-repeat;
+}
+
+.bnc-8 {
+	float: left;
+	margin-top: 32px;
+	width: 220px;
+	height: 193px;
+}
+
+.bnc1-button {
+	float: left; width : 44px;
+	height: 43px;
+	margin-left: 15px;
+	margin-top: 20px;
+	width: 44px;
+	background:
+		url("../image/navigation/navigation-bottom-up-button.png");
+	background-position: -51px -2px;
+	background-repeat: no-repeat;
+}
+
+.bnc8-button {
+	float: right; width : 44px;
+	height: 43px;
+	margin-right: 15px;
+	margin-top: 20px;
+	width: 44px;
+	background:
+		url("../image/navigation/navigation-bottom-up-button.png");
+	background-position: -101px 0px;
+	background-repeat: no-repeat;
+}

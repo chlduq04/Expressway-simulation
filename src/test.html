@@ -4,13 +4,33 @@
 <!-- <link rel="stylesheet" type="text/css" href="http://t.static.blog.naver.net/mylog/versioning/LayoutTopCommon-425680.css" />
  -->
 <link rel="stylesheet" type="text/css" href="css/layout.css" />
+<link rel="stylesheet" type="text/css" href="css/startpage.css" />
+<link rel="stylesheet" type="text/css" href="css/navigation.css" />
 
 <title></title>
 </head>
 <body>
 	<div id="road" class="road">
-		<div id="top-navigation"></div>
-		<div id="bottom-navigation"></div>
+		<div class="top-navigation-normal"></div>
+		<div id="top-navigation" class="top-navigation"></div>
+		<div class="bottom-navigation-normal"></div>
+		<div id="bottom-navigation" class="bottom-navigation">
+			<div id="bn-button" class="bn-button"></div>
+		</div>
+		<div id="bottom-navigation-clicked" class="bottom-navigation-clicked">
+			<div id="bnc-1" class="bnc-1">
+				<div id="bnc1-button" class="bnc1-button"></div>
+			</div>
+			<div id="bnc-2" class="bnc-2"></div>
+			<div id="bnc-3" class="bnc-3"></div>
+			<div id="bnc-4" class="bnc-4"></div>
+			<div id="bnc-5" class="bnc-5"></div>
+			<div id="bnc-6" class="bnc-6"></div>
+			<div id="bnc-7" class="bnc-7"></div>
+			<div id="bnc-8" class="bnc-8">
+				<div id="bnc8-button" class="bnc8-button"></div>
+			</div>
+		</div>
 		<div class="road-make-car1">
 			<div class="make-car1-blue"></div>
 			<div class="make-car1-red"></div>
@@ -27,6 +47,12 @@
 			<div class="make-car4-blue"></div>
 			<div class="make-car4-red"></div>
 		</div>
+	</div>
+	<div id="startpage" class="startpage">
+		<div id="sp-startbutton" class="sp-startbutton"></div>
+		<div id="sp-startbutton-light" class="sp-startbutton-light"></div>
+		<div id="sp-replaybutton" class="sp-replaybutton"></div>
+		<div id="sp-replaybutton-light" class="sp-replaybutton-light"></div>
 	</div>
 	<div id="detail" class="detail">
 		<h4 class="d-name-clear">(- START -)</h4>
@@ -78,8 +104,13 @@
 <!-- <script type="text/javascript" src="http://t.static.blog.naver.net/mylog/versioning/common/js/global/RemoveSubDomain-124754.js"></script>
 <script>
  -->
+ 
 <script type="text/javascript" src="js/jQuery.js"></script>
-<script type="text/javascript" src="js/common.js"></script>
+
+<script type="text/javascript" src="js/flow/navigation.js"></script>
+<script type="text/javascript" src="js/flow/startpage.js"></script>
+<script type="text/javascript" src="js/flow/common.js"></script>
+<script type="text/javascript" src="js/flow/flow.js"></script>
 <script type="text/javascript" src="js/Three.js"></script>
 
 <script type="text/javascript" src="js/MTLLoader.js"></script>

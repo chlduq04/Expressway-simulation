@@ -145,7 +145,7 @@ if(jQuery)(function($){
 				if(defaults.sound){self.settingSound();}
 //				self.controlSkybox();
 				self.initCar();
-//				self.drawRoad( road_position, road_scale, "road" );
+				self.drawRoad( road_position, road_scale, "road" );
 //				self.drawOther( others_position, others_scale, "others" );
 				self.settingLight( 0xFFFFFF, 0, 300, -500 );
 				self.settingLight( 0xFFFFFF, 0, 300, 500 );
@@ -171,11 +171,11 @@ if(jQuery)(function($){
 //				});
 //				loader.load( './image/bmw.obj', './image/bmw.mtl');
 
-				var loader1 = new THREE.OBJMTLLoader();
-				loader1.addEventListener('load',function(event){
-					objs.push(event.content);
-				});
-				loader1.load( './image/111111.obj', './image/111111.mtl');
+//				var loader1 = new THREE.OBJMTLLoader();
+//				loader1.addEventListener('load',function(event){
+//					objs.push(event.content);
+//				});
+//				loader1.load( './image/111111.obj', './image/111111.mtl');
 
 				var loader2 = new THREE.OBJMTLLoader();
 				loader2.addEventListener('load',function(event){
@@ -654,7 +654,7 @@ if(jQuery)(function($){
 				loaderRoad.addEventListener('load',function(event){
 					var object = event.content;
 					object.position.x = 50;
-					object.position.y = -94;
+					object.position.y = -200;
 					object.position.z = 0;
 					object.scale.x = 15;
 					object.scale.y = 20;
@@ -663,7 +663,7 @@ if(jQuery)(function($){
 					scene.add( object );
 					renderer.render( scene, camera );
 				});
-				loaderRoad.load( './image/way7.obj', './image/way7.mtl');
+				loaderRoad.load( './image/zz.obj', './image/zz.mtl');
 
 
 //				road.src = "./image/board2.png";

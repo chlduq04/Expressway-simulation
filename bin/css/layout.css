@@ -61,16 +61,14 @@ table {
 }
 
 .road {
-	border: 5px inset;
 	float: left;
 	width: 1280px;
-	height: 768px;
+	height: 800px;
 	background: url("../image/navigation/road.png");
 /*	background: url("../image/navigation/background.png");*/
-	background-position: center -800px;
+background-position: center -800px;
 	background-repeat: no-repeat;
 }
-
 .cars {
 	position: absolute;
 }
@@ -275,27 +273,6 @@ table {
 	position: relative;
 	height: 90px;
 	top: 500px;
-}
-
-#top-navigation {
-	position: absolute;
-	width: 1280px;
-	height: 170px;
-	z-index: 20;
-	background: url("../image/navigation/navigation-top.png");
-	background-position: center;
-	background-repeat: no-repeat;
-}
-
-#bottom-navigation {
-	margin-top: 593px;
-	position: absolute;
-	width: 1280px;
-	height: 170px;
-	z-index: 20;
-	background: url("../image/navigation/navigation-bottom.png");
-	background-position: center;
-	background-repeat: no-repeat;
 }
 
 .car-id {

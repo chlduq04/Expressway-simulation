@@ -9,13 +9,13 @@ function Traffic(opt){
 	this.road;
 	this.car_road;
 	this.object_div; 
-	this.car_image_right = new Image();
-	this.leader_image_right = new Image();
-	this.follower_image_right = new Image();
+	this.car_image_right;
+	this.leader_image_right;
+	this.follower_image_right;
 
-	this.car_image_left = new Image();
-	this.leader_image_left = new Image();
-	this.follower_image_left = new Image();
+	this.car_image_left;
+	this.leader_image_left;
+	this.follower_image_left;
 	this.testroad = [
 	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,9,3,8,8, 1,8,8,8,1,8,2,8,8,1, 8,8,8,1,8,3,9,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
 	                 [0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,9,3,8,8, 1,8,8,8,1,8,2,8,8,1, 8,8,8,1,8,3,9,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0, 0,0,0,0,0,0,0,0,0,0],
@@ -142,13 +142,6 @@ Traffic.prototype = {
 //			}
 		},
 		init : function(){
-			this.car_image_right.src = "./image/navigation/top-right-normal.png";
-			this.leader_image_right.src = "./image/navigation/top-right-leader.png";
-			this.follower_image_right.src = "./image/navigation/top-right-follower.png";
-			this.car_image_left.src = "./image/navigation/top-left-normal.png";
-			this.leader_image_left.src = "./image/navigation/top-left-leader.png";
-			this.follower_image_left.src = "./image/navigation/top-left-follower.png";
-
 			this.resetCars();
 			var speed = Math.random() * 1 + max_speed;
 			var result = 43;
@@ -162,19 +155,19 @@ Traffic.prototype = {
 				var text = "<div class='car-id'>id : "+object.id+"</div>"
 				if( object.x > this.defaults.lineSize ){
 					if(object.leader){
-						car.css({ "width":this.defaults.carSize, "height":this.defaults.carSize, "left":object.realx, "top":object.realy, "transform":"rotate("+object.rotate+"deg)" });
-					}else if(object.front!=null){
-						car.css({ "background-image":"url('./image/navigation/top-top-follower.png')", "width":this.defaults.carSize, "height":this.defaults.carSize, "left":object.realx, "top":object.realy, "transform":"rotate("+object.rotate+"deg)"});
+						car.css({ "left":object.realx, "top":object.realy, "transform":"rotate("+object.rotate+"deg)" });
+					}else if(object.player){
+						car.css({ "left":object.realx, "top":"0", "transform":"rotate("+object.rotate+"deg)"});
 					}else{
-						car.css({ "background-image":"url('./image/navigation/top-top-normal.png')", "width":this.defaults.carSize, "height":this.defaults.carSize, "left":object.realx, "top":object.realy, "transform":"rotate("+object.rotate+"deg)" });
+						car.css({ "left":object.realx, "top":object.realy, "transform":"rotate("+object.rotate+"deg)" });
 					}
 				}else{
 					if(object.leader){
-						car.css({ "width":this.defaults.carSize, "height":this.defaults.carSize, "left":object.realx, "top":object.realy, "transform":"rotate("+object.rotate+"deg)" });
-					}else if(object.front!=null){
-						car.css({ "background-image":"url('./image/navigation/top-bottom-follower.png')", "width":this.defaults.carSize, "height":this.defaults.carSize, "left":object.realx, "top":object.realy, "transform":"rotate("+object.rotate+"deg)" });
+						car.css({ "left":object.realx, "top":object.realy, "transform":"rotate("+object.rotate+"deg)" });
+					}else if(object.player){
+						car.css({ "left":object.realx, "top":"0", "transform":"rotate("+object.rotate+"deg)" });
 					}else{
-						car.css({ "background-image":"url('./image/navigation/top-bottom-normal.png')", "width":this.defaults.carSize, "height":this.defaults.carSize, "left":object.realx, "top":object.realy, "transform":"rotate("+object.rotate+"deg)" });
+						car.css({ "left":object.realx, "top":object.realy, "transform":"rotate("+object.rotate+"deg)" });
 					}
 				}
 				var text;
@@ -194,20 +187,20 @@ Traffic.prototype = {
 				var detail =  $("<div id='car"+object.id+"-over'></div>");
 				if( object.x > this.defaults.lineSize ){
 					if(object.leader){
-						car.css({ "background-position":"center","background-size":"cover", "border-radius": "50px", "position":"absolute", "z-index":"10", "background-image":"url('./image/navigation/top-top-leader.png')", "width":this.defaults.carSize, "height":this.defaults.carSize, "left":object.realx, "top":object.realy, "transform":"rotate("+object.rotate+"deg)" });
-					}else if(object.front!=null){
-						car.css({ "background-position":"center","background-size":"cover", "border-radius": "50px", "position":"absolute", "z-index":"10", "background-image":"url('./image/navigation/top-top-follower.png')", "width":this.defaults.carSize, "height":this.defaults.carSize, "left":object.realx, "top":object.realy, "transform":"rotate("+object.rotate+"deg)" });
+						car.css({ "background-position":"center","background-position":"-80px 0px", "background-size":"cover", "border-radius": "50px", "position":"absolute", "z-index":"10", "background-image":"url('./image/navigation/navigation-texi.png')", "width":"78px", "height":"78px", "left":object.realx, "top":object.realy, "transform":"rotate("+object.rotate+"deg)" });
+					}else if(object.player){
+						car.css({ "background-position":"center","background-position":"0 -250px", "background-size":"cover", "border-radius": "50px", "position":"absolute", "z-index":"10", "background-image":"url('./image/navigation/navigation-mycar.png')", "width":"78px", "height":"585px", "left":object.realx, "top":"0", "transform":"rotate("+object.rotate+"deg)" });
 					}else{
-						car.css({ "background-position":"center","background-size":"cover", "border-radius": "50px", "position":"absolute", "z-index":"10", "background-image":"url('./image/navigation/top-top-normal.png')", "width":this.defaults.carSize, "height":this.defaults.carSize, "left":object.realx, "top":object.realy, "transform":"rotate("+object.rotate+"deg)" });
+						car.css({ "background-position":"center","background-position":"-80px 0px", "background-size":"cover", "border-radius": "50px", "position":"absolute", "z-index":"10", "background-image":"url('./image/navigation/navigation-normal.png')", "width":"78px", "height":"78px", "left":object.realx, "top":object.realy, "transform":"rotate("+object.rotate+"deg)" });
 					}
 				}
 				else{
 					if(object.leader){
-						car.css({ "background-position":"center","background-size":"cover", "border-radius": "50px", "position":"absolute", "z-index":"10", "background-image":"url('./image/navigation/top-bottom-leader.png')", "width":this.defaults.carSize, "height":this.defaults.carSize, "left":object.realx, "top":object.realy, "transform":"rotate("+object.rotate+"deg)" });
-					}else if(object.front!=null){
-						car.css({ "background-position":"center","background-size":"cover", "border-radius": "50px", "position":"absolute", "z-index":"10", "background-image":"url('./image/navigation/top-bottom-follower.png')", "width":this.defaults.carSize, "height":this.defaults.carSize, "left":object.realx, "top":object.realy, "transform":"rotate("+object.rotate+"deg)" });
+						car.css({ "background-position":"center","background-position":"0 0", "background-size":"cover", "border-radius": "50px", "position":"absolute", "z-index":"10", "background-image":"url('./image/navigation/navigation-texi.png')", "width":"78px", "height":"78px", "left":object.realx, "top":object.realy, "transform":"rotate("+object.rotate+"deg)" });
+					}else if(object.player){
+						car.css({ "background-position":"center","background-position":"0 -250px", "background-size":"cover", "border-radius": "50px", "position":"absolute", "z-index":"10", "background-image":"url('./image/navigation/navigation-mycar.png')", "width":"78px", "height":"585px", "left":object.realx, "top":"0", "transform":"rotate("+object.rotate+"deg)" });
 					}else{
-						car.css({ "background-position":"center","background-size":"cover", "border-radius": "50px", "position":"absolute", "z-index":"10", "background-image":"url('./image/navigation/top-bottom-normal.png')", "width":this.defaults.carSize, "height":this.defaults.carSize, "left":object.realx, "top":object.realy, "transform":"rotate("+object.rotate+"deg)" });
+						car.css({ "background-position":"center","background-position":"0 0", "background-size":"cover", "border-radius": "50px", "position":"absolute", "z-index":"10", "background-image":"url('./image/navigation/navigation-normal.png')", "width":"78px", "height":"78px", "left":object.realx, "top":object.realy, "transform":"rotate("+object.rotate+"deg)" });
 					}
 				}
 				detail.css({

@@ -1,7 +1,4 @@
-var scene;
-var o_positions = {};
-var sound_position = {};
-var objs = [];
+
 if(jQuery)(function($){
 	$.extend($.fn, {
 		WebGL : function(opt){
@@ -16,7 +13,7 @@ if(jQuery)(function($){
 					key_down : "S",
 					key_up : "W",
 					key_break : "M",
-					load_width : 240,
+					load_width : 800,
 					load_length : 2000,
 					map_length : 1000,
 					other_width : 300,
@@ -24,7 +21,12 @@ if(jQuery)(function($){
 			};$.extend(defaults, opt);
 
 			/** System value **/
-
+			var scene;
+			var o_positions = {};
+			var sound_position = {};
+			var objs = [];
+			var taxi;
+			
 			var renderer;
 			var camara, light;
 			var target= new THREE.Vector3(), lon = 90, lat = 0, phi = 0, theta = 0;
@@ -36,8 +38,8 @@ if(jQuery)(function($){
 
 			/** Simulation value **/
 
-			var camera_lookat = { x : -15, y : 0, z : 100 };
-			var camera_position = { x : -15, y : 100, z : 800 };
+			var camera_lookat = { x : 5, y : 0, z : 100 };
+			var camera_position = { x : 5, y : 40, z : 900 };
 			var camera_lookat_next = { x : 0 , y : 0 , z : 0 };
 			var m_position = { x : 0, y : 0, z : 0 };
 			var m_speed = { x : 0, y : 0, z : 0 };
@@ -68,8 +70,8 @@ if(jQuery)(function($){
 			var car_front_img = new Image();
 			var car_back_img = new Image();
 			var road = new Image();
-			car_front_img.src = "./image/carfront.png";
-			car_back_img.src = "./image/carback.png";
+			car_front_img.src = "./image/obj/carfront.png";
+			car_back_img.src = "./image/obj/carback.png";
 
 			var geometry = new THREE.CubeGeometry( 5, 5, 10 );
 			var car_front_material = new THREE.MeshLambertMaterial( { color : 0xFFFFFF } );
@@ -164,95 +166,29 @@ if(jQuery)(function($){
 					console.log( item, loaded, total );
 				};
 
-//				var loader = new THREE.OBJMTLLoader();
-//				loader.addEventListener('load',function(event){
-//				var object = event.content;
-//				objs.push(object);
-//				});
-//				loader.load( './image/bmw.obj', './image/bmw.mtl');
-
-//				var loader1 = new THREE.OBJMTLLoader();
-//				loader1.addEventListener('load',function(event){
-//					objs.push(event.content);
-//				});
-//				loader1.load( './image/111111.obj', './image/111111.mtl');
+				var loader1 = new THREE.OBJMTLLoader();
+				loader1.addEventListener('load',function(event){
+					this.taxi = event.content;
+				});
+				loader1.load( './image/obj/car1.obj', './image/obj/car1.mtl');
+				
+				var loader1 = new THREE.OBJMTLLoader();
+				loader1.addEventListener('load',function(event){
+					objs.push(event.content);
+				});
+				loader1.load( './image/obj/car1.obj', './image/obj/car1.mtl');
 
 				var loader2 = new THREE.OBJMTLLoader();
 				loader2.addEventListener('load',function(event){
 					objs.push(event.content);
 				});
-				loader2.load( './image/222222.obj', './image/222222.mtl');
+				loader2.load( './image/obj/car2.obj', './image/obj/car2.mtl');
 
 				var loader3 = new THREE.OBJMTLLoader();
 				loader3.addEventListener('load',function(event){
 					objs.push(event.content);
 				});
-				loader3.load( './image/333333.obj', './image/333333.mtl');
-
-
-
-//				var loader1 = new THREE.OBJMTLLoader();
-//				loader1.addEventListener('load',function(event){
-//				var object = event.content;
-//				car_leader_model = object;
-//				car_normal_model = object;
-//				car_follower_model = object;
-//				});
-//				loader1.load( './image/111111.obj', './image/111111.mtl');
-
-
-//				var texture = new THREE.Texture();
-//				var loader = new THREE.ImageLoader( manager );
-//				loader.load( './image/red.jpg', function ( image ) {
-//				texture.image = image;
-//				texture.needsUpdate = true;
-//				} );
-//				var loader = new THREE.OBJLoader( manager );
-//				loader.load( './image/3.natla car.obj', function ( object ) {
-//				object.traverse( function ( child ) {
-//				if ( child instanceof THREE.Mesh ) {
-//				child.material.map = texture;
-//				}
-//				} );
-//				car_leader_model = object;
-//				} );
-
-
-//				var texture1 = new THREE.Texture();
-//				var loader1 = new THREE.ImageLoader( manager );
-//				loader1.load( './image/blue.jpg', function ( image ) {
-//				texture1.image = image;
-//				texture1.needsUpdate = true;
-//				} );
-
-//				var loader1 = new THREE.OBJLoader( manager );
-//				loader1.load( './image/3.natla car.obj', function ( object ) {
-//				object.traverse( function ( child ) {
-//				if ( child instanceof THREE.Mesh ) {
-//				child.material.map = texture1;
-//				}
-//				} );
-//				car_follower_model = object;
-//				} );
-
-
-//				var texture2 = new THREE.Texture();
-//				var loader2 = new THREE.ImageLoader( manager );
-//				loader2.load( './image/sky.jpg', function ( image ) {
-//				texture2.image = image;
-//				texture2.needsUpdate = true;
-//				} );
-//				var loader2 = new THREE.OBJLoader( manager );
-//				loader2.load( './image/3.natla car.obj', function ( object ) {
-//				object.traverse( function ( child ) {
-//				if ( child instanceof THREE.Mesh ) {
-//				child.material.map = texture2;
-//				}
-//				} );
-//				car_normal_model = object;
-//				} );
-
-
+				loader3.load( './image/obj/car3.obj', './image/obj/car3.mtl');
 			},
 			this.returnRequest = function(){
 				return request;
@@ -311,7 +247,7 @@ if(jQuery)(function($){
 				});
 			},
 			this.rendering = function(){
-//				self.startRoad();
+				self.startRoad(false);
 //				self.startDepartments();
 				renderer.render( scene, camera );
 			},
@@ -403,12 +339,12 @@ if(jQuery)(function($){
 
 			this.controlSkybox = function(){
 				var sky_materials = [
-				                     self.loadTexture( './image/skybox/px.jpg' ), // right
-				                     self.loadTexture( './image/skybox/nx.jpg' ), // left
-				                     self.loadTexture( './image/skybox/py.jpg' ), // top
-				                     self.loadTexture( './image/skybox/ny.jpg' ), // bottom
-				                     self.loadTexture( './image/skybox/pz.jpg' ), // back
-				                     self.loadTexture( './image/skybox/nz.jpg' )  // front
+				                     self.loadTexture( './image/obj/skybox/px.jpg' ), // right
+				                     self.loadTexture( './image/obj/skybox/nx.jpg' ), // left
+				                     self.loadTexture( './image/obj/skybox/py.jpg' ), // top
+				                     self.loadTexture( './image/obj/skybox/ny.jpg' ), // bottom
+				                     self.loadTexture( './image/obj/skybox/pz.jpg' ), // back
+				                     self.loadTexture( './image/obj/skybox/nz.jpg' )  // front
 				                     ];
 
 				var sky_mesh = new THREE.Mesh( new THREE.CubeGeometry( 800, 800, 800, 7, 7, 7 ), new THREE.MeshFaceMaterial( sky_materials ) );
@@ -515,30 +451,25 @@ if(jQuery)(function($){
 					mesh.position.z = position.z;
 					player_position = position;
 
-					mesh.scale.x = 0.08;//8
-					mesh.scale.y = 0.1//10
-					mesh.scale.z = 0.06;//6
-//					mesh.scale.x = 0.64;//8
-//					mesh.scale.y = 0.8//10
-//					mesh.scale.z = 0.48;//6
-
-					mesh.rotation.y = Math.PI;
+					mesh.scale.x = 0.128;
+					mesh.scale.y = 0.16
+					mesh.scale.z = 0.096;
 					o_positions[name] = mesh;
 					scene.add( mesh );
 
-					camera_lookat = { x : position.x, y : position.y+15, z : position.z-20 };
-					camera_position = { x : position.x, y : position.y+15, z : position.z-5 }
-					self.settingCamera( position.x, position.y+15, position.z-5, camera_lookat )
-					camera.position.x = position.x;
-					camera.position.y = position.y+15;
-					camera.position.z = position.z-5;
-					camera.lookAt(camera_lookat);
+//					camera_lookat = { x : position.x, y : position.y+15, z : position.z-20 };
+//					camera_position = { x : position.x, y : position.y+15, z : position.z-5 }
+//					self.settingCamera( position.x, position.y+15, position.z-5, camera_lookat )
+//					camera.position.x = position.x;
+//					camera.position.y = position.y+15;
+//					camera.position.z = position.z-5;
+//					camera.lookAt(camera_lookat);
 
 				}else{
 					targ.position.x = position.x;
 					targ.position.y = position.y;
 					targ.position.z = position.z;
-//					targ.rotation.y = Math.PI + rotate;
+					targ.rotation.y = -Math.PI/6;
 					player_position = position;
 
 				}
@@ -559,11 +490,9 @@ if(jQuery)(function($){
 					mesh.position.x = position.x;
 					mesh.position.y = position.y;
 					mesh.position.z = position.z;
-
-					mesh.scale.x = 0.08;//8
-					mesh.scale.y = 0.1//10
-					mesh.scale.z = 0.06;//6
-//					mesh.rotation.y = Math.PI;
+					mesh.scale.x = 0.128;
+					mesh.scale.y = 0.16
+					mesh.scale.z = 0.096;
 					o_positions[name] = mesh;
 					var sound = new Sound( [ "./sound/sound_car_drive.wav" ], 500, 1 );
 					sound.position.copy( position );
@@ -574,7 +503,14 @@ if(jQuery)(function($){
 					target.position.x = position.x;
 					target.position.y = position.y;
 					target.position.z = position.z;
-//					target.rotation.y = Math.PI + rotate;
+					if( target.rotation.y - Math.PI/360 > -Math.PI/180 * (rotate/3) ){
+						target.rotation.y -= Math.PI/360;
+					}else if( target.rotation.y + Math.PI/360 < -Math.PI/180 * (rotate/3) ){
+						target.rotation.y += Math.PI/360;
+					}
+					if( rotate == 0 && Math.abs(target.rotation.y) < 0.04 ){
+						target.rotation.y = 0;
+					}
 					var sound = sound_position[name]
 					sound.position.copy( target.position );
 					sound.update(player_position);
@@ -596,10 +532,12 @@ if(jQuery)(function($){
 					mesh.position.x = position.x;
 					mesh.position.y = position.y;
 					mesh.position.z = position.z;					
-					mesh.scale.x = 0.08;//8
-					mesh.scale.y = 0.1//10
-					mesh.scale.z = 0.06;//6
+
+					mesh.scale.x = 0.128;
+					mesh.scale.y = 0.16
+					mesh.scale.z = 0.096;
 					mesh.rotation.y = Math.PI;
+					
 					o_positions[name] = mesh;
 					var sound = new Sound( [ "./sound/background.mp3" ], 500, 1 );
 					sound.position.copy( position );
@@ -610,7 +548,16 @@ if(jQuery)(function($){
 					target.position.x = position.x;
 					target.position.y = position.y;
 					target.position.z = position.z;
-//					target.rotation.y = Math.PI + rotate;
+					
+					if( target.rotation.y - Math.PI/360 - Math.PI > -Math.PI/180 * (rotate/3) ){
+						target.rotation.y -= Math.PI/360;
+					}else if( target.rotation.y + Math.PI/360 - Math.PI < -Math.PI/180 * (rotate/3) ){
+						target.rotation.y += Math.PI/360;
+					}
+					if( rotate == 0 && Math.abs(target.rotation.y) < 0.04 ){
+						target.rotation.y = 0;
+					}
+					
 					var sound = sound_position[name]
 					sound.position.copy( target.position );
 					sound.update(player_position);
@@ -655,18 +602,18 @@ if(jQuery)(function($){
 					var object = event.content;
 					object.position.x = 50;
 					object.position.y = -200;
-					object.position.z = 0;
-					object.scale.x = 15;
+					object.position.z = 1050;
+					object.scale.x = 30;
 					object.scale.y = 20;
 					object.scale.z = 60;
 					o_positions[name] = object;
 					scene.add( object );
 					renderer.render( scene, camera );
 				});
-				loaderRoad.load( './image/zz.obj', './image/zz.mtl');
+				loaderRoad.load( './image/obj/highway.obj', './image/obj/highway.mtl');
 
 
-//				road.src = "./image/board2.png";
+//				road.src = "./image/obj/board2.png";
 //				road.onload = function(){
 //				road_material = new THREE.MeshLambertMaterial( { map: THREE.ImageUtils.loadTexture(road.src), transparent: false } );
 //				var geometry = new THREE.CubeGeometry( scale.x, scale.y, scale.z );
@@ -680,10 +627,14 @@ if(jQuery)(function($){
 //				renderer.render( scene, camera );
 //				}
 			},
-			this.startRoad = function(){
-				o_positions['road'].position.z += 6;
-				if(o_positions['road'].position.z > defaults.map_length ){
-					o_positions['road'].position.z = -defaults.map_length;
+			this.startRoad = function(position){
+				if(position){
+					o_positions['road'].position.z = 1050;
+				}else{
+					o_positions['road'].position.z += 20;
+					if(o_positions['road'].position.z > defaults.map_length * 3 ){
+						o_positions['road'].position.z = -defaults.map_length * 3;
+					}
 				}
 			},
 			this.drawDepartments = function(){

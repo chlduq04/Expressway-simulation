@@ -6,6 +6,7 @@
 <link rel="stylesheet" type="text/css" href="css/layout.css" />
 <link rel="stylesheet" type="text/css" href="css/startpage.css" />
 <link rel="stylesheet" type="text/css" href="css/navigation.css" />
+<link rel="stylesheet" type="text/css" href="css/paringpage.css" />
 
 <title></title>
 </head>
@@ -48,13 +49,28 @@
 			<div class="make-car4-red"></div>
 		</div>
 	</div>
+	<div id="paringpage" class="paringpage">
+		<div id="paringalert" class="paringalert">
+			<div id="paringinfo-left" class="paringinfo-left">
+				<div id="pl-first" class="pl-first"></div>
+				<div id="pl-second" class="pl-second"></div>
+			</div>
+			<div id="paringinfo-middle" class="paringinfo-middle">
+				<div id="pm-first" class="pm-first"></div>
+			</div>
+			<div id="paringinfo-right" class="paringinfo-right">
+				<div id="pr-first" class="pr-first"></div>
+				<div id="pr-second" class="pr-second"></div>
+			</div>
+		</div>
+	</div>
 	<div id="startpage" class="startpage">
 		<div id="sp-startbutton" class="sp-startbutton"></div>
 		<div id="sp-startbutton-light" class="sp-startbutton-light"></div>
 		<div id="sp-replaybutton" class="sp-replaybutton"></div>
 		<div id="sp-replaybutton-light" class="sp-replaybutton-light"></div>
 	</div>
-	<div id="detail" class="detail">
+	<div id="detail" class="detail" style="visibility: hidden;">
 		<h4 class="d-name-clear">(- START -)</h4>
 		<div class="d-reflesh">
 			<button class="dr-reflesh"></button>
@@ -66,7 +82,7 @@
 			<div class="ds-name-limitspeed">Speed of cars</div>
 			<input class="ds-limitspeed" value="1" placeholder="Init 2" />
 			<div class="ds-name-simulationspeed">Simulation speed</div>
-			<input class="ds-simulationspeed" value="40" placeholder="Init 30" />
+			<input class="ds-simulationspeed" value="30" placeholder="Init 30" />
 		</div>
 		<h4 class="d-name-linking">- LINKING -</h4>
 		<div class="d-link">
@@ -104,9 +120,10 @@
 <!-- <script type="text/javascript" src="http://t.static.blog.naver.net/mylog/versioning/common/js/global/RemoveSubDomain-124754.js"></script>
 <script>
  -->
- 
-<script type="text/javascript" src="js/jQuery.js"></script>
 
+<script type="text/javascript" src="js/jQuery.js"></script>
+<script type="text/javascript" src="js/flow/view3d.js"></script>
+<script type="text/javascript" src="js/flow/paringpage.js"></script>
 <script type="text/javascript" src="js/flow/navigation.js"></script>
 <script type="text/javascript" src="js/flow/startpage.js"></script>
 <script type="text/javascript" src="js/flow/common.js"></script>

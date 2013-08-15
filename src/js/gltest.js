@@ -469,7 +469,7 @@ if(jQuery)(function($){
 					targ.position.x = position.x;
 					targ.position.y = position.y;
 					targ.position.z = position.z;
-					targ.rotation.y = -Math.PI/6;
+					targ.rotation.y = -Math.PI/180 * rotate;
 					player_position = position;
 
 				}

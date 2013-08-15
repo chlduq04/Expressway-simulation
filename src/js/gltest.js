@@ -168,9 +168,9 @@ if(jQuery)(function($){
 
 				var loader1 = new THREE.OBJMTLLoader();
 				loader1.addEventListener('load',function(event){
-					this.taxi = event.content;
+					taxi = event.content;
 				});
-				loader1.load( './image/obj/car1.obj', './image/obj/car1.mtl');
+				loader1.load( './image/obj/cartaxi.obj', './image/obj/cartaxi.mtl');
 				
 				var loader1 = new THREE.OBJMTLLoader();
 				loader1.addEventListener('load',function(event){
@@ -480,7 +480,7 @@ if(jQuery)(function($){
 					var mesh;
 					var position = Math.floor( Math.random() * objs.length );
 					if(color == "leader"){
-						mesh = objs[position].clone();
+						mesh = taxi.clone();
 					}else if(color = "follower"){
 						mesh = objs[position].clone();
 					}else{

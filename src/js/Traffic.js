@@ -102,7 +102,7 @@ function Traffic(opt){
 			initCamera3D : function(){},
 			render3D : function(){},
 			drawPlayer : function(){},
-			road3D : function(){}
+			road3D : function(){},
 			pixelLarge : 16,
 			pixelSmall : 4,
 			carSize : 48,

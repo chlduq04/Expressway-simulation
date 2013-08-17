@@ -135,7 +135,7 @@ if(jQuery)(function($){
 				self.settingKey();
 				self.settingMouse();
 				if(defaults.sound){self.settingSound();}
-//				self.controlSkybox();
+				self.controlSkybox();
 				self.initCar();
 				self.drawRoad( road_position, road_scale, "road" );
 //				self.drawOther( others_position, others_scale, "others" );
@@ -243,7 +243,7 @@ if(jQuery)(function($){
 				spotlight.shadowBias = -0.00022;    // a parameter you can tweak if there are artifacts
 				spotlight.shadowDarkness = 0.8;
 
-				spotlight.shadowCameraVisible = true;
+//				spotlight.shadowCameraVisible = true;
 				scene.add( spotlight );
 			},
 			this.settingLight = function( color, x, y, z ){
@@ -484,19 +484,19 @@ if(jQuery)(function($){
 					o_positions[name] = mesh;
 					scene.add( mesh );
 
-					player_position = { x : position.x, y : position.y+100, z : position.z };
-					player_lookat = { x : position.x, y : position.y+30, z : position.z+100 };
-					self.settingCamera( player_position.x, player_position.y, player_position.z, player_lookat );
-
-//					camera_lookat = { x : position.x-4, y : position.y+18, z : position.z-30 };
-//					camera_position = { x : position.x-4, y : position.y+18, z : position.z+5 }
-//					self.settingCamera( position.x-4, position.y+8, position.z+5, camera_lookat )
-//					camera.position.x = position.x-4;
-//					camera.position.y = position.y+18;
-//					camera.position.z = position.z+5;
-//					camera.lookAt(camera_lookat);
-//					camera.fov += 12;
-//					camera.updateProjectionMatrix();
+//					player_position = { x : position.x, y : position.y+100, z : position.z };
+//					player_lookat = { x : position.x, y : position.y+30, z : position.z+100 };
+//					self.settingCamera( player_position.x, player_position.y, player_position.z, player_lookat );
+//
+					camera_lookat = { x : position.x-4, y : position.y+18, z : position.z-30 };
+					camera_position = { x : position.x-4, y : position.y+18, z : position.z+5 }
+					self.settingCamera( position.x-4, position.y+8, position.z+5, camera_lookat )
+					camera.position.x = position.x-4;
+					camera.position.y = position.y+18;
+					camera.position.z = position.z+5;
+					camera.lookAt(camera_lookat);
+					camera.fov += 12;
+					camera.updateProjectionMatrix();
 				}else{
 					targ.position.x = position.x;
 					targ.position.y = position.y;

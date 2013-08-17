@@ -651,7 +651,7 @@ Traffic.prototype = {
 									this.newCars( result*this.defaults.pixelLarge, 1, this.defaults.simulationMaxSpeed*4, result*this.defaults.pixelLarge, 720, 0, speed, this.defaults.pixelLarge, false );
 								}								
 							}
-						}else if(check < 5){
+						}else if(check < 1){
 							var checkstart = false;
 							for(var i in this.cars){
 								if( 720 - this.cars[i].y < this.defaults.pixelLarge ){
@@ -662,11 +662,12 @@ Traffic.prototype = {
 							if(!checkstart){
 								var speed = Math.random() * 1 + this.defaults.simulationMaxSpeed;
 								var result;
-								if(Math.random() > 0.5){
-									result = 39;
-								}else{
-									result = 43;
-								}
+								result = 39;
+//								if(Math.random() > 0.5){
+//									result = 39;
+//								}else{
+//									result = 43;
+//								}
 								this.newCars( result*this.defaults.pixelLarge, 720, this.defaults.simulationMaxSpeed*30, result*this.defaults.pixelLarge, 1, 0, -speed, this.defaults.pixelLarge, false );
 							}
 						}

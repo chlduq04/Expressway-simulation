@@ -3,6 +3,7 @@ function navigation(){
 	this.slide = 200;
 	this.pare = new paring();
 	this.simulation_setting;
+	this.slideSpeed = 0;
 	this.init = function(simul){
 		self.simulation_setting = simul;
 		$("#top-navigation").hide();
@@ -32,6 +33,9 @@ function navigation(){
 			self.navigationBottomSlideUp();
 		});
 	}
+	this.navigationBottomFirstUp = function(){
+		
+	}
 	this.navigationBottomSlideUp = function(){
 		$("#bottom-navigation-clicked").show();
 		self.clickSlideUp();
@@ -45,7 +49,8 @@ function navigation(){
 				$("#bottom-navigation-clicked").css({
 					"background-position" : "0 "+self.slide+"px"
 				});
-				self.slide-=4;
+				self.slide-=self.slideSpeed;
+				self.slideSpeed += 0.05;
 				self.clickSlideUp();            
 			}else{
 				$("#bnc-1").fadeIn(600);
@@ -56,6 +61,7 @@ function navigation(){
 				$("#bnc-6").fadeIn(600);
 				$("#bnc-7").fadeIn(600);
 				$("#bnc-8").fadeIn(600);
+				self.slideSpeed = 0;
 			}                      
 		}, 0.5)
 	}
@@ -98,10 +104,14 @@ function navigation(){
 				$("#bottom-navigation-clicked").css({
 					"background-position" : "0 "+self.slide+"px"
 				});
-				self.slide+=4;
+				self.slide+=self.slideSpeed;
+				self.slideSpeed += 0.04;
 				self.clickSlideDown();            
 			}else{
-				$("#bottom-navigation").show();
+				setTimeout(function(){
+					$("#bottom-navigation").show();
+				},200)
+				self.slideSpeed = 0;
 			}                      
 		}, 0.5)
 	}

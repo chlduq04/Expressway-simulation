@@ -20,6 +20,7 @@ window.onload = function() {
 		drawPlayer : glview.getGl().drawCarPlayer3D,
 		road3D : glview.getGl().startRoad
 	})
+
 	var navi = new navigation();
 	var start = new startpage();
 

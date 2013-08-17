@@ -162,11 +162,10 @@ Traffic.prototype = {
 			var car = $("#car"+object.id);
 			if(car.length>0){
 				var detail = car.children();
-				var text = "<div class='car-id'>id : "+object.id+"</div>"
 				if(this.paring){
 					if( object.x > this.defaults.lineSize ){
-						if(object.leader){
-							car.css({ "background-position":"center","background-position-x":"-80px", "background-position-y":"0px", "background-size":"cover", "border-radius": "50px", "position":"absolute", "z-index":"10", "background-image":"url('./image/navigation/navigation-texi.png')", "left":object.realx, "top":object.realy, "transform":"rotate("+object.rotate+"deg)" });
+						if(object.leader){/*85px 0px */
+							car.css({ "background-position":"center","background-position-x":"-120px", "background-position-y":"0px", "background-size":"cover", "border-radius": "50px", "position":"absolute", "z-index":"10", "background-image":"url('./image/navigation/navigation-texi.png')", "left":object.realx, "top":object.realy, "transform":"rotate("+object.rotate+"deg)" });
 						}else if(object.player){
 							car.css({ "left":object.realx, "top":"60", "transform":"rotate("+object.rotate+"deg)"});
 						}else{
@@ -180,7 +179,7 @@ Traffic.prototype = {
 						}
 					}else{
 						if(object.leader){
-							car.css({ "background-position":"center","background-position-x":"0", "background-position-y":"0", "background-size":"cover", "border-radius": "50px", "position":"absolute", "z-index":"10", "background-image":"url('./image/navigation/navigation-texi.png')", "left":object.realx, "top":object.realy, "transform":"rotate("+object.rotate+"deg)" });
+							car.css({ "background-position":"center","background-position-x":"5px", "background-position-y":"0", "background-size":"cover", "border-radius": "50px", "position":"absolute", "z-index":"10", "background-image":"url('./image/navigation/navigation-texi.png')", "left":object.realx, "top":object.realy, "transform":"rotate("+object.rotate+"deg)" });
 						}else if(object.player){
 							car.css({ "left":object.realx, "top":"60", "transform":"rotate("+object.rotate+"deg)" });
 						}else{
@@ -212,18 +211,23 @@ Traffic.prototype = {
 						}
 					}
 				}
-				var text;
-				if(object.front == null){
-					text += "<div class='car-front'>Link : N</div>";	
-				}else{
-					text += "<div class='car-front'>Link : Y</div>";
+
+				if(object.leader){
+					var length = Math.floor(this.player.realy - object.realy);
+					var text = "";	
+					if(object.id<10){
+						text += "<div class='car-id'>0"+object.id+"</div>"
+					}else{
+						var id = object.id%100;
+						text += "<div class='car-id'>"+id+"</div>"
+					}
+					text += "<div class='car-front'>"+length+"m</div>";
+					detail.css({
+						"z-index" : "15"
+					});
+					detail.html(text);
+					car.append(detail);
 				}
-				text += "<div class='car-speed'>"+Math.round(object.speedy*10)+"km </div>";
-				detail.css({
-					"z-index" : "15"
-				});
-				detail.html(text);
-				car.append(detail);
 			}else{
 				car = $("<div id='car"+object.id+"'></div>")
 				var detail =  $("<div id='car"+object.id+"-over'></div>");
@@ -232,7 +236,7 @@ Traffic.prototype = {
 //						car.css({ "background-position":"center","background-position":"-80px 0px", "background-size":"cover", "border-radius": "50px", "position":"absolute", "z-index":"10", "background-image":"url('./image/navigation/navigation-texi.png')", "width":"78px", "height":"78px", "left":object.realx, "top":object.realy, "transform":"rotate("+object.rotate+"deg)" });
 //					}else 
 					if(object.player){
-						car.css({ "background-repeat":"no-repeat", "background-position":"center","background-position":"0 -250px", "background-size":"cover", "border-radius": "50px", "position":"absolute", "z-index":"10", "background-image":"url('./image/navigation/navigation-mycar.png')", "width":"78px", "height":"830px", "left":object.realx, "top":"60", "transform":"rotate("+object.rotate+"deg)" });
+						car.css({ "background-repeat":"no-repeat", "background-position":"center","background-position":"-3px -250px", "background-size":"cover", "border-radius": "50px", "position":"absolute", "z-index":"10", "background-image":"url('./image/navigation/navigation-mycar.png')", "width":"78px", "height":"830px", "left":object.realx, "top":"60", "transform":"rotate("+object.rotate+"deg)" });
 					}else{
 						car.css({ "background-position":"center","background-position":"-80px 0px", "background-size":"cover", "border-radius": "50px", "position":"absolute", "z-index":"10", "background-image":"url('./image/navigation/navigation-normal.png')", "width":"78px", "height":"78px", "left":object.realx, "top":object.realy, "transform":"rotate("+object.rotate+"deg)" });
 					}
@@ -242,36 +246,38 @@ Traffic.prototype = {
 //						car.css({ "background-position":"center","background-position":"0 0", "background-size":"cover", "border-radius": "50px", "position":"absolute", "z-index":"10", "background-image":"url('./image/navigation/navigation-texi.png')", "width":"78px", "height":"78px", "left":object.realx, "top":object.realy, "transform":"rotate("+object.rotate+"deg)" });
 //					}else 
 					if(object.player){
-						car.css({ "background-repeat":"no-repeat", "background-position":"center","background-position":"0 -250px", "background-size":"cover", "border-radius": "50px", "position":"absolute", "z-index":"10", "background-image":"url('./image/navigation/navigation-mycar.png')", "width":"78px", "height":"830px", "left":object.realx, "top":"60", "transform":"rotate("+object.rotate+"deg)" });
+						car.css({ "background-repeat":"no-repeat", "background-position":"center","background-position":"-3px -250px", "background-size":"cover", "border-radius": "50px", "position":"absolute", "z-index":"10", "background-image":"url('./image/navigation/navigation-mycar.png')", "width":"78px", "height":"830px", "left":object.realx, "top":"60", "transform":"rotate("+object.rotate+"deg)" });
 					}else{
-						car.css({ "background-position":"center","background-position":"0 0", "background-size":"cover", "border-radius": "50px", "position":"absolute", "z-index":"10", "background-image":"url('./image/navigation/navigation-normal.png')", "width":"78px", "height":"78px", "left":object.realx, "top":object.realy, "transform":"rotate("+object.rotate+"deg)" });
+						car.css({ "background-position":"center","background-position":"5px 0", "background-size":"cover", "border-radius": "50px", "position":"absolute", "z-index":"10", "background-image":"url('./image/navigation/navigation-normal.png')", "width":"78px", "height":"78px", "left":object.realx, "top":object.realy, "transform":"rotate("+object.rotate+"deg)" });
 					}
 				}
-				detail.css({
-					"width": "370px",
-					"height": "108px",
-					"background": "url('./image/navigation/navigation-speed.png')",
-					"background-position": "center",
-					"background-repeat": "no-repeat",
-					"position": "absolute",
-					"left": "10px",
-					"top": "-50px",
-					"display":"none",
-					"color": "white",
-					"font-size":"12px",
-					"z-index" : "15"
-				});
-
-				var text;
-				if(object.front == null){
-					text += "<div class='car-front'>Link : N</div>";	
-				}else{
-					text += "<div class='car-front'>Link : Y</div>";
+				if(object.leader){
+					detail.css({
+						"width": "370px",
+						"height": "108px",
+						"background": "url('./image/navigation/navigation-info.png')",
+						"background-position": "center",
+						"background-repeat": "no-repeat",
+						"position": "absolute",
+						"left": "10px",
+						"top": "-50px",
+						"display":"none",
+						"color": "white",
+						"font-size":"12px",
+						"z-index" : "15"
+					});
+					var length = Math.floor(this.player.realy - object.realy);
+					var text = "";	
+					if(object.id<10){
+						text += "<div class='car-id'>0"+object.id+"</div>"
+					}else{
+						var id = object.id%100;
+						text += "<div class='car-id'>"+id+"</div>"
+					}
+					text += "<div class='car-front'>"+length+"m</div>";
+					detail.html(text);
+					car.append(detail);
 				}
-				text += "<div class='car-speed'>"+Math.round(object.speedy*10)+"km </div>";
-				detail.html(text);
-				car.append(detail);
-
 				car.mousedown(function(){
 					var target = this.children[0];
 					if($(target).css("display") == "none"){
@@ -296,25 +302,30 @@ Traffic.prototype = {
 					car.css({"display":"none"});
 				}
 			}
+			
+			object.reality_car += object.reality_error;
+			if( object.reality_car > 4 || object.reality_car < -4 ){
+				object.reality_error = -object.reality_error;
+			}
 
 			if(object.player){
-				this.defaults.drawPlayer( { x : object.x - 664, y : 0, z : ( object.y - 320 ) * 3 }, object.id, "follower", object.rotate );
+				this.defaults.drawPlayer( { x : object.x - 664, y : 0, z : ( object.y - 320 ) * 3 }, object.id, "follower", object.rotate, object.reality_error );
 			}else{
 				if( object.x < this.defaults.lineSize ){
 					if(object.leader){
-						this.defaults.drawCar3D( { x : object.x - 632, y : 0, z : (object.y - 320) * 8 }, object.id, "leader", object.rotate );
+						this.defaults.drawCar3D( { x : object.x - 632 + object.reality_car, y : 0, z : (object.y - 320) * 8 }, object.id, "leader", object.rotate );
 					}else if( object.front != null ){
-						this.defaults.drawCar3D( { x : object.x - 632, y : 0, z : ( object.y - 320 ) * 8 }, object.id, "follower", object.rotate );
+						this.defaults.drawCar3D( { x : object.x - 632 + object.reality_car, y : 0, z : ( object.y - 320 ) * 8 }, object.id, "follower", object.rotate );
 					}else{
-						this.defaults.drawCar3D( { x : object.x - 632, y : 0, z : ( object.y - 320 ) * 8 }, object.id, "normal", object.rotate );
+						this.defaults.drawCar3D( { x : object.x - 632 + object.reality_car, y : 0, z : ( object.y - 320 ) * 8 }, object.id, "normal", object.rotate );
 					}
 				}else{
 					if(object.leader){
-						this.defaults.drawCarBack3D( { x : object.x - 664, y : 0, z : ( object.y - 320 ) * 3 }, object.id, "leader", object.rotate );
+						this.defaults.drawCarBack3D( { x : object.x - 664 + object.reality_car, y : 0, z : ( object.y - 320 ) * 3 }, object.id, "leader", object.rotate );
 					}else if( object.front != null ){
-						this.defaults.drawCarBack3D( { x : object.x - 664, y : 0, z : ( object.y - 320 ) * 3 }, object.id, "follower", object.rotate );
+						this.defaults.drawCarBack3D( { x : object.x - 664 + object.reality_car, y : 0, z : ( object.y - 320 ) * 3 }, object.id, "follower", object.rotate );
 					}else{
-						this.defaults.drawCarBack3D( { x : object.x - 664, y : 0, z : ( object.y - 320 ) * 3 }, object.id, "normal", object.rotate );
+						this.defaults.drawCarBack3D( { x : object.x - 664 + object.reality_car, y : 0, z : ( object.y - 320 ) * 3 }, object.id, "normal", object.rotate );
 					}
 				}
 
@@ -640,7 +651,7 @@ Traffic.prototype = {
 									this.newCars( result*this.defaults.pixelLarge, 1, this.defaults.simulationMaxSpeed*4, result*this.defaults.pixelLarge, 720, 0, speed, this.defaults.pixelLarge, false );
 								}								
 							}
-						}else if(check < 1){
+						}else if(check < 5){
 							var checkstart = false;
 							for(var i in this.cars){
 								if( 720 - this.cars[i].y < this.defaults.pixelLarge ){

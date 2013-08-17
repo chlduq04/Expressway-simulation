@@ -10,10 +10,10 @@
 .sp-startbutton {
 	width: 424px;
 	height: 424px;
-	margin-top: 95px;
+	margin-top: 110px;
 	margin-left: 428px;
 	float: left;
-	background: url("../image/navigation/startpage_start.png");
+	background: url("../image/navigation/startpage_start_1.png");
 	background-repeat: no-repeat;
 	background-position: 0px -1px;
 }
@@ -21,27 +21,29 @@
 .sp-startbutton-light {
 	width: 424px;
 	height: 424px;
-	margin-top: 95px;
-	margin-left: 428px;
+	margin-top: 108px;
+	margin-left: 426px;
 	background: url("../image/navigation/startpage_start.png");
 	background-repeat: no-repeat;
 	background-position: -450px 0px;
 }
 
 .sp-replaybutton {
+	margin-top: 36px;
 	float: left;
 	width: 222px;
 	height: 228px;
-	margin-left: 1000px;
-	background: url("../image/navigation/startpage_replay.png");
+	margin-left: 1060px;
+	background: url("../image/navigation/startpage_replay_1.png");
 	background-repeat: no-repeat;
 	background-position: 0px 0px;
 }
 
 .sp-replaybutton-light {
+	margin-top: 36px;
 	width: 222px;
 	height: 228px;
-	margin-left: 1000px;
+	margin-left: 1058px;
 	background: url("../image/navigation/startpage_replay.png");
 	background-repeat: no-repeat;
 	background-position: -250px 0px;

@@ -25,7 +25,7 @@ if(jQuery)(function($){
 			var sound_position = {};
 			var objs = [];
 			var taxi;
-			
+
 			var renderer;
 			var camara, light, spotlight;
 			var target= new THREE.Vector3(), lon = 90, lat = 0, phi = 0, theta = 0;
@@ -72,6 +72,9 @@ if(jQuery)(function($){
 			var road = new Image();
 			car_front_img.src = "./image/obj/carfront.png";
 			car_back_img.src = "./image/obj/carback.png";
+
+			/** mirror **/
+			var mirrorCubeCamera, mirrorCube;
 
 			var geometry = new THREE.CubeGeometry( 5, 5, 10 );
 			var car_front_material = new THREE.MeshLambertMaterial( { color : 0xFFFFFF } );
@@ -144,7 +147,18 @@ if(jQuery)(function($){
 				/** Sky box **/
 				renderer.render( scene, camera );
 			},
+			this.initMirror = function(){
+				var cubeGeom = new THREE.CubeGeometry(100, 100, 10, 1, 1, 1);
+				mirrorCubeCamera = new THREE.CubeCamera( 0.1, 5000, 512 );
+				// mirrorCubeCamera.renderTarget.minFilter = THREE.LinearMipMapLinearFilter;
+				scene.add( mirrorCubeCamera );
 
+				var mirrorCubeMaterial = new THREE.MeshBasicMaterial( { envMap: mirrorCubeCamera.renderTarget } );
+				mirrorCube = new THREE.Mesh( cubeGeom, mirrorCubeMaterial );
+				mirrorCube.position.set(-75,50,400);
+				mirrorCubeCamera.position = mirrorCube.position;
+				scene.add(mirrorCube);	
+			}.
 			/** Setting **/
 
 			this.initCar = function(){
@@ -159,18 +173,18 @@ if(jQuery)(function($){
 				var loader0 = new THREE.OBJMTLLoader();
 				loader0.addEventListener('load',function(event){
 					taxi = event.content;
-			        for(k in cube.taxi){
-			        	taxi.children[k].castShadow = true;
-			        }
+					for(k in cube.taxi){
+						taxi.children[k].castShadow = true;
+					}
 				});
 				loader0.load( './image/obj/cartaxi.obj', './image/obj/cartaxi.mtl');
-				
+
 				var loader1 = new THREE.OBJMTLLoader();
 				loader1.addEventListener('load',function(event){
 					var cube = event.content;
-			        for(k in cube.children){
-			            cube.children[k].castShadow = true;
-			        }
+					for(k in cube.children){
+						cube.children[k].castShadow = true;
+					}
 					objs.push(cube);
 				});
 				loader1.load( './image/obj/car1.obj', './image/obj/car1.mtl');
@@ -178,10 +192,9 @@ if(jQuery)(function($){
 				var loader2 = new THREE.OBJMTLLoader();
 				loader2.addEventListener('load',function(event){
 					var cube = event.content;
-			        for(k in cube.children){
-			            cube.children[k].castShadow = true;
-			            //cube.children[k].receiveShadow = true; // changed - can lead to artifacts. use if you want
-			        }
+					for(k in cube.children){
+						cube.children[k].castShadow = true;
+					}
 					objs.push(cube);
 				});
 				loader2.load( './image/obj/car2.obj', './image/obj/car2.mtl');
@@ -189,10 +202,9 @@ if(jQuery)(function($){
 				var loader3 = new THREE.OBJMTLLoader();
 				loader3.addEventListener('load',function(event){
 					var cube = event.content;
-			        for(k in cube.children){
-			            cube.children[k].castShadow = true;
-			            //cube.children[k].receiveShadow = true; // changed - can lead to artifacts. use if you want
-			        }
+					for(k in cube.children){
+						cube.children[k].castShadow = true;
+					}
 					objs.push(cube);
 				});
 				loader3.load( './image/obj/car3.obj', './image/obj/car3.mtl');
@@ -217,6 +229,7 @@ if(jQuery)(function($){
 				renderer.shadowMapEnabled = true;
 				renderer.shadowMapSoft = true;
 				canvas = $(this)[0].appendChild( renderer.domElement );
+
 			}
 			this.settingCamera = function( x, y, z, target ){
 				camera = new THREE.PerspectiveCamera(
@@ -236,7 +249,7 @@ if(jQuery)(function($){
 
 				spotlight.shadowMapWidth = 2048;    // power of 2
 				spotlight.shadowMapHeight = 2048;
-			    
+
 				spotlight.shadowCameraNear = 100;	// keep near and far planes as tight as possible
 				spotlight.shadowCameraFar = 1500;	// shadows not cast past the far plane
 				spotlight.shadowCameraFov = 50;
@@ -273,11 +286,14 @@ if(jQuery)(function($){
 					self.controlMouseOut(e);
 				});
 //				$(target).bind("mousewheel",function(e){
-//					self.controlMouseWheel(e);
+//				self.controlMouseWheel(e);
 //				});
 			},
 			this.rendering = function(){
 				self.startRoad(false);
+				mirrorCube.visible = false;
+				mirrorCubeCamera.updateCubeMap( renderer, scene );
+				mirrorCube.visible = true;
 				renderer.render( scene, camera );
 			},
 
@@ -368,17 +384,18 @@ if(jQuery)(function($){
 
 			this.controlSkybox = function(){
 				var sky_materials = [
-				                     self.loadTexture( './image/obj/skybox/px.jpg' ), // right
-				                     self.loadTexture( './image/obj/skybox/nx.jpg' ), // left
-				                     self.loadTexture( './image/obj/skybox/py.jpg' ), // top
-				                     self.loadTexture( './image/obj/skybox/ny.jpg' ), // bottom
-				                     self.loadTexture( './image/obj/skybox/pz.jpg' ), // back
-				                     self.loadTexture( './image/obj/skybox/nz.jpg' )  // front
+				                     self.loadTexture( './image/skybox/new/px2.jpg' ), // right
+				                     self.loadTexture( './image/skybox/new/pz2.jpg' ), // left
+				                     self.loadTexture( './image/skybox/new/py2.jpg' ), // top
+				                     self.loadTexture( './image/skybox/new/ny.jpg' ), // bottom
+				                     self.loadTexture( './image/skybox/new/nx2.jpg' ), // back
+				                     self.loadTexture( './image/skybox/new/nz2.jpg' )  // front
 				                     ];
 
-				var sky_mesh = new THREE.Mesh( new THREE.CubeGeometry( 800, 800, 800, 7, 7, 7 ), new THREE.MeshFaceMaterial( sky_materials ) );
+				var sky_mesh = new THREE.Mesh( new THREE.CubeGeometry( 1200, 1600, 3200, 7, 7, 7 ), new THREE.MeshFaceMaterial( sky_materials ) );
 				sky_mesh.scale.x = - 1;
-				sky_mesh.position.z = -500;
+				sky_mesh.position.z = -800;
+				sky_mesh.position.y = 100;
 				scene.add( sky_mesh );
 			},
 
@@ -403,7 +420,17 @@ if(jQuery)(function($){
 			},
 
 			/** Draw objects **/
-
+			this.unparingView = function(){
+				if( camera_position.y < 80 ){
+					camera_lookat = { x : position.x-4, y : position.y+18, z : position.z-30 };
+					camera_position = { x : position.x-4, y : position.y+18, z : position.z+5 }
+					self.settingCamera( position.x-4, position.y+8, position.z+5, camera_lookat )
+					camera.position.x = position.x-4;
+					camera.position.y = position.y+18;
+					camera.position.z = position.z+5;
+					camera.lookAt(camera_lookat);
+				}
+			} 
 			this.drawCar = function( position, name ){
 				var target = o_positions[name];
 				if( target == undefined ){
@@ -487,7 +514,7 @@ if(jQuery)(function($){
 //					player_position = { x : position.x, y : position.y+100, z : position.z };
 //					player_lookat = { x : position.x, y : position.y+30, z : position.z+100 };
 //					self.settingCamera( player_position.x, player_position.y, player_position.z, player_lookat );
-//
+
 					camera_lookat = { x : position.x-4, y : position.y+18, z : position.z-30 };
 					camera_position = { x : position.x-4, y : position.y+18, z : position.z+5 }
 					self.settingCamera( position.x-4, position.y+8, position.z+5, camera_lookat )
@@ -569,7 +596,7 @@ if(jQuery)(function($){
 					mesh.scale.y = 0.16
 					mesh.scale.z = 0.096;
 					mesh.rotation.y = Math.PI;
-					
+
 					o_positions[name] = mesh;
 					var sound = new Sound( [ "./sound/background.mp3" ], 500, 1 );
 					sound.position.copy( position );
@@ -580,7 +607,7 @@ if(jQuery)(function($){
 					target.position.x = position.x;
 					target.position.y = position.y;
 					target.position.z = position.z;
-					
+
 					if( target.rotation.y - Math.PI/360 - Math.PI > -Math.PI/180 * (rotate/3) ){
 						target.rotation.y -= Math.PI/360;
 					}else if( target.rotation.y + Math.PI/360 - Math.PI < -Math.PI/180 * (rotate/3) ){
@@ -589,7 +616,7 @@ if(jQuery)(function($){
 					if( rotate == 0 && Math.abs(target.rotation.y) < 0.04 ){
 						target.rotation.y = 0;
 					}
-					
+
 					var sound = sound_position[name]
 					sound.position.copy( target.position );
 					sound.update(player_position);
@@ -634,7 +661,7 @@ if(jQuery)(function($){
 					var object = event.content;
 					for(k in object.children){
 						object.children[k].receiveShadow = true;
-			        }
+					}
 					object.position.x = 50;
 					object.position.y = -200;
 					object.position.z = 1050;

@@ -31,7 +31,7 @@ function Car(id,x,y,limit_speed,goalx,goaly,speedx,speedy,radius,front,back,lead
 	this.speed_down = false;
 	
 	this.reality_car = Math.floor( Math.random() * 5 ) - 2;
-	this.reality_error = ( Math.floor( Math.random() * 3 ) - 1 ) / 100;
+	this.reality_error = ( Math.floor( Math.random() * 3 ) - 1 ) / 10;
 }
 
 Car.prototype = {

@@ -662,12 +662,11 @@ Traffic.prototype = {
 							if(!checkstart){
 								var speed = Math.random() * 1 + this.defaults.simulationMaxSpeed;
 								var result;
-								result = 39;
-//								if(Math.random() > 0.5){
-//									result = 39;
-//								}else{
-//									result = 43;
-//								}
+								if(Math.random() > 0.5){
+									result = 39;
+								}else{
+									result = 43;
+								}
 								this.newCars( result*this.defaults.pixelLarge, 720, this.defaults.simulationMaxSpeed*30, result*this.defaults.pixelLarge, 1, 0, -speed, this.defaults.pixelLarge, false );
 							}
 						}

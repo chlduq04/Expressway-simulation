@@ -18,7 +18,8 @@ window.onload = function() {
 		initCamera3D : glview.getGl().initCamera,
 		render3D : glview.getGl().rendering,
 		drawPlayer : glview.getGl().drawCarPlayer3D,
-		road3D : glview.getGl().startRoad
+		road3D : glview.getGl().startRoad,
+		cameraEnding : glview.getGl().cameraView
 	})
 
 	var navi = new navigation();

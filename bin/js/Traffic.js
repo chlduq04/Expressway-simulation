@@ -103,6 +103,7 @@ function Traffic(opt){
 			render3D : function(){},
 			drawPlayer : function(){},
 			road3D : function(){},
+			cameraEnding : function(){},
 			pixelLarge : 16,
 			pixelSmall : 4,
 			carSize : 48,
@@ -429,6 +430,7 @@ Traffic.prototype = {
 					$("#road").css({ "background-image":"url('./image/navigation/background-out.png')", "background-position" : "center "+this.time+"px" });
 					this.defaults.road3D(true);
 					this.outx = true;
+					this.defaults.cameraEnding();
 				}else{
 					$("#road").css({ "background-image":"url('./image/navigation/background-1.png')", "background-position" : "center "+this.time+"px" });
 				}

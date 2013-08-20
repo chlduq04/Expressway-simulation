@@ -59,6 +59,7 @@ if(jQuery)(function($){
 
 			var camera;
 			var camera_move = false;
+			var camera_view_road = false;
 
 			/** Player position **/
 
@@ -158,9 +159,11 @@ if(jQuery)(function($){
 				mirrorCube.position.set(-75,50,400);
 				mirrorCubeCamera.position = mirrorCube.position;
 				scene.add(mirrorCube);	
-			}.
+			},
 			/** Setting **/
-
+			this.cameraView = function(){
+				camera_view_road = true;
+			},
 			this.initCar = function(){
 				/** 3D model **/
 				var car3D;
@@ -290,10 +293,10 @@ if(jQuery)(function($){
 //				});
 			},
 			this.rendering = function(){
-				self.startRoad(false);
-				mirrorCube.visible = false;
-				mirrorCubeCamera.updateCubeMap( renderer, scene );
-				mirrorCube.visible = true;
+				self.startRoad(camera_view_road);
+//				mirrorCube.visible = false;
+//				mirrorCubeCamera.updateCubeMap( renderer, scene );
+//				mirrorCube.visible = true;
 				renderer.render( scene, camera );
 			},
 
@@ -363,7 +366,6 @@ if(jQuery)(function($){
 					target.z = camera_lookat.x * Math.sin( phi ) * Math.sin( theta ) * 5;
 
 					self.controlCamera( camera_position.x, camera_position.y, camera_position.z,  target );
-//					self.controlCamera( -target.x, -target.y, -target.z,  target );
 					renderer.render( scene, camera );
 				}
 			},
@@ -691,7 +693,9 @@ if(jQuery)(function($){
 			},
 			this.startRoad = function(position){
 				if(position){
-					o_positions['road'].position.z = 1050;
+					camera.position.y++;
+					camera_lookat.z = 100;
+					camera.lookAt(camera_lookat);
 				}else{
 					o_positions['road'].position.z += 20;
 					if(o_positions['road'].position.z > defaults.map_length * 3 ){

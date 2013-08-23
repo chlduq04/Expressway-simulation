@@ -1,6 +1,6 @@
 function navigation(){
 	var self = this;
-	this.slide = 200;
+	this.slide = 120;
 	this.pare = new paring();
 	this.simulation_setting;
 	this.slideSpeed = 0;
@@ -29,8 +29,10 @@ function navigation(){
 				"background-position" : "0 0",
 				"background-repeat" : "no-repeat"
 			});
-			$("#bottom-navigation").hide();
-			self.navigationBottomSlideUp();
+			setTimeout(function(){
+				$("#bottom-navigation").hide();
+				self.navigationBottomSlideUp();
+			},200)
 		});
 	}
 	this.navigationBottomFirstUp = function(){
@@ -50,7 +52,7 @@ function navigation(){
 					"background-position" : "0 "+self.slide+"px"
 				});
 				self.slide-=self.slideSpeed;
-				self.slideSpeed += 0.05;
+				self.slideSpeed += 0.1;
 				self.clickSlideUp();            
 			}else{
 				$("#bnc-1").fadeIn(600);
@@ -67,12 +69,12 @@ function navigation(){
 	}
 	this.paring = function(){
 		$("#bnc-2").click(function(){
-			$(this).fadeOut(500,function(){
+			$(this).fadeOut(100,function(){
 				$(this).css({"background-position" : "8px 30px"})
 				$(this).fadeIn(800,function(){
 					self.navigationBottomSlideDown();
 					self.simulation_setting.searchMotion();
-					self.simulation_setting.startparing(43);
+					self.simulation_setting.startparing(42);
 					setTimeout( function(){
 						self.pare.paringStart();
 						self.pare.paringLightOff();
@@ -94,13 +96,23 @@ function navigation(){
 	}
 	this.navigationBottomButtonClickUp = function(){
 		$("#bnc1-button").click(function(){
-			self.navigationBottomSlideDown();
+			$("#bnc1-button").css({
+				"background-position" : "-1px -2px",
+				"background-repeat" : "no-repeat"
+			});
+			setTimeout(function(){
+				self.navigationBottomSlideDown();
+				$("#bnc1-button").css({
+					"background-position" : "-51px -2px",
+					"background-repeat" : "no-repeat"
+				});
+			},200);
 		});	
 	}
 
 	this.clickSlideDown = function(){
 		setTimeout(function () {    
-			if ( self.slide-4 <= 200 ) { 
+			if ( self.slide-4 <= 120 ) { 
 				$("#bottom-navigation-clicked").css({
 					"background-position" : "0 "+self.slide+"px"
 				});

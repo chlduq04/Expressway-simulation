@@ -64,9 +64,10 @@ table {
 	float: left;
 	width: 1280px;
 	height: 800px;
-	background: url("../image/navigation/background-1.png");
-	background-position: center -1600px;
+	background: url("../image/navigation/background-2.png");
+	background-position: 58% -2000px;
 	background-repeat: no-repeat;
+	background-size: 1600px 2800px;
 }
 
 .cars {

@@ -24,8 +24,11 @@ function paring(){
 			if(!self.click){
 				self.paringLightOff();
 				self.count++;
-				if(self.count>4){
-					self.paringSuccess();
+				if(self.count>3){
+					$("#paringinfo-middle").click(function(){
+						self.paringSuccess();
+					})
+					self.click = true;
 				}
 			}
 		});

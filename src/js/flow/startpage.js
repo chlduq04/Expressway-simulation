@@ -28,14 +28,14 @@ function startpage(){
 		$("#sp-startbutton").click(function(){
 			self.click = true;
 			$("#sp-startbutton").css({
-				"background": "url('./image/navigation/startpage_start.png')",
+				"background": "url('./image/navigation/startpage_start_touch.png')",
 				"background-repeat": "no-repeat",
-				"background-position": "-900px -1px"
+				"background-position": "0px -1px"
 			});
 			$("#sp-startbutton-light").css({
-				"background": "url('./image/navigation/startpage_start.png')",
+				"background": "url('./image/navigation/startpage_start_touch.png')",
 				"background-repeat": "no-repeat",
-				"background-position": "-900px -1px"
+				"background-position": "0px -1px"
 			});
 			$("#startpage").fadeOut(500,function(){
 				$("#road").fadeIn(500,function(){

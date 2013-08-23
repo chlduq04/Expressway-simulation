@@ -386,12 +386,12 @@ if(jQuery)(function($){
 
 			this.controlSkybox = function(){
 				var sky_materials = [
-				                     self.loadTexture( './image/skybox/new/px2.jpg' ), // right
-				                     self.loadTexture( './image/skybox/new/pz2.jpg' ), // left
-				                     self.loadTexture( './image/skybox/new/py2.jpg' ), // top
+				                     self.loadTexture( './image/skybox/new/px.jpg' ), // right
+				                     self.loadTexture( './image/skybox/new/pz.jpg' ), // left
+				                     self.loadTexture( './image/skybox/new/py.jpg' ), // top
 				                     self.loadTexture( './image/skybox/new/ny.jpg' ), // bottom
-				                     self.loadTexture( './image/skybox/new/nx2.jpg' ), // back
-				                     self.loadTexture( './image/skybox/new/nz2.jpg' )  // front
+				                     self.loadTexture( './image/skybox/new/nx.jpg' ), // back
+				                     self.loadTexture( './image/skybox/new/nz.jpg' )  // front
 				                     ];
 
 				var sky_mesh = new THREE.Mesh( new THREE.CubeGeometry( 1200, 1600, 3200, 7, 7, 7 ), new THREE.MeshFaceMaterial( sky_materials ) );

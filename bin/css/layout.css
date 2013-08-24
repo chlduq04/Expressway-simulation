@@ -304,33 +304,6 @@ table {
 	font-family: serif;
 }
 
-.ui {
-	width: 1280px;
-	margin-top: 350px;
-	height: 100px;
-	position: absolute;
-}
-
-.ui-left {
-	float: left;
-	width: 30%;
-	height: 100%;
-	margin-right: 5%;
-}
-
-.ui-right {
-	float: left;
-	width: 30%;
-	height: 100%;
-	margin-left: 5%;
-}
-
-.ui-center {
-	float: left;
-	width: 30%;
-	height: 100%;
-}
-
 .road-make-car1 {
 	width: 60px;
 	height: 60px;

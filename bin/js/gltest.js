@@ -1,3 +1,5 @@
+var light,spotlight;
+
 if(jQuery)(function($){
 	$.extend($.fn, {
 		WebGL : function(opt){
@@ -27,7 +29,7 @@ if(jQuery)(function($){
 			var taxi;
 
 			var renderer;
-			var camara, light, spotlight;
+			var camara;
 			var target= new THREE.Vector3(), lon = 90, lat = 0, phi = 0, theta = 0;
 			var isUserInteracting = false;
 			var onPointerDownPointerX,onPointerDownPointerY;
@@ -143,8 +145,8 @@ if(jQuery)(function($){
 				self.initCar();
 				self.drawRoad( road_position, road_scale, "road" );
 //				self.drawOther( others_position, others_scale, "others" );
-				self.settingSpotLight( 0xFFFFFF, 24, 100, 900 );
-				self.settingLight( 0xFFFFCC, 0, 300, 550 );
+				self.settingSpotLight( 0xFFFFFF, -200, 100, 900 );
+				self.settingLight( 0xFFFFCC, 400, 200, 550 );
 				/** Sky box **/
 				renderer.render( scene, camera );
 			},
@@ -176,7 +178,7 @@ if(jQuery)(function($){
 				var loader0 = new THREE.OBJMTLLoader();
 				loader0.addEventListener('load',function(event){
 					taxi = event.content;
-					for(k in cube.taxi){
+					for(k in taxi.taxi){
 						taxi.children[k].castShadow = true;
 					}
 				});
@@ -248,6 +250,7 @@ if(jQuery)(function($){
 				spotlight = new THREE.SpotLight( color );
 
 				spotlight.position.set( x, y, z );
+				console.log(spotlight);
 				spotlight.castShadow = true;
 
 				spotlight.shadowMapWidth = 2048;    // power of 2
@@ -265,9 +268,6 @@ if(jQuery)(function($){
 			this.settingLight = function( color, x, y, z ){
 				light = new THREE.PointLight( color );
 				light.position.set( x, y, z );
-				light.castShadow = true;
-				light.shadowDarkness = 0.5;
-				light.shadowCameraVisible = true;
 				scene.add( light );
 			},
 			this.settingKey = function(){
@@ -288,9 +288,9 @@ if(jQuery)(function($){
 				$(target).bind("mouseout",function(e){
 					self.controlMouseOut(e);
 				});
-//				$(target).bind("mousewheel",function(e){
-//				self.controlMouseWheel(e);
-//				});
+				$(target).bind("mousewheel",function(e){
+					self.controlMouseWheel(e);
+				});
 			},
 			this.rendering = function(){
 				self.startRoad(camera_view_road);
@@ -427,9 +427,6 @@ if(jQuery)(function($){
 					camera_lookat = { x : position.x-4, y : position.y+18, z : position.z-30 };
 					camera_position = { x : position.x-4, y : position.y+18, z : position.z+5 }
 					self.settingCamera( position.x-4, position.y+8, position.z+5, camera_lookat )
-					camera.position.x = position.x-4;
-					camera.position.y = position.y+18;
-					camera.position.z = position.z+5;
 					camera.lookAt(camera_lookat);
 				}
 			} 
@@ -517,12 +514,9 @@ if(jQuery)(function($){
 //					player_lookat = { x : position.x, y : position.y+30, z : position.z+100 };
 //					self.settingCamera( player_position.x, player_position.y, player_position.z, player_lookat );
 
-					camera_lookat = { x : position.x-4, y : position.y+18, z : position.z-30 };
-					camera_position = { x : position.x-4, y : position.y+18, z : position.z+5 }
-					self.settingCamera( position.x-4, position.y+8, position.z+5, camera_lookat )
-					camera.position.x = position.x-4;
-					camera.position.y = position.y+18;
-					camera.position.z = position.z+5;
+					camera_lookat = { x : position.x-2, y : position.y+16, z : position.z-30 };
+					camera_position = { x : position.x-2, y : position.y+16, z : position.z-1 }
+					self.settingCamera( position.x-2, position.y+16, position.z-1, camera_lookat )
 					camera.lookAt(camera_lookat);
 					camera.fov += 12;
 					camera.updateProjectionMatrix();
@@ -533,6 +527,13 @@ if(jQuery)(function($){
 					targ.rotation.y = -Math.PI/180 * rotate;
 					player_position = position;
 					o_positions['road'].position.x += relate;
+					
+					camera_lookat = { x : position.x-2, y : position.y+16, z : position.z-30 };
+					camera_position = { x : position.x-2, y : position.y+16, z : position.z-1 }
+					self.settingCamera( position.x-2, position.y+16, position.z-1, camera_lookat )
+					camera.lookAt(camera_lookat);
+					camera.fov += 12;
+					camera.updateProjectionMatrix();
 				}
 			},
 			this.drawCarBack3D = function( position, name, color, rotate ){

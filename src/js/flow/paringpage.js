@@ -48,6 +48,7 @@ function paring(){
 			$("#paringpage").hide();
 			self.simulation_setting.desearchMotion();
 			self.reset();
+			$("#car0-over").css({"display":"none"});
 		});
 		$("#pr-second").hide();
 		$("#pl-second").hide();

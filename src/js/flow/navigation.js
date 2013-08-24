@@ -75,10 +75,11 @@ function navigation(){
 					self.navigationBottomSlideDown();
 					self.simulation_setting.searchMotion();
 					self.simulation_setting.startparing(42);
+					$("#car0-over").css({"display":"block"});
 					setTimeout( function(){
 						self.pare.paringStart();
 						self.pare.paringLightOff();
-					},5000);
+					},5000 );
 				});
 			});
 		})

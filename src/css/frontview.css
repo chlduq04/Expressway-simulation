@@ -1,0 +1,30 @@
+.ui {
+	width: 1280px;
+	margin-top: 350px;
+	height: 450px;
+	position: absolute;
+	background-repeat: no-repeat;
+	background-size: 130% 161%;
+	background-position: 0px 10%;
+	background-image: url("../image/3D/background.png");
+}
+
+.ui-left {
+	float: left;
+	width: 30%;
+	height: 100%;
+	margin-right: 5%;
+}
+
+.ui-right {
+	float: left;
+	width: 30%;
+	height: 100%;
+	margin-left: 5%;
+}
+
+.ui-center {
+	float: left;
+	width: 30%;
+	height: 100%;
+}

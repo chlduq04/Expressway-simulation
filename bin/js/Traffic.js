@@ -106,6 +106,9 @@ function Traffic(opt){
 			drawPlayer : function(){},
 			road3D : function(){},
 			cameraEnding : function(){},
+			paringZoneRedArrowStart : function(){},
+			paringZoneRedArrowRightSpeed : function(){},
+			paringZoneRedArrowLeftSpeed : function(){},
 			pixelLarge : 16,
 			pixelSmall : 4,
 			carSize : 48,
@@ -368,6 +371,8 @@ Traffic.prototype = {
 			object.reality_car += object.reality_error;
 			if( object.reality_car > 4 || object.reality_car < -4 ){
 				object.reality_error = -object.reality_error;
+				this.defaults.paringZoneRedArrowRightSpeed(object.reality_error);
+				this.defaults.paringZoneRedArrowLeftSpeed(object.reality_error);
 			}
 
 			if(object.player){
@@ -680,6 +685,7 @@ Traffic.prototype = {
 			var result = 42;
 			this.cartaxi = this.newCars( result*this.defaults.pixelLarge, 720, this.defaults.simulationMaxSpeed*30, result*this.defaults.pixelLarge, 1, 0, -speed, this.defaults.pixelLarge, true );
 			this.limit_distance = true;
+			this.defaults.paringZoneRedArrowStart();
 		},
 		simulation : function(){
 			if( this.mode == "road" ){

@@ -92,6 +92,7 @@ function Traffic(opt){
 	this.outx = false;
 	this.out = false;
 	this.limit_distance = false;
+	this.paring_button = false;
 	this.defaults = {
 			simulationSpeed : 30,
 			simulationMaxCar : 200,
@@ -268,7 +269,7 @@ Traffic.prototype = {
 						"background-repeat": "no-repeat",
 						"position": "absolute",
 						"left": "10px",
-						"top": "-50px",
+						"top": "-15px",
 						"display":"none",
 						"color": "white",
 						"font-size":"12px",
@@ -491,7 +492,7 @@ Traffic.prototype = {
 					$("#road").css({ "background-image":"url('./image/navigation/background-2-out.png')", "background-position" : "58% "+this.time+"px" });
 					this.defaults.road3D(true);
 					this.outx = true;
-					this.defaults.cameraEnding();
+//					this.defaults.cameraEnding();
 				}else{
 					this.time = -2000;
 					$("#road").css({ "background-image":"url('./image/navigation/background-2.png')", "background-position" : "58% "+this.time+"px" });
@@ -611,13 +612,14 @@ Traffic.prototype = {
 
 			this.simulation();
 			goalNum = goal.length;
-			if( this.limit_distance && this.cartaxi.realy < 480 ){
+			if( this.limit_distance && this.cartaxi.realy < 490 ){
 				this.searchLink(0);
+				this.paring_button = true;
 				this.limit_distance = false;
 			}
 			if(goalNum > 0){
 				for( var i = 0 ; i < goalNum ; i++ ){
-					this.deleteCars(goal[i])
+					this.deleteCars( goal[i] );
 				}
 				goal = [];
 				this.initCars();

@@ -86,9 +86,13 @@ function startpage(){
 	this.myLoop = function(){           
 		setTimeout(function () {    
 			if ( self.simulation_setting.moveCars()) { 
+
 				if( self.simulation_setting.cars.length != 0 && simulation_start ){
 					self.myLoop();            
 				}
+//				setTimeout(function(){
+//					self.myLoop();
+//				},0.01);
 			}                      
 		}, simulation_speed)
 	}

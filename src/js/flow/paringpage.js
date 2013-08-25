@@ -4,7 +4,6 @@ function paring(){
 	this.click;
 	this.simulation_setting;
 	this.init = function(traffic){ 
-		self.count = 0;
 		self.click = false;
 		self.simulation_setting = traffic
 		$("#paringpage").hide();
@@ -23,15 +22,17 @@ function paring(){
 		$("#pm-first").fadeIn(800,function(){
 			if(!self.click){
 				self.paringLightOff();
-				self.count++;
-				if(self.count>3){
-					$("#paringinfo-middle").click(function(){
-						self.paringSuccess();
-					})
-					self.click = true;
+				if( self.simulation_setting.paring_button ){
+					self.paringButton();
 				}
 			}
 		});
+	}
+	this.paringButton = function(){
+		$("#paringinfo-middle").click(function(){
+			self.paringSuccess();
+		})
+		self.click = true;
 	}
 	this.paringSuccess = function(){
 		self.click = true;

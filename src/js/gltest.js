@@ -1,5 +1,4 @@
-var light,spotlight;
-
+var skymesh;
 if(jQuery)(function($){
 	$.extend($.fn, {
 		WebGL : function(opt){
@@ -25,6 +24,9 @@ if(jQuery)(function($){
 			var scene;
 			var o_positions = {};
 			var sound_position = {};
+			var recycle_o_position_back = [];
+			var recycle_o_position_front = [];
+			var recycle_sound_position = [];
 			var objs = [];
 			var taxi;
 
@@ -36,6 +38,7 @@ if(jQuery)(function($){
 			var onPointerDownLon,onPointerDownLat;
 			var simulation_speed = 20;
 			var currentlyPressedKeys = {};
+			var light,spotlight;
 
 			/** Simulation value **/
 
@@ -132,10 +135,10 @@ if(jQuery)(function($){
 			this.init = function(){
 				self.settingRender( defaults.width, defaults.height )
 				self.settingCamera( camera_position.x, camera_position.y, camera_position.z, camera_lookat )
-				self.settingKey();
-//				self.settingMouse();
-//				if(defaults.sound){self.settingSound();}
-				self.controlSkybox();
+//				self.settingKey();
+				self.settingMouse();
+				self.settingSound();
+				self.settingSkybox();
 				self.initCar();
 				self.drawRoad( road_position, road_scale, "road" );
 //				self.drawOther( others_position, others_scale, "others" );
@@ -178,25 +181,25 @@ if(jQuery)(function($){
 				});
 				loader0.load( './image/obj/cartaxi.obj', './image/obj/cartaxi.mtl');
 
-//				var loader1 = new THREE.OBJMTLLoader();
-//				loader1.addEventListener('load',function(event){
-//					var cube = event.content;
-//					for(k in cube.children){
-//						cube.children[k].castShadow = true;
-//					}
-//					objs.push(cube);
-//				});
-//				loader1.load( './image/obj/car1.obj', './image/obj/car1.mtl');
-//
-//				var loader2 = new THREE.OBJMTLLoader();
-//				loader2.addEventListener('load',function(event){
-//					var cube = event.content;
-//					for(k in cube.children){
-//						cube.children[k].castShadow = true;
-//					}
-//					objs.push(cube);
-//				});
-//				loader2.load( './image/obj/car2.obj', './image/obj/car2.mtl');
+				var loader1 = new THREE.OBJMTLLoader();
+				loader1.addEventListener('load',function(event){
+					var cube = event.content;
+					for(k in cube.children){
+						cube.children[k].castShadow = true;
+					}
+					objs.push(cube);
+				});
+				loader1.load( './image/obj/car1.obj', './image/obj/car1.mtl');
+
+				var loader2 = new THREE.OBJMTLLoader();
+				loader2.addEventListener('load',function(event){
+					var cube = event.content;
+					for(k in cube.children){
+						cube.children[k].castShadow = true;
+					}
+					objs.push(cube);
+				});
+				loader2.load( './image/obj/car2.obj', './image/obj/car2.mtl');
 
 				var loader3 = new THREE.OBJMTLLoader();
 				loader3.addEventListener('load',function(event){
@@ -296,7 +299,7 @@ if(jQuery)(function($){
 			/** audio **/
 
 			this.settingSound = function(){
-				self.sound("./sound/sound_car_drive.wav");
+				self.BGMsound("./sound/BGM.mp3");
 			},
 
 			/** Control **/
@@ -377,21 +380,18 @@ if(jQuery)(function($){
 
 			/** Game Setting **/
 
-			this.controlSkybox = function(){
-				var sky_materials = [
-				                     self.loadTexture( './image/skybox/new/px.jpg' ), // right
-				                     self.loadTexture( './image/skybox/new/pz.jpg' ), // left
-				                     self.loadTexture( './image/skybox/new/py.jpg' ), // top
-				                     self.loadTexture( './image/skybox/new/ny.jpg' ), // bottom
-				                     self.loadTexture( './image/skybox/new/nx.jpg' ), // back
-				                     self.loadTexture( './image/skybox/new/nz.jpg' )  // front
-				                     ];
-
-				var sky_mesh = new THREE.Mesh( new THREE.CubeGeometry( 1200, 1600, 3200, 7, 7, 7 ), new THREE.MeshFaceMaterial( sky_materials ) );
-				sky_mesh.scale.x = - 1;
-				sky_mesh.position.z = -800;
-				sky_mesh.position.y = 100;
-				scene.add( sky_mesh );
+			this.settingSkybox = function(){
+				var sky = new Image();
+				sky.src = "./image/skybox/sky.jpg";
+				sky.onload = function(){
+					var sky_material = new THREE.MeshLambertMaterial( { map: THREE.ImageUtils.loadTexture(sky.src), transparent: false } );
+					var geometry = new THREE.CubeGeometry( 3600, 1000, 1 );
+					skymesh = new THREE.Mesh( geometry, sky_material );
+					skymesh.position.x = -150;
+					skymesh.position.y = 500;
+					skymesh.position.z = -2000;
+					scene.add( skymesh );
+				}
 			},
 
 			/** Other setting function **/
@@ -528,28 +528,52 @@ if(jQuery)(function($){
 			this.drawCarBack3D = function( position, name, color, rotate ){
 				var target = o_positions[name];
 				if( target == undefined ){
-					var mesh;
-					var position = Math.floor( Math.random() * objs.length );
-					if(color == "leader"){
-						mesh = taxi.clone();
-					}else if(color = "follower"){
-						mesh = objs[position].clone();
+					var recycle_mesh = recycle_o_position_back.pop();
+					if(recycle_mesh != undefined){
+						var mesh;
+						var position = Math.floor( Math.random() * objs.length );
+						if(color == "leader"){
+							mesh = taxi.clone();
+						}else{
+							mesh = recycle_mesh;
+						}
+						mesh.name = name;
+						mesh.position.x = position.x;
+						mesh.position.y = position.y;
+						mesh.position.z = position.z;
+						mesh.scale.x = 0.128;
+						mesh.scale.y = 0.16
+						mesh.scale.z = 0.096;
+
+						o_positions[name] = mesh;
+						var sound = recycle_sound_position.pop();
+						sound.position.copy( position );
+						sound_position[name] = sound;
+						sound.play();
 					}else{
-						mesh = objs[position].clone();
+						var mesh;
+						var position = Math.floor( Math.random() * objs.length );
+						if(color == "leader"){
+							mesh = taxi.clone();
+						}else if(color = "follower"){
+							mesh = objs[position].clone();
+						}else{
+							mesh = objs[position].clone();
+						}
+						mesh.name = name;
+						mesh.position.x = position.x;
+						mesh.position.y = position.y;
+						mesh.position.z = position.z;
+						mesh.scale.x = 0.128;
+						mesh.scale.y = 0.16
+						mesh.scale.z = 0.096;
+						o_positions[name] = mesh;
+						var sound = new Sound( [ "./sound/sound_car_drive.wav" ], 500, 1 );
+						sound.position.copy( position );
+						sound_position[name] = sound;
+						sound.play();
+						scene.add( mesh );
 					}
-					mesh.name = name;
-					mesh.position.x = position.x;
-					mesh.position.y = position.y;
-					mesh.position.z = position.z;
-					mesh.scale.x = 0.128;
-					mesh.scale.y = 0.16
-					mesh.scale.z = 0.096;
-					o_positions[name] = mesh;
-					var sound = new Sound( [ "./sound/sound_car_drive.wav" ], 500, 1 );
-					sound.position.copy( position );
-					sound_position[name] = sound;
-					sound.play();
-					scene.add( mesh );
 				}else{
 					target.position.x = position.x;
 					target.position.y = position.y;
@@ -570,31 +594,56 @@ if(jQuery)(function($){
 			this.drawCar3D = function( position, name, color, rotate ){
 				var target = o_positions[name];
 				if( target == undefined ){
-					var mesh;
-					var position = Math.floor( Math.random() * objs.length );
-					if(color == "leader"){
-						mesh = taxi.clone();
-					}else if(color = "follower"){
-						mesh = objs[position].clone();
+					var recycle_mesh = recycle_o_position_front.pop();
+					if(recycle_mesh != undefined){
+						var mesh;
+						if(color == "leader"){
+							mesh = taxi.clone();
+						}else{
+							mesh = recycle_mesh;
+						}
+						mesh.name = name;
+						mesh.position.x = position.x;
+						mesh.position.y = position.y;
+						mesh.position.z = position.z;					
+
+						mesh.scale.x = 0.128;
+						mesh.scale.y = 0.16
+						mesh.scale.z = 0.096;
+						mesh.rotation.y = Math.PI;
+
+						o_positions[name] = mesh;
+						var sound = recycle_sound_position.pop();
+						sound.position.copy( position );
+						sound_position[name] = sound;
+						sound.play();
 					}else{
-						mesh = objs[position].clone();
+						var mesh;
+						var position = Math.floor( Math.random() * objs.length );
+						if(color == "leader"){
+							mesh = taxi.clone();
+						}else if(color = "follower"){
+							mesh = objs[position].clone();
+						}else{
+							mesh = objs[position].clone();
+						}
+						mesh.name = name;
+						mesh.position.x = position.x;
+						mesh.position.y = position.y;
+						mesh.position.z = position.z;					
+
+						mesh.scale.x = 0.128;
+						mesh.scale.y = 0.16
+						mesh.scale.z = 0.096;
+						mesh.rotation.y = Math.PI;
+
+						o_positions[name] = mesh;
+						var sound = new Sound( [ "./sound/background.mp3" ], 500, 1 );
+						sound.position.copy( position );
+						sound_position[name] = sound;
+						sound.play();
+						scene.add( mesh );
 					}
-					mesh.name = name;
-					mesh.position.x = position.x;
-					mesh.position.y = position.y;
-					mesh.position.z = position.z;					
-
-					mesh.scale.x = 0.128;
-					mesh.scale.y = 0.16
-					mesh.scale.z = 0.096;
-					mesh.rotation.y = Math.PI;
-
-					o_positions[name] = mesh;
-					var sound = new Sound( [ "./sound/background.mp3" ], 500, 1 );
-					sound.position.copy( position );
-					sound_position[name] = sound;
-					sound.play();
-					scene.add( mesh );
 				}else{
 					target.position.x = position.x;
 					target.position.y = position.y;
@@ -617,9 +666,15 @@ if(jQuery)(function($){
 			this.rotateCar = function( name, radius ){
 				o_position[name].rotateY(radius)
 			},
-			this.deleteCar = function( name ){
-				scene.remove( o_positions[name] );
-				scene.remove( sound_position[name] );
+			this.deleteCar = function( name, front ){
+				if(front){
+					recycle_o_position_front.push( o_positions[name] );
+				}else{
+					recycle_o_position_back.push( o_positions[name] );
+				}
+				recycle_sound_position.push( sound_position[name] );
+//				scene.remove( o_positions[name] );
+//				scene.remove( sound_position[name] );
 				delete sound_position[name];
 				delete o_positions[name];
 			},
@@ -783,7 +838,7 @@ if(jQuery)(function($){
 				character_request.send();
 			},
 
-			this.sound = function(url){
+			this.BGMsound = function(url){
 				var sound = {};
 				var request = new XMLHttpRequest();
 

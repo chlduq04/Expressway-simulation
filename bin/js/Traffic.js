@@ -520,7 +520,11 @@ Traffic.prototype = {
 			if( this.click_car != null && this.click_car.id == this.cars[id].id){
 				this.click_car = null;
 			}
-			this.defaults.deleteCar3D( this.cars[id].id );
+			if( this.cars[id].x < this.defaults.lineSize ){
+				this.defaults.deleteCar3D( this.cars[id].id, true );
+			}else{
+				this.defaults.deleteCar3D( this.cars[id].id, false );
+			}
 			$("#car"+this.cars[id].id).remove();
 			this.cars[id].unsignedMember();
 			delete this.cars[id];

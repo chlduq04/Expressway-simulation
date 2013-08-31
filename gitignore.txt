@@ -1,2 +1,6 @@
+<<<<<<< HEAD
 getElementsByClassName
 document.getElementsByClass
+=======
+src/image/video/
+>>>>>>> caec70a33a2ce4b07c5668026444ce7f038921fd

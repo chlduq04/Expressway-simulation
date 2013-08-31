@@ -1,11 +1,11 @@
 function navigation(){
 	var self = this;
 	this.slide = 120;
-	this.pare;
+	this.paringPage;
 	this.simulation_setting;
 	this.slideSpeed = 0;
-	this.init = function(simul,paring){
-		self.pare = paring;
+	this.init = function(simul){
+		self.paringPage = new paringpage();
 		self.simulation_setting = simul;
 		$("#top-navigation").hide();
 		$("#bottom-navigation-clicked").hide();
@@ -20,8 +20,7 @@ function navigation(){
 		self.navigationBottomButtonClick();
 		self.navigationBottomButtonClickUp();
 		self.paring();
-		self.pare.init(simul);
-		
+		self.paringPage.init(simul);
 	}
 	this.navigationBottomButtonClick = function(){
 		$("#bn-button").click(function(){
@@ -37,7 +36,7 @@ function navigation(){
 		});
 	}
 	this.navigationBottomFirstUp = function(){
-		
+
 	}
 	this.navigationBottomSlideUp = function(){
 		$("#bottom-navigation-clicked").show();
@@ -47,28 +46,17 @@ function navigation(){
 		});
 	}
 	this.clickSlideUp = function(){
-		setTimeout(function () {    
-			if ( self.slide > 0 ) { 
-				$("#bottom-navigation-clicked").css({
-					"background-position" : "0 "+self.slide+"px"
-				});
-				self.slide-=self.slideSpeed;
-				self.slideSpeed += 0.1;
-				self.clickSlideUp();            
-			}else{
-				$("#bnc-1").fadeIn(600);
-				$("#bnc-2").fadeIn(600);
-				$("#bnc-3").fadeIn(600);
-				$("#bnc-4").fadeIn(600);
-				$("#bnc-5").fadeIn(600);
-				$("#bnc-6").fadeIn(600);
-				$("#bnc-7").fadeIn(600);
-				$("#bnc-8").fadeIn(600,function(){
-					tutorials.tutorialNext();
-				});
-				self.slideSpeed = 0;
-			}                      
-		}, 0.5)
+		$("#bottom-navigation-clicked")[0].className = "bottom-navigation-clicked-up";
+		$("#bnc-1").fadeIn(1000);
+		$("#bnc-2").fadeIn(1000);
+		$("#bnc-3").fadeIn(1000);
+		$("#bnc-4").fadeIn(1000);
+		$("#bnc-5").fadeIn(1000);
+		$("#bnc-6").fadeIn(1000);
+		$("#bnc-7").fadeIn(1000);
+		$("#bnc-8").fadeIn(1000,function(){
+			tutorials.tutorialNext();
+		});
 	}
 	this.paring = function(){
 		$("#bnc-2").click(function(){
@@ -78,17 +66,10 @@ function navigation(){
 					self.navigationBottomSlideDown();
 					self.simulation_setting.searchMotion();
 					self.simulation_setting.startparing(42);
-					$("#car0-over").css({"display":"block"});
-//					setTimeout( function(){
-//						self.paringStartMsg();
-//					},5000 );
+					$("#car0").mousedown();
 				});
 			});
 		})
-	}
-	this.paringStartMsg = function(){
-		self.pare.paringStart();
-		self.pare.paringLightOff();
 	}
 	this.navigationBottomSlideDown = function(){
 		$("#bnc-1").fadeOut(50);
@@ -118,21 +99,10 @@ function navigation(){
 	}
 
 	this.clickSlideDown = function(){
-		setTimeout(function () {    
-			if ( self.slide-4 <= 120 ) { 
-				$("#bottom-navigation-clicked").css({
-					"background-position" : "0 "+self.slide+"px"
-				});
-				self.slide+=self.slideSpeed;
-				self.slideSpeed += 0.04;
-				self.clickSlideDown();            
-			}else{
-				setTimeout(function(){
-					$("#bottom-navigation").show();
-				},200)
-				self.slideSpeed = 0;
-			}                      
-		}, 0.5)
+		$("#bottom-navigation-clicked")[0].className = "bottom-navigation-clicked-down";
+		setTimeout(function(){
+			$("#bottom-navigation").show();
+		},500);
 	}
 	this.simulationKeySet = function(){
 		/** Mouse click **/
@@ -169,6 +139,19 @@ function navigation(){
 			self.simulation_setting.startCar( "top", 43, true );
 		});
 	}
-	
+
+
+
+
+	/*** Paring Page Setting Function ***/
+
+	this.CParingClickSwitch = function(){
+		self.paringPage.paringClickSwitch();
+	}
+	this.CParingStartMsg = function(){
+		self.paringPage.paringStart();
+		self.paringPage.paringLightOff();
+	}
+
 	return this;
 }

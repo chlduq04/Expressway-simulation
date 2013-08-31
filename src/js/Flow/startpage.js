@@ -4,9 +4,11 @@ function startpage(){
 	this.click = false;
 	this.replay = false;
 	this.simulation_setting;
+	this.sound;
 
-	this.init = function(simul){
+	this.init = function(simul,sound){
 		$("#road").hide();
+		self.sound = sound;
 		self.startbuttonLightOff();
 		self.replaybuttonLightOff();
 		self.startbuttonClick();
@@ -84,6 +86,7 @@ function startpage(){
 //		render3D : gl.rendering,
 //		drawPlayer : gl.drawCarPlayer3D
 //		});
+		self.sound();
 		self.simulation_setting.drawLoad();
 		self.simulation_setting.init();
 		self.myLoop();

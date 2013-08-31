@@ -39,14 +39,58 @@ table {
 	border-spacing: 0;
 }
 
+@-webkit-keyframes road {
+    from{
+        background-position:58% -2000px;
+    }
+    to{
+        background-position:58% -134px;
+    }
+}
+@-webkit-keyframes road-out {
+    from{
+        background-position:58% -900px;
+    }
+    to{
+        background-position:58% -134px;
+    }
+}
 .road {
 	float: left;
 	width: 1280px;
 	height: 800px;
 	background: url("../image/navigation/background-2.png");
-	background-position: 58% -2000px;
 	background-repeat: no-repeat;
 	background-size: 1600px 2800px;
+    background-position:58% -2000px;
+}
+
+.road-animation {
+	float: left;
+	width: 1280px;
+	height: 800px;
+	background: url("../image/navigation/background-2.png");
+	background-repeat: no-repeat;
+	background-size: 1600px 2800px;
+    background-position:58% -2000px;
+	-webkit-animation: road;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-duration: 15s;
+	-webkit-animation-iteration-count: infinite;
+}
+
+.road-out-animation{
+	float: left;
+	width: 1280px;
+	height: 800px;
+	background: url("../image/navigation/background-2-out.png");
+	background-repeat: no-repeat;
+	background-size: 1600px 2800px;
+	background-position:58% -900px;
+	-webkit-animation: road-out;
+    -webkit-animation-timing-function: linear;
+    -webkit-animation-duration: 7s;
+	-webkit-animation-iteration-count: infinite;
 }
 
 .cars {

@@ -1,0 +1,60 @@
+.ui {
+	width: 1280px;
+	margin-top: 350px;
+	height: 450px;
+	position: absolute;
+	background-repeat: no-repeat;
+	background-size: 100% 140%;
+	background-position: 0px 10%;
+	background-image: url("../image/3D/background.png");
+}
+
+.ui-left {
+	float: left;
+	width: 17%;
+	height: 100%;
+}
+
+.ui-right {
+	float: left;
+	height: 100%;
+}
+
+.ui-center {
+	margin-top: 0px;
+	float: left;
+	width: 75%;
+	height: 50%;
+	background: url("../image/3D/paring-ready.png");
+	background-size: 80% 80%;
+	background-repeat: no-repeat;
+	display:none;
+}
+
+.ui-center-red {
+	margin-left: 130px;
+	width: 500px;
+	height: 10px;
+	margin-top: 15px;
+}
+
+.ucr-1 {
+	float: left;
+	margin-left: 5px;
+	height: 100%;
+	width: 15px;
+	background: url("../image/3D/paring-red.png");
+	background-size: cover;
+	background-repeat: no-repeat;
+}
+
+.ucr-2 {
+	float: right;
+	margin-right: 5px;
+	height: 100%;
+	width: 15px;
+	background: url("../image/3D/paring-red.png");
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: -125px;
+}

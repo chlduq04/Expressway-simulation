@@ -1,4 +1,3 @@
-var skymesh;
 if(jQuery)(function($){
 	$.extend($.fn, {
 		WebGL : function(opt){
@@ -74,6 +73,7 @@ if(jQuery)(function($){
 			/** Car value **/
 
 			var road = new Image();
+			var skymesh;
 
 			/** mirror **/
 			var mirrorCubeCamera, mirrorCube;
@@ -114,11 +114,9 @@ if(jQuery)(function($){
 					}
 				}
 			}
-
-
-			/** Sound **/
-
-			/** Get value **/
+			
+			/*** Paring Zone Show ***/
+			var paringZone = new paringzone();
 
 			this.returnCanvas = function(){
 				return canvas;
@@ -127,15 +125,13 @@ if(jQuery)(function($){
 
 			this.init = function(){
 				self.settingRender( defaults.width, defaults.height )
-//				self.settingCamera( camera_position.x, camera_position.y, camera_position.z, camera_lookat )
-//
+				self.settingCamera( camera_position.x, camera_position.y, camera_position.z, camera_lookat )
 //				self.settingMouse();
-//				self.settingSound();
-//				self.settingSkybox();
-//				self.initCar();
-//				self.drawRoad( road_position, road_scale, "road" );
-//				self.settingSpotLight( 0xFFFFFF, -200, 100, 900 );
-//				self.settingLight( 0xFFFFCC, 400, 200, 550 );
+				self.settingSkybox();
+				self.initCar();
+				self.drawRoad( road_position, road_scale, "road" );
+				self.settingSpotLight( 0xFFFFFF, -200, 100, 900 );
+				self.settingLight( 0xFFFFCC, 400, 200, 550 );
 
 //				self.settingKey();
 //				self.drawOther( others_position, others_scale, "others" );
@@ -759,6 +755,24 @@ if(jQuery)(function($){
 				};
 				request.send();
 			}
+			
+			
+			
+			
+			
+			
+			/** Paring Zone Setting Function **/
+			
+			this.CParingStart = function(){
+				paringZone.startParing();
+			}
+			this.CParingArrowRight = function(){
+				paringZone.paringRedArrowRightSpeed();
+			}
+			this.CParingArrowLeft = function(){
+				paringZone.paringRedArrowLeftSpeed();
+			}
+
 			return this;
 		},
 	})

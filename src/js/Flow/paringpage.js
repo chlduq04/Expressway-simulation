@@ -1,12 +1,17 @@
-function paring(){
+function paringpage(){
 	var self = this;
 	this.count;
 	this.click;
+	this.paringbuttonSwitch;
 	this.simulation_setting;
 	this.init = function(traffic){ 
 		self.click = false;
+		self.paringbuttonSwitch = false;
 		self.simulation_setting = traffic
 		$("#paringpage").hide();
+	}
+	this.paringClickSwitch = function(){
+		self.paringbuttonSwitch = true;
 	}
 	this.paringStart = function(){
 		$("#paringpage").fadeIn(500);
@@ -23,7 +28,7 @@ function paring(){
 		$("#pm-first").fadeIn(800,function(){
 			if(!self.click){
 				self.paringLightOff();
-				if( self.simulation_setting.paring_button ){
+				if( self.paringbuttonSwitch ){
 					self.paringButton();
 				}
 			}
@@ -31,9 +36,6 @@ function paring(){
 	}
 	this.paringButton = function(){
 		$("#paringinfo-middle").click(function(){
-			setTimeout(function(){
-				
-			});
 			self.paringSuccess();
 		})
 		self.click = true;
@@ -53,7 +55,7 @@ function paring(){
 			$("#paringpage").hide();
 			self.simulation_setting.desearchMotion();
 			self.reset();
-			$("#car0-over").css({"display":"none"});
+			$("#car0").mousedown();
 		});
 		$("#pr-second").hide();
 		$("#pl-second").hide();

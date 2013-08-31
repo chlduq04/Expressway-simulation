@@ -1,10 +1,11 @@
 function navigation(){
 	var self = this;
 	this.slide = 120;
-	this.pare = new paring();
+	this.pare;
 	this.simulation_setting;
 	this.slideSpeed = 0;
-	this.init = function(simul){
+	this.init = function(simul,paring){
+		self.pare = paring;
 		self.simulation_setting = simul;
 		$("#top-navigation").hide();
 		$("#bottom-navigation-clicked").hide();
@@ -62,7 +63,9 @@ function navigation(){
 				$("#bnc-5").fadeIn(600);
 				$("#bnc-6").fadeIn(600);
 				$("#bnc-7").fadeIn(600);
-				$("#bnc-8").fadeIn(600);
+				$("#bnc-8").fadeIn(600,function(){
+					tutorials.tutorialNext();
+				});
 				self.slideSpeed = 0;
 			}                      
 		}, 0.5)
@@ -76,13 +79,16 @@ function navigation(){
 					self.simulation_setting.searchMotion();
 					self.simulation_setting.startparing(42);
 					$("#car0-over").css({"display":"block"});
-					setTimeout( function(){
-						self.pare.paringStart();
-						self.pare.paringLightOff();
-					},5000 );
+//					setTimeout( function(){
+//						self.paringStartMsg();
+//					},5000 );
 				});
 			});
 		})
+	}
+	this.paringStartMsg = function(){
+		self.pare.paringStart();
+		self.pare.paringLightOff();
 	}
 	this.navigationBottomSlideDown = function(){
 		$("#bnc-1").fadeOut(50);

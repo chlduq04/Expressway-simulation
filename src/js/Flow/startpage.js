@@ -1,13 +1,16 @@
 function startpage(){
 	var self = this;
+	this.video = $("#opening")[0];
 	this.click = false;
+	this.replay = false;
 	this.simulation_setting;
-	
+
 	this.init = function(simul){
 		$("#road").hide();
 		self.startbuttonLightOff();
 		self.replaybuttonLightOff();
 		self.startbuttonClick();
+		self.replaybuttonClick();
 		self.simulation_setting = simul;
 	}
 	this.startbuttonLightOff = function(){
@@ -27,11 +30,13 @@ function startpage(){
 	this.startbuttonClick = function(){
 		$("#sp-startbutton").click(function(){
 			self.click = true;
+			self.video.pause();
 			$("#sp-startbutton").css({
 				"background": "url('./image/navigation/startpage_start_touch.png')",
 				"background-repeat": "no-repeat",
 				"background-position": "0px -1px"
 			});
+			$("#opening").css({"display":"none"});
 			$("#sp-startbutton-light").css({
 				"background": "url('./image/navigation/startpage_start_touch.png')",
 				"background-repeat": "no-repeat",
@@ -71,13 +76,13 @@ function startpage(){
 	this.simulation = function(){
 		simulation_start = true;
 //		self.simulation_setting = new Traffic({
-//			drawCar3D : gl.drawCar3D,
-//			drawCarBack3D : gl.drawCarBack3D,
-//			deleteCar3D : gl.deleteCar,
-//			camera3D : gl.controlCamera,
-//			initCamera3D : gl.initCamera,
-//			render3D : gl.rendering,
-//			drawPlayer : gl.drawCarPlayer3D
+//		drawCar3D : gl.drawCar3D,
+//		drawCarBack3D : gl.drawCarBack3D,
+//		deleteCar3D : gl.deleteCar,
+//		camera3D : gl.controlCamera,
+//		initCamera3D : gl.initCamera,
+//		render3D : gl.rendering,
+//		drawPlayer : gl.drawCarPlayer3D
 //		});
 		self.simulation_setting.drawLoad();
 		self.simulation_setting.init();
@@ -95,16 +100,27 @@ function startpage(){
 	}
 	this.replaybuttonLightOn = function(){
 		$("#sp-replaybutton").fadeIn(800,function(){
-			if(!self.click){
+			if(!self.replay){
 				self.replaybuttonLightOff();
 			}
 		});
 	}
 	this.replaybuttonLightOff = function(){
 		$("#sp-replaybutton").fadeOut(800,function(){
-			if(!self.click){
+			if(!self.replay){
 				self.replaybuttonLightOn();
 			}
+		});
+	}
+	this.replaybuttonClick = function(){
+		$("#sp-replaybutton").click(function(){
+			self.replay = true;
+			$("#sp-replaybutton").fadeOut();
+			self.video.play();
+		});
+		$("#opening").bind('ended', function(){
+			self.replay = false;
+			self.replaybuttonLightOff();
 		});
 	}
 	return this;

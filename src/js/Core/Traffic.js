@@ -109,6 +109,7 @@ function Traffic(opt){
 			paringZoneRedArrowStart : function(){},
 			paringZoneRedArrowRightSpeed : function(){},
 			paringZoneRedArrowLeftSpeed : function(){},
+			paring : function(){},
 			pixelLarge : 16,
 			pixelSmall : 4,
 			carSize : 48,
@@ -582,6 +583,8 @@ Traffic.prototype = {
 			if( this.limit_distance && this.cartaxi.realy < 490 ){
 				this.searchLink(0);
 				this.paring_button = true;
+				tutorials.tutorialNext();
+				this.defaults.paring();
 				this.limit_distance = false;
 			}
 			if(goalNum > 0){

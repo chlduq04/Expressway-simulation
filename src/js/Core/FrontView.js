@@ -127,15 +127,16 @@ if(jQuery)(function($){
 
 			this.init = function(){
 				self.settingRender( defaults.width, defaults.height )
-				self.settingCamera( camera_position.x, camera_position.y, camera_position.z, camera_lookat )
+//				self.settingCamera( camera_position.x, camera_position.y, camera_position.z, camera_lookat )
+//
+//				self.settingMouse();
+//				self.settingSound();
+//				self.settingSkybox();
+//				self.initCar();
+//				self.drawRoad( road_position, road_scale, "road" );
+//				self.settingSpotLight( 0xFFFFFF, -200, 100, 900 );
+//				self.settingLight( 0xFFFFCC, 400, 200, 550 );
 
-				self.settingMouse();
-				self.settingSound();
-				self.settingSkybox();
-				self.initCar();
-				self.drawRoad( road_position, road_scale, "road" );
-				self.settingSpotLight( 0xFFFFFF, -200, 100, 900 );
-				self.settingLight( 0xFFFFCC, 400, 200, 550 );
 //				self.settingKey();
 //				self.drawOther( others_position, others_scale, "others" );
 				renderer.render( scene, camera );

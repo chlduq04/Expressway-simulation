@@ -10,6 +10,7 @@ function paring(){
 	}
 	this.paringStart = function(){
 		$("#paringpage").fadeIn(500);
+		
 	}
 	this.paringLightOff = function(){
 		$("#pm-first").fadeOut(800,function(){
@@ -30,6 +31,9 @@ function paring(){
 	}
 	this.paringButton = function(){
 		$("#paringinfo-middle").click(function(){
+			setTimeout(function(){
+				
+			});
 			self.paringSuccess();
 		})
 		self.click = true;

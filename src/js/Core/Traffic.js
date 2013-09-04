@@ -108,8 +108,8 @@ function Traffic(opt){
 			paringButtonSwitch : function(){},
 			paring : function(){},
 			paringZoneRedArrowStart : function(){},
-			paringZoneRedArrowRightSpeed : function(){},
-			paringZoneRedArrowLeftSpeed : function(){},
+			paringZonePrepare : function(){},
+			paringZonePrepareBar : function(){},
 			pixelLarge : 16,
 			pixelSmall : 4,
 			carSize : 48,
@@ -175,6 +175,14 @@ Traffic.prototype = {
 								}
 							}
 						}
+					}
+					object.reality_car += object.reality_error;
+					if( object.reality_car > 4 || object.reality_car < -4 ){
+						object.reality_error = -object.reality_error;
+					}
+					this.defaults.paringZonePrepare( object.reality_error );
+					if( this.defaults.paringZonePrepareBar(0.4) == 100 ){
+						this.defaults.paringButtonSwitch();
 					}
 				}else{
 					if( object.x > this.defaults.lineSize ){
@@ -300,14 +308,6 @@ Traffic.prototype = {
 					});
 				}
 				this.car_road.append(car);
-
-			}
-
-			object.reality_car += object.reality_error;
-			if( object.reality_car > 4 || object.reality_car < -4 ){
-				object.reality_error = -object.reality_error;
-				this.defaults.paringZoneRedArrowRightSpeed(object.reality_error);
-				this.defaults.paringZoneRedArrowLeftSpeed(object.reality_error);
 			}
 
 			if(object.player){
@@ -555,12 +555,12 @@ Traffic.prototype = {
 
 			this.simulation();
 			goalNum = goal.length;
-			if( this.limit_distance && this.cartaxi.realy < 490 ){
+			if( this.limit_distance &&  this.cartaxi.realy < 490 ){
 				this.searchLink(0);
-				this.defaults.paringButtonSwitch();
 
 				tutorials.tutorialNext();
 				this.defaults.paring();
+				this.defaults.paringZoneRedArrowStart();
 				this.limit_distance = false;
 			}
 			if(goalNum > 0){
@@ -625,7 +625,6 @@ Traffic.prototype = {
 			var result = 42;
 			this.cartaxi = this.newCars( result*this.defaults.pixelLarge, 720, this.defaults.simulationMaxSpeed*30, result*this.defaults.pixelLarge, 1, 0, -speed, this.defaults.pixelLarge, true );
 			this.limit_distance = true;
-			this.defaults.paringZoneRedArrowStart();
 		},
 		simulation : function(){
 			if( this.mode == "road" ){

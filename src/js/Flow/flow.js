@@ -26,8 +26,8 @@ window.onload = function() {
 		road3D : front.startRoad,
 		cameraEnding : front.cameraView,
 		paringZoneRedArrowStart : front.CParingStart,
-		paringZoneRedArrowRightSpeed : front.CParingArrowRight,
-		paringZoneRedArrowLeftSpeed : front.CParingArrowLeft,
+		paringZonePrepare : front.CparingPrepare,
+		paringZonePrepareBar : front.CparingPrepareBar,
 		paringButtonSwitch : navi.CParingClickSwitch,
 		paring : function(){ 
 			setTimeout(function(){

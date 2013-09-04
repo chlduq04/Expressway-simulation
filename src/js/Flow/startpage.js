@@ -86,7 +86,7 @@ function startpage(){
 //		render3D : gl.rendering,
 //		drawPlayer : gl.drawCarPlayer3D
 //		});
-		self.sound();
+//		self.sound();
 		self.simulation_setting.drawLoad();
 		self.simulation_setting.init();
 		self.myLoop();

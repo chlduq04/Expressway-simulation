@@ -64,6 +64,7 @@ function paringpage(){
 			"background-repeat": "no-repeat",
 			"background-position": "70px 35px"
 		});
+//		simulation_setting.
 	}
 	this.reset = function(){
 		var a = $("#paringpage");

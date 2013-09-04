@@ -127,11 +127,11 @@ if(jQuery)(function($){
 				self.settingRender( defaults.width, defaults.height )
 				self.settingCamera( camera_position.x, camera_position.y, camera_position.z, camera_lookat )
 //				self.settingMouse();
-				self.settingSkybox();
+//				self.settingSkybox();
 				self.initCar();
 				self.drawRoad( road_position, road_scale, "road" );
-				self.settingSpotLight( 0xFFFFFF, -200, 100, 900 );
-				self.settingLight( 0xFFFFCC, 400, 200, 550 );
+//				self.settingSpotLight( 0xFFFFFF, -200, 100, 900 );
+	//			self.settingLight( 0xFFFFCC, 400, 200, 550 );
 
 //				self.settingKey();
 //				self.drawOther( others_position, others_scale, "others" );
@@ -171,25 +171,25 @@ if(jQuery)(function($){
 				});
 				loader0.load( './image/obj/cartaxi.obj', './image/obj/cartaxi.mtl');
 
-				var loader1 = new THREE.OBJMTLLoader();
-				loader1.addEventListener('load',function(event){
-					var cube = event.content;
-					for(k in cube.children){
-						cube.children[k].castShadow = true;
-					}
-					objs.push(cube);
-				});
-				loader1.load( './image/obj/car1.obj', './image/obj/car1.mtl');
-
-				var loader2 = new THREE.OBJMTLLoader();
-				loader2.addEventListener('load',function(event){
-					var cube = event.content;
-					for(k in cube.children){
-						cube.children[k].castShadow = true;
-					}
-					objs.push(cube);
-				});
-				loader2.load( './image/obj/car2.obj', './image/obj/car2.mtl');
+//				var loader1 = new THREE.OBJMTLLoader();
+//				loader1.addEventListener('load',function(event){
+//					var cube = event.content;
+//					for(k in cube.children){
+//						cube.children[k].castShadow = true;
+//					}
+//					objs.push(cube);
+//				});
+//				loader1.load( './image/obj/car1.obj', './image/obj/car1.mtl');
+//
+//				var loader2 = new THREE.OBJMTLLoader();
+//				loader2.addEventListener('load',function(event){
+//					var cube = event.content;
+//					for(k in cube.children){
+//						cube.children[k].castShadow = true;
+//					}
+//					objs.push(cube);
+//				});
+//				loader2.load( './image/obj/car2.obj', './image/obj/car2.mtl');
 
 				var loader3 = new THREE.OBJMTLLoader();
 				loader3.addEventListener('load',function(event){
@@ -771,6 +771,19 @@ if(jQuery)(function($){
 			}
 			this.CParingArrowLeft = function(){
 				paringZone.paringRedArrowLeftSpeed();
+			}
+			this.CParingArrowRightMove = function(){
+			}
+			this.CParingArrowLeftMove = function(){
+			}
+			this.CparingPrepare = function(value){
+				paringZone.paringRedArrowRight();
+				paringZone.paringRedArrowLeft();
+				paringZone.prepareParing(value);
+			}
+			this.CparingPrepareBar = function(value){
+				paringZone.prepareParingBar(value);
+				return paringZone.prepareParingText();
 			}
 
 			return this;

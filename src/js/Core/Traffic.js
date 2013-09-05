@@ -110,6 +110,8 @@ function Traffic(opt){
 			paringZoneRedArrowStart : function(){},
 			paringZonePrepare : function(){},
 			paringZonePrepareBar : function(){},
+			paringSuccess : function(){},
+			unparing : function(){},
 			pixelLarge : 16,
 			pixelSmall : 4,
 			carSize : 48,
@@ -555,7 +557,7 @@ Traffic.prototype = {
 
 			this.simulation();
 			goalNum = goal.length;
-			if( this.limit_distance &&  this.cartaxi.realy < 490 ){
+			if( this.limit_distance &&  this.cartaxi.y < 490 ){
 				this.searchLink(0);
 
 				tutorials.tutorialNext();

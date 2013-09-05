@@ -785,7 +785,12 @@ if(jQuery)(function($){
 				paringZone.prepareParingBar(value);
 				return paringZone.prepareParingText();
 			}
-
+			this.CparingSuccessUI = function(){
+				paringZone.paringUI();
+			}
+			this.CparingUnparing = function(){
+				paringZone.unparing();
+			}
 			return this;
 		},
 	})

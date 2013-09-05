@@ -4,7 +4,7 @@ function navigation(){
 	this.paringPage;
 	this.simulation_setting;
 	this.slideSpeed = 0;
-	this.init = function(simul){
+	this.init = function( simul ){
 		self.paringPage = new paringpage();
 		self.simulation_setting = simul;
 		$("#top-navigation").hide();
@@ -22,6 +22,7 @@ function navigation(){
 		self.paring();
 		self.paringPage.init(simul);
 	}
+	
 	this.navigationBottomButtonClick = function(){
 		$("#bn-button").click(function(){
 			$("#bn-button").css({
@@ -35,9 +36,11 @@ function navigation(){
 			},200)
 		});
 	}
+	
 	this.navigationBottomFirstUp = function(){
 
 	}
+
 	this.navigationBottomSlideUp = function(){
 		$("#bottom-navigation-clicked").show();
 		self.clickSlideUp();
@@ -45,6 +48,7 @@ function navigation(){
 			"background-position" : "-50px 0",
 		});
 	}
+	
 	this.clickSlideUp = function(){
 		$("#bottom-navigation-clicked")[0].className = "bottom-navigation-clicked-up";
 		$("#bnc-1").fadeIn(1000);
@@ -58,6 +62,7 @@ function navigation(){
 			tutorials.tutorialNext();
 		});
 	}
+
 	this.paring = function(){
 		$("#bnc-2").click(function(){
 			$(this).fadeOut(100,function(){
@@ -71,6 +76,7 @@ function navigation(){
 			});
 		})
 	}
+	
 	this.navigationBottomSlideDown = function(){
 		$("#bnc-1").fadeOut(50);
 		$("#bnc-2").fadeOut(50);
@@ -82,6 +88,7 @@ function navigation(){
 		$("#bnc-8").fadeOut(50);
 		self.clickSlideDown();
 	}
+	
 	this.navigationBottomButtonClickUp = function(){
 		$("#bnc1-button").click(function(){
 			$("#bnc1-button").css({
@@ -104,6 +111,7 @@ function navigation(){
 			$("#bottom-navigation").show();
 		},500);
 	}
+	
 	this.simulationKeySet = function(){
 		/** Mouse click **/
 		$(".dr-reflesh").click(function(){

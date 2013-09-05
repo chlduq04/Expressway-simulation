@@ -3,11 +3,11 @@ function paringpage(){
 	this.count;
 	this.click;
 	this.paringbuttonSwitch;
-	this.simulation_setting;
-	this.init = function(traffic){ 
+	this.simulationSetting;
+	this.init = function( traffic ){ 
 		self.click = false;
 		self.paringbuttonSwitch = false;
-		self.simulation_setting = traffic
+		self.simulationSetting = traffic
 		$("#paringpage").hide();
 	}
 	this.paringClickSwitch = function(){
@@ -36,6 +36,7 @@ function paringpage(){
 	}
 	this.paringButton = function(){
 		$("#paringinfo-middle").click(function(){
+			self.simulationSetting.defaults.paringSuccess();
 			self.paringSuccess();
 		})
 		self.click = true;
@@ -53,7 +54,8 @@ function paringpage(){
 				"background-position":"22px 32px"
 			});
 			$("#paringpage").hide();
-			self.simulation_setting.desearchMotion();
+			self.simulationSetting.desearchMotion();
+			self.simulationSetting.defaults.unparing();
 			self.reset();
 			$("#car0").mousedown();
 		});
@@ -64,7 +66,6 @@ function paringpage(){
 			"background-repeat": "no-repeat",
 			"background-position": "70px 35px"
 		});
-//		simulation_setting.
 	}
 	this.reset = function(){
 		var a = $("#paringpage");

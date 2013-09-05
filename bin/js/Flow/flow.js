@@ -29,6 +29,8 @@ window.onload = function() {
 		paringZonePrepare : front.CparingPrepare,
 		paringZonePrepareBar : front.CparingPrepareBar,
 		paringButtonSwitch : navi.CParingClickSwitch,
+		paringSuccess : front.CparingSuccessUI,
+		unparing : front.CparingUnparing,
 		paring : function(){ 
 			setTimeout(function(){
 				navi.CParingStartMsg()

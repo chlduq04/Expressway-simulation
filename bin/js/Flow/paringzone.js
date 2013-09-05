@@ -170,5 +170,4 @@ function paringzone(){
 		$("#ui-center-bar").addClass("successParingSuccess");
 	}
 
-
 }

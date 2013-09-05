@@ -178,10 +178,6 @@ Traffic.prototype = {
 							}
 						}
 					}
-					object.reality_car += object.reality_error;
-					if( object.reality_car > 4 || object.reality_car < -4 ){
-						object.reality_error = -object.reality_error;
-					}
 					this.defaults.paringZonePrepare( object.reality_error );
 					if( this.defaults.paringZonePrepareBar(0.4) == 100 ){
 						this.defaults.paringButtonSwitch();
@@ -311,7 +307,12 @@ Traffic.prototype = {
 				}
 				this.car_road.append(car);
 			}
-
+			
+			object.reality_car += object.reality_error;
+			if( object.reality_car > 4 || object.reality_car < -4 ){
+				object.reality_error = -object.reality_error;
+			}
+			
 			if(object.player){
 				this.defaults.drawPlayer( { x : object.x - 650, y : 0, z : ( object.y - 320 ) * 3 }, object.id, "follower", object.rotate, object.reality_error );
 			}else{

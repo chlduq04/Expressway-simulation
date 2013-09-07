@@ -88,7 +88,7 @@ function paringzone(){
 	this.prepareParingText = function(){
 		if( prepareParing && paring ){
 			var text = Math.floor( paringBar / maximumParingBar * 100 );
-			if( text > 97 ){
+			if( text > 98 ){
 				text = 100;
 				prepareParing = false;
 			}

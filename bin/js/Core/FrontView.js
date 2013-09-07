@@ -20,6 +20,7 @@ if(jQuery)(function($){
 			};$.extend(defaults, opt);
 
 			/** System value **/
+			
 			var scene;
 			var o_positions = {};
 			var sound_position = {};
@@ -62,7 +63,7 @@ if(jQuery)(function($){
 			/** Move Camera **/
 
 			var camera;
-			var camera_move = false;
+			var camera_move = 1;
 			var camera_view_road = false;
 
 			/** Player position **/
@@ -76,6 +77,7 @@ if(jQuery)(function($){
 			var skymesh;
 
 			/** mirror **/
+			
 			var mirrorCubeCamera, mirrorCube;
 			
 			var car_geometry = new THREE.CubeGeometry( 5, 5, 10 );
@@ -115,26 +117,30 @@ if(jQuery)(function($){
 				}
 			}
 			
-			/*** Paring Zone Show ***/
+			/** Paring Zone Show **/
+			
 			var paringZone = new paringzone();
 
 			this.returnCanvas = function(){
 				return canvas;
 			},
+			
 			/** Initialize **/
 
 			this.init = function(){
 				self.settingRender( defaults.width, defaults.height )
 				self.settingCamera( camera_position.x, camera_position.y, camera_position.z, camera_lookat )
-//				self.settingMouse();
+				
 				self.settingSkybox();
 				self.initCar();
 				self.drawRoad( road_position, road_scale, "road" );
 				self.settingSpotLight( 0xFFFFFF, -200, 100, 900 );
 				self.settingLight( 0xFFFFCC, 400, 200, 550 );
+				self.settingKey();
+				self.settingMouse();
 
-//				self.settingKey();
 //				self.drawOther( others_position, others_scale, "others" );
+
 				renderer.render( scene, camera );
 			},
 			this.initMirror = function(){
@@ -149,12 +155,16 @@ if(jQuery)(function($){
 				mirrorCubeCamera.position = mirrorCube.position;
 				scene.add(mirrorCube);	
 			},
+
 			/** Setting **/
+			
 			this.cameraView = function(){
 				camera_view_road = true;
 			},
+			
+			/** 3D model **/
+			
 			this.initCar = function(){
-				/** 3D model **/
 				var car3D;
 
 				var manager = new THREE.LoadingManager();
@@ -212,7 +222,6 @@ if(jQuery)(function($){
 				camera_lookat_next.y = camera.position.y;
 				camera_lookat_next.z = camera.position.z + 50;
 				self.settingCamera( camera_position.x, camera_position.y, camera_position.z, target )
-//				camera_move = true;
 			},
 			this.settingRender = function( width, height ){
 				renderer = new THREE.WebGLRenderer();
@@ -258,31 +267,16 @@ if(jQuery)(function($){
 			},
 			this.settingKey = function(){
 				document.onkeydown = self.controlKeyDown;
-				document.onkeyup = self.controlKeyUp;
 			},
 			this.settingMouse = function(){
 				var target = renderer.domElement;
-				$(target).bind("mousedown",function(e){
-					self.controlMouseDown(e);
-				});
-				$(target).bind("mousemove",function(e){
-					self.controlMouseMove(e);
-				});
-				$(target).bind("mouseup",function(e){
-					self.controlMouseUp(e);
-				});
-				$(target).bind("mouseout",function(e){
-					self.controlMouseOut(e);
-				});
 				$(target).bind("mousewheel",function(e){
 					self.controlMouseWheel(e);
 				});
 			},
+			
 			this.rendering = function(){
 				self.startRoad(camera_view_road);
-//				mirrorCube.visible = false;
-//				mirrorCubeCamera.updateCubeMap( renderer, scene );
-//				mirrorCube.visible = true;
 				renderer.render( scene, camera );
 			},
 
@@ -306,21 +300,14 @@ if(jQuery)(function($){
 			},
 
 			this.controlKeyDown =  function (event) {
-				currentlyPressedKeys[event.keyCode] = true;
-				if( String.fromCharCode(event.keyCode) == defaults.key_left ){
-					target.x++;
+				if( String.fromCharCode(event.keyCode) == "M" ){
+					camera_move = -camera_move;
+					if(camera_move == -1){
+						$(".ui").css({"visibility":"hidden"});
+					}else{
+						$(".ui").css({"visibility":"visible"});
+					}
 				}
-				if( String.fromCharCode(event.keyCode) == defaults.key_right ){
-					target.x--;
-				}
-				if( String.fromCharCode(event.keyCode) == defaults.key_up ){
-					target.z--;
-				}
-				if( String.fromCharCode(event.keyCode) == defaults.key_down ){
-					target.z++;
-				}
-				self.controlCamera( -target.x, -target.y, -target.z,  target );
-				renderer.render( scene, camera );
 			},
 
 			this.controlKeyUp = function(event) {
@@ -356,9 +343,14 @@ if(jQuery)(function($){
 				}
 			},
 			this.controlMouseWheel = function( event ) {
-				camera.fov -= event.originalEvent.wheelDeltaY * 0.01;
-				camera.updateProjectionMatrix();
-				renderer.render( scene, camera );
+				if( camera_move == -1 ){
+					var value = event.originalEvent.wheelDeltaY;
+					camera_position.y += value * 0.04;
+					camera_lookat.y += value * 0.03;
+					self.settingCamera( camera_position.x, camera_position.y, camera_position.z, camera_lookat )
+					camera.lookAt(camera_lookat);
+					camera.updateProjectionMatrix();
+				}
 			},
 			this.controlMouseUp = function(event){
 				isUserInteracting = false;
@@ -507,19 +499,20 @@ if(jQuery)(function($){
 					player_position = position;
 					o_positions['road'].position.x += relate;
 
-					camera_lookat = { x : position.x-2, y : position.y+16, z : position.z-30 };
-					camera_position = { x : position.x-2, y : position.y+18, z : position.z-1 }
-					self.settingCamera( position.x-2, position.y+18, position.z-1, camera_lookat )
-					camera.lookAt(camera_lookat);
-					camera.fov += 12;
-					camera.updateProjectionMatrix();
+					if(camera_move == 1){
+						camera_lookat = { x : position.x-2, y : position.y+16, z : position.z-30 };
+						camera_position = { x : position.x-2, y : position.y+18, z : position.z-1 }
+						self.settingCamera( position.x-2, position.y+18, position.z-1, camera_lookat )
+						camera.lookAt(camera_lookat);
+						camera.fov += 12;
+						camera.updateProjectionMatrix();
+					}
 				}
 			},
 			this.drawCarBack3D = function( position, name, color, rotate ){
 				var target = o_positions[name];
 				if( target == undefined ){
 					var mesh;
-//					var sound = new Sound( [ "./sound/background.mp3" ], 500, 1 );
 					if(color == "leader"){
 						mesh = taxi.clone();
 						scene.add( mesh );
@@ -539,9 +532,6 @@ if(jQuery)(function($){
 					mesh.scale.z = 0.096;
 
 					o_positions[name] = mesh;
-//					sound.position.copy( position );
-//					sound_position[name] = sound;
-//					sound.play();
 				}else{
 					target.position.x = position.x;
 					target.position.y = position.y;
@@ -554,9 +544,6 @@ if(jQuery)(function($){
 					if( rotate == 0 && Math.abs(target.rotation.y) < 0.04 ){
 						target.rotation.y = 0;
 					}
-//					var sound = sound_position[name]
-//					sound.position.copy( target.position );
-//					sound.update(player_position);
 				}
 			},
 			this.drawCar3D = function( position, name, color, rotate ){
@@ -616,9 +603,7 @@ if(jQuery)(function($){
 				}else{
 					recycle_o_position_back.push( o_positions[name] );
 				}
-//				recycle_sound_position.push( sound_position[name] );
-//				scene.remove( o_positions[name] );
-//				scene.remove( sound_position[name] );
+
 				delete sound_position[name];
 				delete o_positions[name];
 			},

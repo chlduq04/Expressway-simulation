@@ -112,6 +112,7 @@ function Traffic(opt){
 			paringZonePrepareBar : function(){},
 			paringSuccess : function(){},
 			unparing : function(){},
+			naviParing : function(){},
 			pixelLarge : 16,
 			pixelSmall : 4,
 			carSize : 48,
@@ -144,10 +145,10 @@ Traffic.prototype = {
 					if( object.x > this.defaults.lineSize ){
 						if(object.leader){/*85px 0px */
 							car[0].className = "taxi-car-minus-paring";
-								car.css({ 
-									"left":object.realx, 
-									"top":object.realy, 
-									"transform":"rotate("+object.rotate+"deg)" });
+							car.css({ 
+								"left":object.realx, 
+								"top":object.realy, 
+								"transform":"rotate("+object.rotate+"deg)" });
 						}else if(object.player){
 							car.css({ "left":object.realx, "top":object.realy-500, "transform":"rotate("+object.rotate+"deg)"});
 						}else{
@@ -179,8 +180,11 @@ Traffic.prototype = {
 						}
 					}
 					this.defaults.paringZonePrepare( object.reality_error );
-					if( this.defaults.paringZonePrepareBar(0.4) == 100 ){
+					var checkPersent = this.defaults.paringZonePrepareBar(0.4);
+					if( checkPersent == 100 ){
 						this.defaults.paringButtonSwitch();
+					}else{
+						this.defaults.naviParing( checkPersent );
 					}
 				}else{
 					if( object.x > this.defaults.lineSize ){
@@ -307,12 +311,12 @@ Traffic.prototype = {
 				}
 				this.car_road.append(car);
 			}
-			
+
 			object.reality_car += object.reality_error;
 			if( object.reality_car > 4 || object.reality_car < -4 ){
 				object.reality_error = -object.reality_error;
 			}
-			
+
 			if(object.player){
 				this.defaults.drawPlayer( { x : object.x - 650, y : 0, z : ( object.y - 320 ) * 3 }, object.id, "follower", object.rotate, object.reality_error );
 			}else{
@@ -479,7 +483,7 @@ Traffic.prototype = {
 		},
 		moveCars : function(time){
 			this.moveBackground();
-			
+
 			this.go = false;
 			var length = this.cars.length;
 			var goal = [];
@@ -627,7 +631,18 @@ Traffic.prototype = {
 			var speed = this.defaults.simulationMaxSpeed + 1;
 			var result = 42;
 			this.cartaxi = this.newCars( result*this.defaults.pixelLarge, 720, this.defaults.simulationMaxSpeed*30, result*this.defaults.pixelLarge, 1, 0, -speed, this.defaults.pixelLarge, true );
+			var id = this.id-1;
 			this.limit_distance = true;
+
+			if( id < 10){
+				id = "0"+id;
+			}else if( id > 99 ){
+				id = id % 100;
+				if( id < 10){
+					id = "0"+id;
+				}
+			}
+			$("#paringtargetnumber").html(id);
 		},
 		simulation : function(){
 			if( this.mode == "road" ){

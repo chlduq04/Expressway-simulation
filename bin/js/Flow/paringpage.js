@@ -1,5 +1,14 @@
+onmessage = function(event){
+  var receiveData = event.data;
+  postMessage(sendData)
+}
+
 function paringpage(){
 	var self = this;
+	var initPersent = 570;
+	var marginPersent = 0;
+	var switchPersent = true;
+	var paring = true;
 	this.count;
 	this.click;
 	this.paringbuttonSwitch;
@@ -15,8 +24,54 @@ function paringpage(){
 	}
 	this.paringStart = function(){
 		$("#paringpage").fadeIn(500);
-		
+
 	}
+	this.paringReady = function( persent ){
+		if( switchPersent ){
+			if( persent > 97 ){
+				$("#prepare1").css({ "margin-left" : "285px" });
+				$("#prepare2").css({ "width" : "0px" });
+				switchPersent = false;
+				self.paringSuccess();
+			}else{
+				initPersent = Math.floor( 570 - persent * 5.7 );
+				marginPersent = Math.floor( persent * 2.83 );
+				$("#prepare1").css({ "margin-left" : marginPersent });
+				$("#prepare2").css({ "width" : initPersent });
+			}
+		}
+	}
+	this.paringSuccess = function(){
+		$("#paringmoney").css({ "display" : "block" })
+		$("#paringinfo").css({ "display" : "block" })
+		$("#paringnumber").css({ "display" : "block" })
+		self.paringbutton();
+	}
+	this.paringbutton = function(){
+		$("#paringpreparebutton").fadeOut(1000,function(){
+			$("#paringstartbutton").fadeIn(1000,function(){
+				$(this).click(function(){
+					if(paring){
+						$("#prepare1").fadeOut(500);
+						$("#prepare2").fadeOut(500);
+						$("#prepare3").fadeOut(500, function(){
+							$("#paringstartbutton").removeClass("paringstartbutton").addClass("paringsuccessbutton");
+						});
+						self.simulationSetting.defaults.paringSuccess();
+						paring  = false;
+					}else{
+						$("#paringpage").hide();
+						self.simulationSetting.desearchMotion();
+						self.simulationSetting.defaults.unparing();
+						self.reset();
+						$("#car0").mousedown();
+						paring = true;
+					}
+				});
+			});
+		});
+	}
+	/*
 	this.paringLightOff = function(){
 		$("#pm-first").fadeOut(800,function(){
 			if(!self.click){
@@ -75,4 +130,5 @@ function paringpage(){
 		}
 		self.init();
 	}
+	 */
 }

@@ -158,7 +158,10 @@ function navigation(){
 	}
 	this.CParingStartMsg = function(){
 		self.paringPage.paringStart();
-		self.paringPage.paringLightOff();
+//		self.paringPage.paringLightOff();
+	}
+	this.CparingStart = function(persent){
+		self.paringPage.paringReady(persent);
 	}
 
 	return this;

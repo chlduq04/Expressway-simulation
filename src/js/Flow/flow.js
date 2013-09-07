@@ -30,6 +30,7 @@ window.onload = function() {
 		paringZonePrepareBar : front.CparingPrepareBar,
 		paringButtonSwitch : navi.CParingClickSwitch,
 		paringSuccess : front.CparingSuccessUI,
+		naviParing : navi.CparingStart,
 		unparing : front.CparingUnparing,
 		paring : function(){ 
 			setTimeout(function(){

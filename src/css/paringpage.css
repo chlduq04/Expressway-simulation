@@ -10,6 +10,7 @@
 }
 
 .paringalert {
+	display: none;
 	background:
 		url("../image/navigation/navigation-paring-alert-background.png");
 	background-position: center;
@@ -17,6 +18,135 @@
 	width: 1280px;
 	height: 453px;
 	margin-top: 110px;
+	background:
+		url("../image/navigation/navigation-paring-alert-background.png");
+}
+
+.prepareparing {
+	background: url("../image/navigation/prepare-background.png");
+	background-position: center;
+	background-repeat: no-repeat;
+	width: 1280px;
+	height: 453px;
+	margin-top: 110px;
+}
+
+.prepare1 {
+	width: 355px;
+	float: left;
+	height: 100%;
+	background: url("../image/navigation/prepare-bar.png");
+	background-position: 225px 95px;
+	background-repeat: no-repeat;
+}
+
+.prepare2 {
+	width: 570px;
+	float: left;
+	height: 100%;
+}
+
+.pre2-top {
+	margin-top: 95px;
+	width: 100%;
+	height: 10px;
+	background: url("../image/navigation/prepare-blackbar.png");
+	background-repeat: no-repeat;
+}
+
+.pre2-bottom {
+	margin-top: 243px;
+	width: 100%;
+	height: 10px;
+	background: url("../image/navigation/prepare-blackbar.png");
+	background-repeat: no-repeat;
+}
+
+.prepare3 {
+	width: 355px;
+	float: left;
+	height: 100%;
+	background: url("../image/navigation/prepare-bar.png");
+	background-position: -170px 95px;
+	background-repeat: no-repeat;
+}
+
+.paringmoney {
+	display: none;
+	position: absolute;
+	margin-top: 160px;
+	margin-left: 200px;
+	width: 280px;
+	height: 65px;
+	background: url("../image/navigation/paringmoney.png");
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.paringinfo {
+	display: none;
+	position: absolute;
+	margin-top: 225px;
+	margin-left: 200px;
+	width: 280px;
+	height: 65px;
+	background: url("../image/navigation/paringgoal.png");
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.paringnumber {
+	display: none;
+	position: absolute;
+	margin-top: 210px;
+	margin-left: 790px;
+	width: 334px;
+	height: 65px;
+	background: url("../image/navigation/paringnum.png");
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.paringtargetnumber {
+	width: 35px;
+	height: 100%;
+	float: left;
+	font-size: 50px;
+	font-family: fantasy;
+	color: white;
+}
+
+.paringstartbutton {
+	display: none;
+	position: absolute;
+	width: 263px;
+	height: 263px;
+	margin-left: 514px;
+	margin-top: 98px;
+	background: url("../image/navigation/paringsuccess.png");
+	background-repeat: no-repeat;
+}
+
+.paringpreparebutton {
+	position: absolute;
+	width: 255px;
+	height: 255px;
+	margin-left: 512px;
+	margin-top: 121px;
+	background: url("../image/navigation/paring.png");
+	background-position: center;
+	background-repeat: no-repeat;
+}
+
+.paringsuccessbutton {
+	display: none;
+	position: absolute;
+	width: 263px;
+	height: 263px;
+	margin-left: 509px;
+	margin-top: 95px;
+	background: url("../image/navigation/paringsuccess-background.png");
+	background-repeat: no-repeat;
 }
 
 .paringinfo-left {

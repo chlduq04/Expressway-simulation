@@ -4,11 +4,11 @@ function paringzone(){
 	var redArrowLeft = 5;
 	var redArrowLeftToken = false;
 	var redArrowLeftSpeed = 0.5;
-	var redArrowLeftMax = 120;
+	var redArrowLeftMax = 70;
 	var redArrowRight = 5;
 	var redArrowRightToken = false;
 	var redArrowRightSpeed = 0.5;
-	var redArrowRightMax = 90;
+	var redArrowRightMax = 30;
 
 	var ArrowMove = 70;
 	var paringBar = 70;

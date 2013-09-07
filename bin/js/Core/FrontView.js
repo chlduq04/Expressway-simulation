@@ -5,8 +5,8 @@ if(jQuery)(function($){
 			var canvas;
 			var defaults = {
 					sound : false,
-					width :  1280,
-					height : 800,
+					width :  1920,
+					height : 1080,
 					key_right : "D",
 					key_left : "A",
 					key_down : "S",
@@ -367,10 +367,10 @@ if(jQuery)(function($){
 				sky.src = "./image/skybox/sky.jpg";
 				sky.onload = function(){
 					var sky_material = new THREE.MeshLambertMaterial( { map: THREE.ImageUtils.loadTexture(sky.src), transparent: false } );
-					var geometry = new THREE.CubeGeometry( 3600, 1000, 1 );
+					var geometry = new THREE.CubeGeometry( 3600, 1500, 1 );
 					skymesh = new THREE.Mesh( geometry, sky_material );
 					skymesh.position.x = -150;
-					skymesh.position.y = 500;
+					skymesh.position.y = 450;
 					skymesh.position.z = -2000;
 					scene.add( skymesh );
 				}
@@ -485,7 +485,7 @@ if(jQuery)(function($){
 					o_positions[name] = mesh;
 					scene.add( mesh );
 
-					camera_lookat = { x : position.x-2, y : position.y+16, z : position.z-30 };
+					camera_lookat = { x : position.x-2, y : position.y+17, z : position.z-30 };
 					camera_position = { x : position.x-2, y : position.y+18, z : position.z-1 }
 					self.settingCamera( position.x-2, position.y+18, position.z-1, camera_lookat )
 					camera.lookAt(camera_lookat);
@@ -500,7 +500,7 @@ if(jQuery)(function($){
 					o_positions['road'].position.x += relate;
 
 					if(camera_move == 1){
-						camera_lookat = { x : position.x-2, y : position.y+16, z : position.z-30 };
+						camera_lookat = { x : position.x-2, y : position.y+17, z : position.z-30 };
 						camera_position = { x : position.x-2, y : position.y+18, z : position.z-1 }
 						self.settingCamera( position.x-2, position.y+18, position.z-1, camera_lookat )
 						camera.lookAt(camera_lookat);

@@ -10,7 +10,6 @@ function startpage(){
 		$("#road").hide();
 		self.sound = sound;
 		self.startbuttonLightOff();
-		self.replaybuttonLightOff();
 		self.startbuttonClick();
 		self.replaybuttonClick();
 		self.simulation_setting = simul;
@@ -33,17 +32,9 @@ function startpage(){
 		$("#sp-startbutton").click(function(){
 			self.click = true;
 			self.video.pause();
-			$("#sp-startbutton").css({
-				"background": "url('./image/navigation/startpage_start_touch.png')",
-				"background-repeat": "no-repeat",
-				"background-position": "0px -1px"
-			});
+			$("#sp-startbutton").removeClass("sp-startbutton").addClass("sp-startbutton-down");
+			$("#sp-startbutton-light").removeClass("sp-startbutton-light").addClass("sp-startbutton-light-down");
 			$("#opening").css({"display":"none"});
-			$("#sp-startbutton-light").css({
-				"background": "url('./image/navigation/startpage_start_touch.png')",
-				"background-repeat": "no-repeat",
-				"background-position": "0px -1px"
-			});
 			$("#startpage").fadeOut(500,function(){
 				$("#road").fadeIn(500,function(){
 					var max = $(".ds-maxcar").val();
@@ -86,7 +77,7 @@ function startpage(){
 //		render3D : gl.rendering,
 //		drawPlayer : gl.drawCarPlayer3D
 //		});
-//		self.sound();
+		self.sound();
 		self.simulation_setting.drawLoad();
 		self.simulation_setting.init();
 		self.myLoop();
@@ -101,29 +92,19 @@ function startpage(){
 			}                      
 		}, simulation_speed)
 	}
-	this.replaybuttonLightOn = function(){
-		$("#sp-replaybutton").fadeIn(800,function(){
-			if(!self.replay){
-				self.replaybuttonLightOff();
-			}
-		});
-	}
-	this.replaybuttonLightOff = function(){
-		$("#sp-replaybutton").fadeOut(800,function(){
-			if(!self.replay){
-				self.replaybuttonLightOn();
-			}
-		});
-	}
+
 	this.replaybuttonClick = function(){
-		$("#sp-replaybutton").click(function(){
-			self.replay = true;
-			$("#sp-replaybutton").fadeOut();
-			self.video.play();
+		$("#sp-replaybutton-light").click(function(){
+			$(this).removeClass("sp-replaybutton-light").addClass("sp-replaybutton");
+			setTimeout(function(){
+				$("#sp-replaybutton-light").removeClass("sp-replaybutton").addClass("sp-replaybutton-light");
+				self.replay = true;
+				$("#sp-replaybutton").fadeOut();
+				self.video.play();
+			},200);
 		});
 		$("#opening").bind('ended', function(){
 			self.replay = false;
-			self.replaybuttonLightOff();
 		});
 	}
 	return this;

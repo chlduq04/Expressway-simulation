@@ -15,9 +15,19 @@
 	float: left;
 	background: url("../image/navigation/startpage_start_1.png");
 	background-repeat: no-repeat;
-	background-position: 0px -1px;
+	background-position: -2px -4px;
 }
 
+.sp-startbutton-down{
+	width: 424px;
+	height: 424px;
+	margin-top: 110px;
+	margin-left: 428px;
+	float: left;
+	background: url("../image/navigation/startpage_start_1.png");
+	background-repeat: no-repeat;
+	background-position: -902px 4px;
+}
 .sp-startbutton-light {
 	width: 424px;
 	height: 424px;
@@ -28,15 +38,25 @@
 	background-position: -450px 0px;
 }
 
+.sp-startbutton-light-down{
+	width: 424px;
+	height: 424px;
+	margin-top: 108px;
+	margin-left: 426px;
+	background: url("../image/navigation/startpage_start_1.png");
+	background-repeat: no-repeat;
+	background-position: -900px 6px;
+}
+
 .sp-replaybutton {
 	margin-top: 36px;
 	float: left;
 	width: 222px;
 	height: 228px;
 	margin-left: 1060px;
-	background: url("../image/navigation/startpage_replay_1.png");
+	background: url("../image/navigation/startpage_replay.png");
 	background-repeat: no-repeat;
-	background-position: 0px 0px;
+	background-position: -3px -2px;
 }
 
 .sp-replaybutton-light {

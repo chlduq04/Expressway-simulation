@@ -15,7 +15,7 @@ article,aside,details,figcaption,figure,footer,header,hgroup,menu,nav,section
 
 body {
 	line-height: 1;
-	width: 2800px;
+	width: 3600px;
 	/*
 	overflow-x: hidden;
 	overflow-y: hidden;*/
@@ -314,7 +314,7 @@ table {
 	height: 45px;
 	margin-left: 210px;
 	font-size: 35px;
-	font-family: serif;
+	font-family: TitilliumText800wt;
 	font-weight: 700;
 }
 

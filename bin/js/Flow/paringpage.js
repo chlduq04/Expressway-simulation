@@ -54,13 +54,15 @@ function paringpage(){
 					if(paring){
 						$("#prepare1").fadeOut(500);
 						$("#prepare2").fadeOut(500);
-						$("#prepare3").fadeOut(500, function(){
-							$("#paringstartbutton").removeClass("paringstartbutton").addClass("paringsuccessbutton");
+						$("#prepare3").fadeOut(500);
+						$(this).fadeOut(500,function(){
+							$(this).removeClass("paringstartbutton").addClass("paringsuccessbutton");
+							$(this).fadeIn(500);
 						});
 						self.simulationSetting.defaults.paringSuccess();
 						paring  = false;
 					}else{
-						$("#paringpage").hide();
+						$("#paringpage").fadeOut(500);
 						self.simulationSetting.desearchMotion();
 						self.simulationSetting.defaults.unparing();
 						self.reset();

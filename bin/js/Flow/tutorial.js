@@ -1,7 +1,8 @@
 function tutorial(){
 	var self = this;
-	this.fadein = 100;
-	this.fadeout = 100;
+	this.fadein = 1000;
+	this.fadeout = 1000;
+	this.timeout = 3000;
 	this.tutorial_count = 1;
 	this.tutorial_start = false;
 	this.div_3d = $(".tutorial_3d");
@@ -80,67 +81,77 @@ function tutorial(){
 	}
 
 	this.tutorial2 = function(){
-		self.div_3d.fadeOut( self.fadeout, function(){
-			$(this).css({
-				"background": "url('./image/tutorial/2.png')",
-				"background-position": "center",
-				"background-repeat": "no-repeat",
-				"background-size":"cover"
-			});
+		self.div_3d.css({
+			"background": "url('./image/tutorial/2.png')",
+			"background-position": "center",
+			"background-repeat": "no-repeat",
+			"background-size":"cover"
 		});
-		self.div_3d.fadeIn( self.fadein );
+		self.div_3d.fadeIn( self.fadein, function(){
+			setTimeout(function(){
+				self.div_3d.fadeOut( self.fadeout );
+			},self.timeout);
+		} );
 		self.tutorial_count = 3;
 	}
 
 	this.tutorial3 = function(){
-		self.div_3d.fadeOut( self.fadeout, function(){
-			$(this).css({
-				"background": "url('./image/tutorial/3.png')",
-				"background-position": "center",
-				"background-repeat": "no-repeat",
-				"background-size":"cover"
-			});
+		self.div_3d.css({
+			"background": "url('./image/tutorial/3.png')",
+			"background-position": "center",
+			"background-repeat": "no-repeat",
+			"background-size":"cover"
 		});
-		self.div_3d.fadeIn( self.fadein );
+		self.div_3d.fadeIn( self.fadein, function(){
+			setTimeout(function(){
+				self.div_3d.fadeOut( self.fadeout );
+			},self.timeout);
+		} );
 		self.tutorial_count = 4;
 	}
 
 	this.tutorial4 = function(){
-		self.div_3d.fadeOut( self.fadeout, function(){
-			$(this).css({
-				"background": "url('./image/tutorial/4.png')",
-				"background-position": "center",
-				"background-repeat": "no-repeat",
-				"background-size":"cover"
-			});
+		self.div_3d.css({
+			"background": "url('./image/tutorial/4.png')",
+			"background-position": "center",
+			"background-repeat": "no-repeat",
+			"background-size":"cover"
 		});
-		self.div_3d.fadeIn( self.fadein );
+		self.div_3d.fadeIn( self.fadein, function(){
+			setTimeout(function(){
+				self.div_3d.fadeOut( self.fadeout );
+			},self.timeout);
+		} );
 		self.tutorial_count = 5;
 	}
 
 	this.tutorial5 = function(){
-		self.div_3d.fadeOut( self.fadeout, function(){
-			$(this).css({
-				"background": "url('./image/tutorial/5.png')",
-				"background-position": "center",
-				"background-repeat": "no-repeat",
-				"background-size":"cover"
-			});
+		self.div_3d.css({
+			"background": "url('./image/tutorial/5.png')",
+			"background-position": "center",
+			"background-repeat": "no-repeat",
+			"background-size":"cover"
 		});
-		self.div_3d.fadeIn( self.fadein );
+		self.div_3d.fadeIn( self.fadein, function(){
+			setTimeout(function(){
+				self.div_3d.fadeOut( self.fadeout );
+			},self.timeout);
+		} );
 		self.tutorial_count = 6;
 	}
 
 	this.tutorial6 = function(){
-		self.div_3d.fadeOut( self.fadeout, function(){
-			$(this).css({
-				"background": "url('./image/tutorial/6.png')",
-				"background-position": "center",
-				"background-repeat": "no-repeat",
-				"background-size":"cover"
-			});
+		self.div_3d.css({
+			"background": "url('./image/tutorial/6.png')",
+			"background-position": "center",
+			"background-repeat": "no-repeat",
+			"background-size":"cover"
 		});
-		self.div_3d.fadeIn( self.fadein );
+		self.div_3d.fadeIn( self.fadein, function(){
+			setTimeout(function(){
+				self.div_3d.fadeOut( self.fadeout );
+			},self.timeout);
+		} );
 		self.tutorial_count = 7;
 	}
 
@@ -220,24 +231,24 @@ function tutorial(){
 		self.tutorial_count = 12;
 	}
 	this.tutorial12 = function(){
-		
+
 	}
 	this.tutorial13 = function(){
-		
+
 	}
 	this.tutorial14 = function(){
-		
+
 	}
 	this.tutorial15 = function(){
-		
+
 	}
 	this.tutorial16 = function(){
-		
+
 	}
 	this.tutorial17 = function(){
-		
+
 	}
 	this.tutorial18 = function(){
-		
+
 	}
 }

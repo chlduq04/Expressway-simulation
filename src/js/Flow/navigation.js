@@ -65,15 +65,13 @@ function navigation(){
 
 	this.paring = function(){
 		$("#bnc-2").click(function(){
-			$(this).fadeOut(100,function(){
-				$(this).css({"background-position" : "8px 30px"})
-				$(this).fadeIn(800,function(){
-					self.navigationBottomSlideDown();
-					self.simulation_setting.searchMotion();
-					self.simulation_setting.startparing(42);
-					$("#car0").mousedown();
-				});
-			});
+			$(this).css({"background-position" : "8px 30px"})
+			setTimeout(function(){
+				self.navigationBottomSlideDown();
+				self.simulation_setting.searchMotion();
+				self.simulation_setting.startparing(42);
+				$("#car0").mousedown();
+			},500);
 		})
 	}
 	

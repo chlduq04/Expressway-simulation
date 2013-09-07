@@ -84,7 +84,6 @@ function Traffic(opt){
 	this.go = true;
 	this.click_car = null;
 	this.pick_car = false;
-	this.mode = "road";
 	this.mode_change = false;
 	this.cartaxi;
 	this.player;
@@ -92,6 +91,7 @@ function Traffic(opt){
 	this.out = false;
 	this.limit_distance = false;
 	this.paring_button = false;
+	this.startCarTaxi = false;
 	this.defaults = {
 			simulationSpeed : 30,
 			simulationMaxCar : 200,
@@ -207,15 +207,8 @@ Traffic.prototype = {
 				}
 
 				if(object.leader){
-					var length = Math.floor(this.player.realy - object.realy);
-					var text = "";	
-					if(object.id<10){
-						text += "<div class='car-id'>0"+object.id+"</div>"
-					}else{
-						var id = object.id%100;
-						text += "<div class='car-id'>"+id+"</div>"
-					}
-					text += "<div class='car-front'>"+length+"m</div>";
+					var length = Math.floor( this.player.realy - object.realy );
+					var text = "<div class='car-id'></div><div class='car-front'>"+length+"m</div>";
 					detail.css({
 						"z-index" : "15"
 					});
@@ -264,14 +257,7 @@ Traffic.prototype = {
 				if(object.leader){
 					detail[0].className = "car-detail-info";
 					var length = Math.floor(this.player.realy - object.realy);
-					var text = "";	
-					if(object.id<10){
-						text += "<div class='car-id'>0"+object.id+"</div>"
-					}else{
-						var id = object.id%100;
-						text += "<div class='car-id'>"+id+"</div>"
-					}
-					text += "<div class='car-front'>"+length+"m</div>";
+					var text = "<div class='car-id'></div><div class='car-front'>"+length+"m</div>";
 					detail.html(text);
 					car.append(detail);
 					car.mousedown(function(){
@@ -483,7 +469,6 @@ Traffic.prototype = {
 		},
 		moveCars : function(time){
 			this.moveBackground();
-
 			this.go = false;
 			var length = this.cars.length;
 			var goal = [];
@@ -493,37 +478,49 @@ Traffic.prototype = {
 			var plus_speed = [];
 			var minus_speed = [];
 			this.cars.sort(function(a,b){return a.y-b.y});
-			if( this.mode == "road" ){
-				for( var i = 0 ; i < length ; i++ ){
-					if( this.cars[i].speedy > 0 ){
-						plus_speed.push( this.cars[i] );
-					}else if( this.cars[i].speedy < 0 ){
-						minus_speed.push( this.cars[i] );
-					}else{
-						plus_speed.push( this.cars[i] );
-						minus_speed.push( this.cars[i] );
-					}
+			for( var i = 0 ; i < length ; i++ ){
+				if( this.cars[i].speedy > 0 ){
+					plus_speed.push( this.cars[i] );
+				}else if( this.cars[i].speedy < 0 ){
+					minus_speed.push( this.cars[i] );
+				}else{
+					plus_speed.push( this.cars[i] );
+					minus_speed.push( this.cars[i] );
 				}
-				for( var i = 0 ; i < length ; i++ ){
-					var car = this.cars[i];
-					var x = Math.floor( car.x / car.radius );
-					var y = Math.floor( car.y / car.radius );
-					if(!car.finish()){
-						this.go = true;
-						if( car.speedy > 0 ){
-							var limit = plus_speed.length;
-							var me = plus_speed.indexOf(car);
-							var right = me + 10;
-							var left = me - 10;
-							if(right >= limit){
-								right = limit;
-							}
-							if(left < 0){
-								left = 0;
-							}
-							car.navigationPlusSpeedx( plus_speed.slice( me+1, right ), plus_speed.slice( left, me ), this.testroad[y][x-4], this.testroad[y][x+4] );
+			}
+			for( var i = 0 ; i < length ; i++ ){
+				var car = this.cars[i];
+				var x = Math.floor( car.x / car.radius );
+				var y = Math.floor( car.y / car.radius );
+				if(!car.finish()){
+					this.go = true;
+					if( car.speedy > 0 ){
+						var limit = plus_speed.length;
+						var me = plus_speed.indexOf(car);
+						var right = me + 10;
+						var left = me - 10;
+						if(right >= limit){
+							right = limit;
 						}
-						else if( car.speedy < 0 ){
+						if(left < 0){
+							left = 0;
+						}
+						car.navigationPlusSpeedx( plus_speed.slice( me+1, right ), plus_speed.slice( left, me ), this.testroad[y][x-4], this.testroad[y][x+4] );
+					}
+					else if( car.speedy < 0 ){
+						var limit = minus_speed.length;
+						var me = minus_speed.indexOf(car);
+						var right = me + 10;
+						var left = me - 10;
+						if(right >= limit){
+							right = length;
+						}
+						if(left < 0){
+							left = 0;
+						}
+						car.navigationMinusSpeedx( minus_speed.slice( left, me ), minus_speed.slice( me+1, right ), this.testroad[y][x-4], this.testroad[y][x+4] );
+					}else{
+						if(!car.player){
 							var limit = minus_speed.length;
 							var me = minus_speed.indexOf(car);
 							var right = me + 10;
@@ -535,36 +532,23 @@ Traffic.prototype = {
 								left = 0;
 							}
 							car.navigationMinusSpeedx( minus_speed.slice( left, me ), minus_speed.slice( me+1, right ), this.testroad[y][x-4], this.testroad[y][x+4] );
-						}else{
-							if(!car.player){
-								var limit = minus_speed.length;
-								var me = minus_speed.indexOf(car);
-								var right = me + 10;
-								var left = me - 10;
-								if(right >= limit){
-									right = length;
-								}
-								if(left < 0){
-									left = 0;
-								}
-								car.navigationMinusSpeedx( minus_speed.slice( left, me ), minus_speed.slice( me+1, right ), this.testroad[y][x-4], this.testroad[y][x+4] );
-							}
 						}
-					}else{
-						goal.push(i);
 					}
-					this.drawCars( car );
+				}else{
+					goal.push(i);
 				}
-				if(this.pick_car){
-					this.pickCars();
-				}
+				this.drawCars( car );
 			}
+			if(this.pick_car){
+				this.pickCars();
+			}
+
 
 			this.simulation();
 			goalNum = goal.length;
-			if( this.limit_distance &&  this.cartaxi.y < 490 ){
+			if( this.limit_distance &&  this.cartaxi.y < 510 ){
+				this.startCarTaxi = false;
 				this.searchLink(0);
-
 				tutorials.tutorialNext();
 				this.defaults.paring();
 				this.defaults.paringZoneRedArrowStart();
@@ -633,62 +617,53 @@ Traffic.prototype = {
 			this.cartaxi = this.newCars( result*this.defaults.pixelLarge, 720, this.defaults.simulationMaxSpeed*30, result*this.defaults.pixelLarge, 1, 0, -speed, this.defaults.pixelLarge, true );
 			var id = this.id-1;
 			this.limit_distance = true;
-
-			if( id < 10){
-				id = "0"+id;
-			}else if( id > 99 ){
-				id = id % 100;
-				if( id < 10){
-					id = "0"+id;
-				}
-			}
-			$("#paringtargetnumber").html(id);
+			this.startCarTaxi = true;
 		},
 		simulation : function(){
-			if( this.mode == "road" ){
-				if( this.id > 5000 ){
-					if(this.cars.length < 10){
-						for( var i=1 ; i < 9 ; i++ ){
-							this.deleteCars(i);
-						}
-						this.initCars();
-						this.id = 1;
-						var speed = Math.random() * 1 + this.defaults.simulationMaxSpeed;
-						var result = Math.floor(Math.random() * 3) + 22;
-						this.newCars( result*this.defaults.pixelLarge, 0, 4, result*10, 720, 0, speed, this.defaults.pixelLarge, false );
+			if( this.id > 5000 ){
+				if(this.cars.length < 10){
+					for( var i=1 ; i < 9 ; i++ ){
+						this.deleteCars(i);
 					}
-				}else{
-					if(this.cars.length < max_car){
-						var check = Math.floor(Math.random()*300);
-						if(check > 290){
-							var checkstart = false;
-							var cars_length = this.cars.length;
-							for(var i=0;i<cars_length;i++){
-								if( this.cars[i].y - 1 < this.defaults.pixelLarge * 2 ){
-									checkstart = true;
-									break;
-								}
+					this.initCars();
+					this.id = 1;
+					var speed = Math.random() * 1 + this.defaults.simulationMaxSpeed;
+					var result = Math.floor(Math.random() * 3) + 22;
+					this.newCars( result*this.defaults.pixelLarge, 0, 4, result*10, 720, 0, speed, this.defaults.pixelLarge, false );
+				}
+			}else{
+				if(this.cars.length < max_car){
+					var check = Math.floor(Math.random()*300);
+					if(check > 290){
+						var checkstart = false;
+						var cars_length = this.cars.length;
+						for(var i=0;i<cars_length;i++){
+							if( this.cars[i].y - 1 < this.defaults.pixelLarge * 2 ){
+								checkstart = true;
+								break;
 							}
-							if(!checkstart){
-								if(check > 298.5){
-									var result;
-									if(Math.random() > 0.5){
-										result = 30;
-									}else{
-										result = 34;
-									}
-									this.newCars( result*this.defaults.pixelLarge, 1, this.defaults.simulationMaxSpeed*2, result*this.defaults.pixelLarge, 720, 0, this.defaults.simulationMaxSpeed+4, this.defaults.pixelLarge, true );
+						}
+						if(!checkstart){
+							if(check > 298.5){
+								var result;
+								if(Math.random() > 0.5){
+									result = 30;
 								}else{
-									var speed = Math.random() * 1 + this.defaults.simulationMaxSpeed + 5;
-									if(Math.random() > 0.5){
-										result = 30;
-									}else{
-										result = 34;
-									}
-									this.newCars( result*this.defaults.pixelLarge, 1, this.defaults.simulationMaxSpeed*4, result*this.defaults.pixelLarge, 720, 0, speed, this.defaults.pixelLarge, false );
-								}								
-							}
-						}else if(check < 3){
+									result = 34;
+								}
+								this.newCars( result*this.defaults.pixelLarge, 1, this.defaults.simulationMaxSpeed*2, result*this.defaults.pixelLarge, 720, 0, this.defaults.simulationMaxSpeed+4, this.defaults.pixelLarge, true );
+							}else{
+								var speed = Math.random() * 1 + this.defaults.simulationMaxSpeed + 5;
+								if(Math.random() > 0.5){
+									result = 30;
+								}else{
+									result = 34;
+								}
+								this.newCars( result*this.defaults.pixelLarge, 1, this.defaults.simulationMaxSpeed*4, result*this.defaults.pixelLarge, 720, 0, speed, this.defaults.pixelLarge, false );
+							}								
+						}
+					}else if(check < 3){
+						if(!this.startCarTaxi){
 							var checkstart = false;
 							var cars_length = this.cars.length;
 							for(var i=0;i<cars_length;i++){
@@ -711,7 +686,6 @@ Traffic.prototype = {
 					}
 				}
 			}
-
 		}
 }
 

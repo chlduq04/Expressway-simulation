@@ -107,15 +107,6 @@
 	background-repeat: no-repeat;
 }
 
-.paringtargetnumber {
-	width: 35px;
-	height: 100%;
-	float: left;
-	font-size: 50px;
-	font-family: fantasy;
-	color: white;
-}
-
 .paringstartbutton {
 	display: none;
 	position: absolute;
